@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteRule ^$ Vistas [L]
+<FilesMatch "\.(env)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
