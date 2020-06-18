@@ -9,7 +9,7 @@ class tipo_alimento
     private $id_tipo_alimento;
     private $nombre;
     private $observaciones;
-    
+
     /**
      * Usuarios constructor.
      * @param $id_tipo_alimento
