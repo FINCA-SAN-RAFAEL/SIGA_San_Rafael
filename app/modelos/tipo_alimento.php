@@ -10,7 +10,6 @@ class tipo_alimento
     private $nombre;
     private $observaciones;
 
-
     /**
      * Usuarios constructor.
      * @param $id_tipo_alimento
@@ -130,7 +129,7 @@ class tipo_alimento
             $getrow = $tipo_alimento->getRow("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.tipo_alimento WHERE id_tipo_alimento =?", array($id_tipo_alimento));
             $tipo_alimento->id_tipo_alimento = $getrow['id_tipo_alimento'];
             $tipo_alimento->nombre = $getrow['nombre'];
-            $tipo_alimento->observacionesnes = $getrow['obsevaciones'];
+            $tipo_alimento->observaciones = $getrow['obsevaciones'];
 
         }
         $tipo_alimento->Disconnect();
