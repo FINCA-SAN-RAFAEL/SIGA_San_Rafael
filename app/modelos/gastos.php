@@ -120,7 +120,7 @@ class gastos
 
     public function create(): bool
     {
-        $result = $this->insertRow("INSERT INTO SIGA_San_Rafael.gastos VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
+        $result = $this->insertRow("INSERT INTO fincasanrafael1.gastos VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
                 $this->nombre,
                 $this->precio,
                 $this->descripcion
@@ -133,7 +133,7 @@ class gastos
 
     public function update(): bool
     {
-        $result = $this->updateRow("UPDATE SIGA_San_Rafael.gastos SET nombre = ?, precio = ?, descripcion = ? WHERE id_gastos = ?", array(
+        $result = $this->updateRow("UPDATE fincasanrafael1.gastos SET nombre = ?, precio = ?, descripcion = ? WHERE id_gastos = ?", array(
                 $this->nombre,
                 $this->precio,
                 $this->descripcion,
@@ -173,7 +173,7 @@ class gastos
         $gastos = null;
         if ($id_gastos > 0) {
             $gastos = new gastos();
-            $getrow = $gastos->getRow("SELECT * FROM  SIGA_San_Rafael.gastos WHERE id_gastos =?", array($id_gastos));
+            $getrow = $gastos->getRow("SELECT * FROM  fincasanrafael1.gastos WHERE id_gastos =?", array($id_gastos));
             $gastos->id_gastos = $getrow['id_gastos'];
             $gastos->nombre = $getrow['nombre'];
             $gastos->precio = $getrow['precio'];
@@ -186,12 +186,12 @@ class gastos
 
     public static function getAll(): array
     {
-        return gastos::search("SELECT * FROM SIGA_San_Rafael.gastos");
+        return gastos::search("SELECT * FROM fincasanrafael1.gastos");
     }
 
     public static function tipo_alimentoRegistrado($nombre): bool
     {
-        $result = gastos::search("SELECT id FROM SIGA_San_Rafael.gastos where nombre = " . $nombre);
+        $result = gastos::search("SELECT id FROM fincasanrafael1.gastos where nombre = " . $nombre);
         if (count($result) > 0) {
             return true;
         } else {
