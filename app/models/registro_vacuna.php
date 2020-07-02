@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\modelos;
+namespace app\models;
 use App\Models\BasicModel;
 
 require('BasicModel.php');
