@@ -1,7 +1,7 @@
 {
-  "name": "grupo4/Proyecto-Finca-San-Rafael-1803586",
+  "name": "finca/sanrafael",
   "version": "0.0.1",
-  "type": "Project",
+  "type": "project",
   "keywords":[ "console","tool "],
   "homepage":"https://google.com",
   "time": "2020-06-08",
