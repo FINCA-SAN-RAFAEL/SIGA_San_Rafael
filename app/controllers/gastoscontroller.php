@@ -39,52 +39,54 @@ class gastoscontroller
             $arraygastos = array();
             $arraygastos['id_gastos'] = $_POST['id_gastos'];
             $arraygastos['nombre'] = $_POST['nombre'];
-            $arraygastos['estado'] = $_POST['estado'];
-            if (!Categoria::CategoriaRegistrado($arrayCategoria['id_categoria'])) {
-                $Categoria = new Categoria ($arrayCategoria);
-                if ($Categoria->create()) {
-                    header("Location: ../../views/Modules/Categoria/index.php?respuesta=correcto");
+            $arraygastos['precio'] = $_POST['precio'];
+            $arraygastos['descripcion'] = $_POST['descripcion'];
+            if (!gastos::gastosRegistrado($arraygastos['id_gastos'])) {
+                $gastos = new gastos ($arraygastos);
+                if ($gastos->create()) {
+                    header("Location: ../../views/Modules/gastos/index.php?respuesta=correcto");
                 }
             } else {
-                header("Location: ../../views/Modules/Categoria/Create.php?respuesta=error&mensaje=Categoria ya registrada");
+                header("Location: ../../views/Modules/gastos/create.php?respuesta=error&mensaje=gastos ya registrados");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/Modules/Categoria/Create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/Modules/gastos/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function Edit()
     {
         try {
-            $arrayCategoria = array();
-            $arrayCategoria['id_categoria'] = $_POST['id_categoria'];
-            $arrayCategoria['nombre'] = $_POST['nombre'];
-            $arrayCategoria['estado'] = $_POST['estado'];
+            $arraygastos = array();
+            $arraygastos['id_gastos'] = $_POST['id_gastos'];
+            $arraygastos['nombre'] = $_POST['nombre'];
+            $arraygastos['precio'] = $_POST['precio'];
+            $arraygastos['descripcion'] = $_POST['descripcion'];
 
 
-            $user = new Categoria($arrayCategoria);
+            $user = new gastos($arraygastos);
             $user->update();
 
-            header("Location: ../../views/Modules/Categoria/Show.php?id=" . $user->getIdCategoria() . "&respuesta=correcto");
+            header("Location: ../../views/Modules/gastos/Show.php?id=" . $user->getIdgastos() . "&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/Modules/Categoria/Edit.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/Modules/gastos/Edit.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function activate()
     {
         try {
-            $ObjCategoria = Categoria::searchForId($_GET['idCategoria']);
-            $ObjCategoria->setestado("Activo");
-            if ($ObjCategoria->update()) {
-                header("Location: ../../views/Modules/Categoria/index.php");
+            $Objgastos = gastos::searchForId($_GET['idgastos']);
+            $Objgastos->setestado("Activo");
+            if ($Objgastos->update()) {
+                header("Location: ../../views/Modules/gastos/index.php");
             } else {
-                header("Location: ../../views/Modules/Categoria/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/Modules/gastos/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/Modules/Categoria/index.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/Modules/gastos/index.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 

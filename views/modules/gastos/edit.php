@@ -1,12 +1,12 @@
 <?php
 require("../../Partials/Routes.php");
-require("../../../app/Controllers/CategoriaController.php");
+require("../../../app/Controllers/gastoscontroller.php");
 
-use App\Controllers\CategoriaController; ?>
+use App\Controllers\gastoscontroller; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Editar Categoria</title>
+    <title><?= getenv('TITLE_SITE') ?> | Editar Gastos</title>
     <?php require("../../Partials/Head_Imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -24,11 +24,11 @@ use App\Controllers\CategoriaController; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Editar Nueva Categoria</h1>
+                        <h1>Editar Nuevo gastos</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-De-Grado-Optica</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Finca-San-Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -44,7 +44,7 @@ use App\Controllers\CategoriaController; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al crear el Categoria: <?= ($_GET['mensaje']) ?? "" ?>
+                        Error al crear el Gasto: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
             <?php } else if (empty($_GET['idCategoria'])) { ?>
@@ -61,33 +61,35 @@ use App\Controllers\CategoriaController; ?>
                     <h3 class="card-title">Horizontal Form</h3>
                 </div>
                 <!-- /.card-header -->
-                <?php if(!empty($_GET["idCategoria"]) && isset($_GET["idCategoria"])){ ?>
+                <?php if(!empty($_GET["idgastos"]) && isset($_GET["idgastos"])){ ?>
                     <p>
                     <?php
-                    $DataCategoria = \App\Controllers\CategoriaController::searchForId($_GET["idCategoria"]);
-                    if(!empty($DataCategoria)){
+                    $Datagastos = \App\Controllers\gastoscontroller::searchForId($_GET["idgastos"]);
+                    if(!empty($Datagastos)){
                         ?>
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" id="frmEditCategoria" name="frmEditCategoria" action="../../../app/Controllers/CategoriaController.php.?action=Edit">
-                            <input id="id" name="id" value="<?php echo $DataCategoria->getIdCategoria(); ?>" hidden required="required" type="text">
+                        <form class="form-horizontal" method="post" id="frmeditgastos" name="frmeditgastos" action="../../../app/controllers/gastoscontroller.php.?action=edit">
+                            <input id="id" name="id" value="<?php echo $Datagastos->getIdgastos(); ?>" hidden required="required" type="text">
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="nombre" name="nombre" value="<?= $DataCategoria->getNombre(); ?>" placeholder="Ingrese la Categoria">
+                                        <input required type="text" class="form-control" id="nombre" name="nombre" value="<?= precio->getNombre(); ?>" placeholder="Ingrese los gastos">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+                                    <label for="precio" class="col-sm-2 col-form-label">Precio</label>
                                     <div class="col-sm-10">
-                                        <select id="estado" name="estado" class="custom-select">
-                                            <option <?= ($DataCategoria->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
-                                            <option <?= ($DataCategoria->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
-                                        </select>
+                                        <input required type="text" class="form-control" id="precio" name="precio" value="<?= $Datagastos->getPrecio(); ?>" placeholder="Ingrese el precio">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                                    <div class="col-sm-10">
+                                        <input required type="text" class="form-control" id="descripcion" name="descripcion" value="<?= $Datagastos->getDescripcion(); ?>" placeholder="Ingrese la Descripcion">
                                     </div>
                                 </div>
 
-                            </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info">Enviar</button>

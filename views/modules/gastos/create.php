@@ -1,10 +1,10 @@
 <?php
-require("../../../app/Controllers/gastosController.php");
+require("../../../app/Controllers/gastoscontroller.php");
 require("../../partials/routes.php"); ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Crear Categoria</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear Gastos</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -22,11 +22,11 @@ require("../../partials/routes.php"); ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear una Nueva Categoria</h1>
+                        <h1>Crear una Nuevo Gastos</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-De-Grado-Optica</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Finca-San-Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -42,7 +42,7 @@ require("../../partials/routes.php"); ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al crear la categoria: <?= $_GET['mensaje'] ?>
+                        Error al crear EL gastos: <?= $_GET['mensaje'] ?>
                     </div>
                 <?php } ?>
             <?php } ?>
@@ -54,24 +54,27 @@ require("../../partials/routes.php"); ?>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateCategoria" name="frmCreateCategoria" action="../../../app/Controllers/CategoriaController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmcreategastos" name="frmcreategastos" action="../../../app/controllers/gastoscontroller.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
                             <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese Categoria">
+                                <input required type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese gastos">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+                            <label for="precio" class="col-sm-2 col-form-label">Precio</label>
                             <div class="col-sm-10">
-                                <select id="estado" name="estado" class="custom-select">
-                                    <option value="">Activo</option>
-                                    <option value="">Inactivo</option>
-
-                                </select>
+                                <input required type="text" class="form-control" id="precio" name="precio" placeholder="Ingrese  el precio">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                            <div class="col-sm-10">
+                                <input required type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese  la descripcion">
+                            </div>
+                        </div>
+
                         <!-- /.card-body -->
                         <div class="card-footer">
                             <button type="submit" class="btn btn-info">Enviar</button>

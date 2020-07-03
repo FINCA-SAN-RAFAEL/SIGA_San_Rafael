@@ -1,7 +1,7 @@
 <?php require("../../partials/routes.php");
-require("../../../app/Controllers/CategoriaController.php");
+require("../../../app/Controllers/gastoscontroller.php");
 
-use App\Controllers\CategoriaController; ?>
+use App\Controllers\gastoscontroller; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +31,7 @@ use App\Controllers\CategoriaController; ?>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Proyecto-De-Grado-Optica</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Finca-San-Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -50,7 +50,7 @@ use App\Controllers\CategoriaController; ?>
                         <?php if ($_GET['action'] == "create"){ ?>
                             El usuario ha sido creado con exito!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos del usuario han sido actualizados correctamente!
+                            Los datos de los gastos han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -59,7 +59,7 @@ use App\Controllers\CategoriaController; ?>
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Gestionar Categoria</h3>
+                    <h3 class="card-title">Gestionar gastos</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -71,39 +71,35 @@ use App\Controllers\CategoriaController; ?>
                     <div class="row">
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
-                            <a role="button" href="Create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Categoria
+                            <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                <i class="fas fa-plus"></i> Crear gastos
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblCategoria" class="datatable table table-bordered table-striped">
+                            <table id="tblgastos" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
+                                    <th>Precio</th>
+                                    <th>Descripcion</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $arrCategoria = CategoriaController::getAll();
-                                foreach ($arrCategoria as $Categoria){
+                                $arrgastos = gastoscontroller::getAll();
+                                foreach ($arrgastos as $gastos){
                                     ?>
                                     <tr>
-                                        <td><?php echo $Categoria->getIdCategoria(); ?></td>
-                                        <td><?php echo $Categoria->getNombre(); ?></td>
-                                        <td><?php echo $Categoria->getEstado(); ?></td>
+                                        <td><?php echo $gastos->getIdgastos(); ?></td>
+                                        <td><?php echo $gastos->getNombre(); ?></td>
+                                        <td><?php echo $gastos->getPrecio(); ?></td>
+                                        <td><?php echo $gastos->getDescripcion(); ?></td>
                                         <td>
-                                            <a href="Edit.php?idCategoria=<?php echo $Categoria->getIdCategoria(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="Show.php?idCategoria=<?php echo $Categoria->getIdCategoria(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($Categoria->getEstado() != "Activo"){ ?>
-                                                <a href="../../../app/Controllers/CategoriaController.php?action=activate&idCategoria=<?php echo $Categoria->getIdCategoria(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
-                                            <?php }else{ ?>
-                                                <a type="button" href="../../../app/Controllers/CategoriaController.php?action=inactivate&idCategoria=<?php echo $Categoria->getIdCategoria(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
-                                            <?php } ?>
+                                            <a href="edit.php?idgastos=<?php echo $gastos->getIdgastos(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?idgastos=<?php echo $gastos->getIdgastos(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -112,8 +108,8 @@ use App\Controllers\CategoriaController; ?>
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
+                                    <th>Precio</th>
+                                    <th>Descripcion</th>
 
                                 </tr>
                                 </tfoot>
