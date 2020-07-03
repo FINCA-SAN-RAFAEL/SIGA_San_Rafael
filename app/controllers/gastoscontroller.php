@@ -93,33 +93,33 @@ class gastoscontroller
     static public function inactivate()
     {
         try {
-            $ObjCategoria = Categoria::searchForId($_GET['idCategoria']);
-            $ObjCategoria->setestado("Inactivo");
-            if ($ObjCategoria->update()) {
-                header("Location: ../../views/modules/Categoria/index.php");
+            $Objgastos = gastos::searchForId($_GET['idgastos']);
+            $Objgastos->setestado("Inactivo");
+            if ($Objgastos->update()) {
+                header("Location: ../../views/modules/gastos/index.php");
             } else {
-                header("Location: ../../views/Modules/Categoria/index.php?respuesta=error&mensaje=Error al guardar");
+                header("Location: ../../views/modules/gastos/index.php?respuesta=error&mensaje=Error al guardar");
             }
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/Modules/Categoria/index.php?respuesta=error");
+            header("Location: ../../views/modules/gastos/index.php?respuesta=error");
         }
     }
 
-    static public function searchForId($id_categoria)
+    static public function searchForId($id_gastos)
     {
         try {
-            return Categoria::searchForId($id_categoria);
+            return gastos::searchForId($id_gastos);
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../../views/Modules/Categoria/manager.php?respuesta=error");
+            //header("Location: ../../views/modules/gastos/manager.php?respuesta=error");
         }
     }
 
     static public function getAll()
     {
         try {
-            return Categoria::getAll();
+            return gastos::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/Modules/Categoria/Categoria.php?respuesta=error");
