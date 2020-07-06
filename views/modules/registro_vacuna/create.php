@@ -1,9 +1,9 @@
-<?php
-require("../../partials/routes.php"); ?>
+
+<?php require("../../partials/routes.php"); ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Crear Usuario</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear registro_vacuna</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -21,11 +21,11 @@ require("../../partials/routes.php"); ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear un Nuevo Usuario</h1>
+                        <h1>Crear un Nuevo Registro de vacunas</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">SIGA_San_Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -41,7 +41,7 @@ require("../../partials/routes.php"); ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al crear el usuario: <?= $_GET['mensaje'] ?>
+                        Error al crear el registro_vacuna: <?= $_GET['mensaje'] ?>
                     </div>
                 <?php } ?>
             <?php } ?>
@@ -53,48 +53,30 @@ require("../../partials/routes.php"); ?>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateUsuario" name="frmCreateUsuario" action="../../../app/Controllers/UsuariosController.php?action=create">
+                <form class="form-horizontal" method="post" id="frmCreateregistro_vacuna" name="frmCreateregistro_vacuna" action="../../../app/controllers/registro_vacuna_controllers.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="nombres" class="col-sm-2 col-form-label">Nombres</label>
+                            <label for="id_registro_vacuna" class="col-sm-2 col-form-label">id</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese sus nombres">
+                                <input required type="text" class="form-control" id="id_registro_vacuna" name="id">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="apellidos" class="col-sm-2 col-form-label">Apellidos</label>
+                            <label for="dosis" class="col-sm-2 col-form-label">Dosis</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese sus apellidos">
+                                <input required type="text" class="form-control" id="dosis" name="dosis">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo Documento</label>
+                            <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
                             <div class="col-sm-10">
-                                <select id="tipo_documento" name="tipo_documento" class="custom-select">
-                                    <option value="C.C">Cedula de Ciudadania</option>
-                                    <option value="T.I">Tarjeta de Identidad</option>
-                                    <option value="R.C">Registro Civil</option>
-                                    <option value="Pasaporte">Pasaporte</option>
-                                    <option value="C.E">Cedula de Extranjeria</option>
-                                </select>
+                                <input required type="text" class="form-control" id="fecha" name="dosis"">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="documento" class="col-sm-2 col-form-label">Documento</label>
+                            <label for="observaciones" class="col-sm-2 col-form-label">Observaciones</label>
                             <div class="col-sm-10">
-                                <input required type="number" minlength="6" class="form-control" id="documento" name="documento" placeholder="Ingrese su documento">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
-                            <div class="col-sm-10">
-                                <input required type="number" minlength="6" class="form-control" id="telefono" name="telefono" placeholder="Ingrese su telefono">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="direccion" class="col-sm-2 col-form-label">Direccion</label>
-                            <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese su direccion">
+                                <input required type="number" minlength="6" class="form-control" id="observaciones" name="observaciones" >
                             </div>
                         </div>
                     </div>
