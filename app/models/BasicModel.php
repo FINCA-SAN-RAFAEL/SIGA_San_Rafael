@@ -1,13 +1,8 @@
 <?php
 
-namespace app\modelos;
+namespace app\models;
 
-/**
- * Created by PhpStorm.
- * User: Diego-PC
- * Date: 10/12/2019
- * Time: 9:17
- */
+
 abstract class BasicModel {
 
     public $isConnected;

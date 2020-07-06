@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\models;
-use App\Models\BasicModel;
 
 require('BasicModel.php');
 
@@ -153,7 +151,7 @@ class registro_vacuna extends BasicModel
         $result = $this->updateRow("UPDATE SIGA_San_Rafael.registro_vacuna SET dosis = ?, fecha = ?, observaciones = ? WHERE id_registro_vacuna = ?", array(
                 $this->dosis,
                 $this->fecha,
-                $this->observacioness,
+                $this->observaciones,
                 $this->id_registro_vacuna
             )
         );

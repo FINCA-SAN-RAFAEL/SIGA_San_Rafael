@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\modelos;
+namespace app\models;
 require('BasicModel.php');
 
 class tipo_alimento
