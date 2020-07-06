@@ -4,7 +4,13 @@
 namespace app\models;
 require('BasicModel.php');
 
-class tipo_alimento
+class
+
+
+
+
+
+TipoAlimento
 {
     private $id_tipo_alimento;
     private $nombre;
@@ -21,8 +27,8 @@ class tipo_alimento
 {
     parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
     $this->id_tipo_alimento = $tipo_alimento['id_tipo_alimento'] ?? null;
-    $this->nombre = $tipo_alimento['nombre'] ?? null;
-    $this->observaciones = $tipo_alimento['observaciones'] ?? null;
+    $this->nombre = $TipoAlimento['nombre'] ?? null;
+    $this->observaciones = $TipoAlimento['observaciones'] ?? null;
     }
 
     /* Metodo destructor cierra la conexion. */
@@ -33,7 +39,7 @@ class tipo_alimento
     /**
      * @return int
      */
-    public function getid_tipo_alimento() : int
+    public function getid_TipoAlimento() : int
     {
         return $this->id_tipo_alimento;
     }
@@ -41,7 +47,7 @@ class tipo_alimento
     /**
      * @param int $id_tipo_alimento
      */
-    public function setid_tipo_alimento(int $id_tipo_alimento): void
+    public function setid_TipoAlimento(int $id_tipo_alimento): void
     {
         $this->id_tipo_alimento = $id_tipo_alimento;
     }
@@ -80,7 +86,7 @@ class tipo_alimento
 
     public function create() : bool
     {
-        $result = $this->insertRow("INSERT INTO Proyecto-Finca-San-Rafael.tipo_alimento VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
+        $result = $this->insertRow("INSERT INTO Proyecto-Finca-San-Rafael.TipoAlimento VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
                 $this->nombre,
                 $this->observaciones
 
@@ -91,7 +97,7 @@ class tipo_alimento
     }
     public function update() : bool
     {
-        $result = $this->updateRow("UPDATE Proyecto-Finca-San-Rafael-1803586.tipo_alimento SET nombre = ?, observaciones = ? WHERE id_tipo_alimento = ?", array(
+        $result = $this->updateRow("UPDATE Proyecto-Finca-San-Rafael-1803586.TipoAlimento SET nombre = ?, observaciones = ? WHERE id_tipo_alimento = ?", array(
                 $this->nombre,
                 $this->observacioness,
                 $this->id_tipo_alimento
@@ -106,44 +112,44 @@ class tipo_alimento
     }
     public static function search($query) : array
 {
-    $arrtipo_alimento = array();
-    $tmp = new tipo_alimento();
+    $arrTipoAlimento = array();
+    $tmp = new TipoAlimento();
     $getrows = $tmp->getRows($query);
 
     foreach ($getrows as $valor) {
-        $tipo_alimento = new tipo_alimento();
-        $tipo_alimento->id_tipo_alimento = $valor['id_tipo_alimento'];
-        $tipo_alimento->nombre = $valor['nombre'];
-        $tipo_alimento->observaciones = $valor['observaciones'];
-        $tipo_alimento->Disconnect();
-        array_push($arrtipo_alimento, $tipo_alimento);
+        $TipoAlimento = new TipoAlimento();
+        $TipoAlimento->id_tipo_alimento = $valor['id_tipo_alimento'];
+        $TipoAlimento->nombre = $valor['nombre'];
+        $TipoAlimento->observaciones = $valor['observaciones'];
+        $TipoAlimento->Disconnect();
+        array_push($arrTipoAlimento, $TipoAlimento);
     }
     $tmp->Disconnect();
-    return $arrtipo_alimento;
+    return $arrTipoAlimento;
 }
-    public static function searchForid_tipo_alimento($id_tipo_alimento) : tipo_alimento
+    public static function searchForid_TipoAlimento($id_tipo_alimento) : TipoAlimento
     {
-        $tipo_alimento = null;
+        $TipoAlimento = null;
         if ($id_tipo_alimento > 0){
-            $tipo_alimento = new tipo_alimento();
-            $getrow = $tipo_alimento->getRow("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.tipo_alimento WHERE id_tipo_alimento =?", array($id_tipo_alimento));
-            $tipo_alimento->id_tipo_alimento = $getrow['id_tipo_alimento'];
-            $tipo_alimento->nombre = $getrow['nombre'];
-            $tipo_alimento->observaciones = $getrow['obsevaciones'];
+            $TipoAlimento = new TipoAlimento();
+            $getrow = $TipoAlimento->getRow("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.TipoAlimento WHERE id_tipo_alimento =?", array($id_tipo_alimento));
+            $TipoAlimento->id_tipo_alimento = $getrow['id_tipo_alimento'];
+            $TipoAlimento->nombre = $getrow['nombre'];
+            $TipoAlimento->observaciones = $getrow['obsevaciones'];
 
         }
-        $tipo_alimento->Disconnect();
-        return $tipo_alimento;
+        $TipoAlimento->Disconnect();
+        return $TipoAlimento;
     }
 
     public static function getAll() : array
     {
-        return tipo_alimento::search("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.tipo_alimento");
+        return TipoAlimento::search("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.TipoAlimento");
     }
 
-    public static function tipo_alimentoRegistrado ($nombre) : bool
+    public static function TipoAlimentoRegistrado ($nombre) : bool
     {
-        $result = tipo_alimento::search("SELECT id FROM Proyecto-Finca-San-Rafael-1803586.tipo_alimento where nombre = ".$nombre);
+        $result = TipoAlimento::search("SELECT id FROM Proyecto-Finca-San-Rafael-1803586.TipoAlimento where nombre = ".$nombre);
         if (count($result) > 0){
             return true;
         }else{
