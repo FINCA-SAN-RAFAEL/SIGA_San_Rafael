@@ -6,10 +6,6 @@ require('BasicModel.php');
 
 class
 
-
-
-
-
 TipoAlimento
 {
     private $id_tipo_alimento;
@@ -23,10 +19,10 @@ TipoAlimento
      * @param $observaciones
 
      */
-    public function __construct($tipo_alimento = array())
+    public function __construct($TipoAlimento = array())
 {
     parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
-    $this->id_tipo_alimento = $tipo_alimento['id_tipo_alimento'] ?? null;
+    $this->id_tipo_alimento = $TipoAlimento['id_tipo_alimento'] ?? null;
     $this->nombre = $TipoAlimento['nombre'] ?? null;
     $this->observaciones = $TipoAlimento['observaciones'] ?? null;
     }
