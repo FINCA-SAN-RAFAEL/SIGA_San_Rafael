@@ -184,7 +184,7 @@ class registro_vacuna extends BasicModel
     {
         $registro_vacuna = null;
         if ($id_registro_vacuna > 0){
-            $registro_vacuna = new tipo_alimento();
+            $registro_vacuna = new tipoAlimento();
             $getrow = $registro_vacuna->getRow("SELECT * FROM SIGA_San_Rafael.registro_vacuna WHERE id_registro_vacuna =?", array($id_registro_vacuna));
             $registro_vacuna->id_registro_vacuna = $getrow['id_registro_vacuna'];
             $registro_vacuna->dosis = $getrow['dosis'];
