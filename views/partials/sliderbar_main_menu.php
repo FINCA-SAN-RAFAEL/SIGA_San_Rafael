@@ -71,6 +71,122 @@
                     </ul>
                 </li>
 
+
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Tipo Alimento
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/edit.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>edit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/show.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>show</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Alimentacion
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/edit.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>edit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/show.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>show</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Animal Parto
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/edit.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>edit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/show.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>show</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
             </ul>
 
         </nav>
