@@ -189,7 +189,7 @@ class gastos
         return gastos::search("SELECT * FROM fincasanrafael1.gastos");
     }
 
-    public static function tipo_alimentoRegistrado($nombre): bool
+    public static function gastosRegistrado($nombre): bool
     {
         $result = gastos::search("SELECT id FROM fincasanrafael1.gastos where nombre = " . $nombre);
         if (count($result) > 0) {
