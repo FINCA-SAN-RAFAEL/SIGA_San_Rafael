@@ -1,12 +1,12 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/controllers/registro_vacuna_controllers.php");
+require("../../../app/Controllers/TipoAlimentoControllers.php");
 
-use app\controllers\registro_vacuna_controllers; ?>
+use App\Controllers\TipoAlimentoControllers; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Datos del registro_vacuna</title>
+    <title><?= getenv('TITLE_SITE') ?> | Datos del tipo alimento</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -24,11 +24,11 @@ use app\controllers\registro_vacuna_controllers; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Informacion del registro_vacuna</h1>
+                        <h1>Informacion del Usuario</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">SIGA_San_Rafael</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">WebER</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -44,7 +44,7 @@ use app\controllers\registro_vacuna_controllers; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al consultar el usuario: <?= ($_GET['mensaje']) ?? "" ?>
+                        Error al consultar el usuario: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
             <?php } else if (empty($_GET['id'])) { ?>
@@ -58,48 +58,44 @@ use app\controllers\registro_vacuna_controllers; ?>
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <?php if(!empty($_GET["id"]) && isset($_GET["id"])){
-                    $Dataregistro_vacuna = registro_vacuna::searchForID($_GET["id"]);
-                    if(!empty($Dataregistro_vacuna)){
-                ?>
-                <div class="card-header">
-                    <h3 class="card-title"><?= $Dataregistro_vacuna->getNombres()  ?></h3>
-                </div>
-                <div class="card-body">
-                    <p>
-
-                        <strong><i class="fas fa-book mr-1"></i> Nombres y Apellidos</strong>
-                        <p class="text-muted">
-                            <?= $Dataregistro_vacuna->getNombres()." ".$Dataregistro_vacuna->getApellidos() ?>
-                        </p>
-                        <hr>
-                        <strong><i class="fas fa-user mr-1"></i> Documento</strong>
-                        <p class="text-muted"><?= $Dataregistro_vacuna->getTipoDocumento().": ".$Dataregistro_vacuna->getDocumento() ?></p>
-                        <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Direccion</strong>
-                        <p class="text-muted"><?= $Dataregistro_vacuna->getDireccion() ?></p>
-                        <hr>
-                        <strong><i class="fas fa-phone mr-1"></i> Telefono</strong>
-                        <p class="text-muted"><?= $Dataregistro_vacuna->getTelefono() ?></p>
-                        <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> Estado y Rol</strong>
-                        <p class="text-muted"><?= $Dataregistro_vacuna->getEstado()." - ".$Dataregistro_vacuna->getRol() ?></p>
-                    </p>
-
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-auto mr-auto">
-                            <a role="button" href="index.php" class="btn btn-success float-right" style="margin-right: 5px;">
-                                <i class="fas fa-tasks"></i> Gestionar registro de vacunas
-                            </a>
+                    $DataTipoAlimento = TipoAlimentoControllers::searchForID($_GET["id"]);
+                    if(!empty($DataTipoAlimento)){
+                        ?>
+                        <div class="card-header">
+                            <h3 class="card-title"><?= $DataTipoAlimento->getNombres()  ?></h3>
                         </div>
-                        <div class="col-auto">
-                            <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear registro de vacuna
-                            </a>
+                        <div class="card-body">
+                            <p>
+
+                                <strong><i class="fas fa-book mr-1"></i> Nombres y Apellidos</strong>
+                            <p class="text-muted">
+                                <?= $DataTipoAlimento->getNombres()." ".$DataTipoAlimento->getApellidos() ?>
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-user mr-1"></i>nombre</strong>
+                            <p class="text-muted"><?= $DataTipoAlimento->getTipoAlimento().": ".$DataTipoAlimento->getnombre() ?></p>
+                            <hr>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> observaciones</strong>
+                            <p class="text-muted"><?= $DataTipoAlimento->getTipoAlimento() ?></p>
+                            <hr>
+                            <strong><i class="fas fa-phone mr-1"></i>id_tipo_alimento</strong>
+                            <p class="text-muted"><?= $DataTipoAlimento->gettipoalimento() ?></p>
+                            <hr>
                         </div>
-                    </div>
-                </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-auto mr-auto">
+                                    <a role="button" href="index.php" class="btn btn-success float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-tasks"></i> Gestionar Tipo Alimento
+                                    </a>
+                                </div>
+                                <div class="col-auto">
+                                    <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                        <i class="fas fa-plus"></i> Crear Tipo Alimento
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     <?php }else{ ?>
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
