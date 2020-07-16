@@ -6,105 +6,61 @@ require('BasicModel.php');
 
 class registro_vacuna extends BasicModel
 {
-    private $id_registro_vacuna;
+    private $id;
+    private $animal;
+    private $lote_vacuna;
     private $dosis;
     private $fecha;
     private $observaciones;
 
-    /* Relaciones */
-    private $animal;
-    private $lote_vacuna;
-
     /**
-     * registro_vacuna constructor.
-     * @param $id_registro_vacuna
+     * DetalleVentas constructor.
+     * @param $id
+     * @param $animal
+     * @param $lote_vacuna
      * @param $dosis
      * @param $fecha
      * @param $observaciones
-
      */
-    public function __construct($registro_vacuna = array())
+    public function __construct($animal = array())
     {
-        parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
-        $this->id_registro_vacuna = $registro_vacuna['id_regidtro_vacunao'] ?? null;
-        $this->dosis = $registro_vacuna['nombre'] ?? null;
-        $this->fecha = $registro_vacuna['fecha'] ?? null;
-        $this->observaciones = $registro_vacuna['observaciones'] ?? null;
+        parent::__construct();
+        $this->id = $animal['id'] ?? null;
+        $this->peso = $animal['peso'] ?? null;
+        $this->genero = $animal['genero'] ?? null;
+        $this->fecha_nacimiento = $animal['fecha_nacimiento'] ?? null;
+        $this->habitos_alimenticios = $animal['habitas_alimenticios'] ?? null;
+        $this->observaciones = $animal['observaciones'] ?? null;
     }
 
-    /* Metodo destructor cierra la conexion. */
-    function __destruct() {
+    /**
+     *
+     */
+    function __destruct()
+    {
         $this->Disconnect();
     }
 
     /**
-     * @return int
+     * @return mixed|null
      */
-    public function getid_registro_vacuna() : int
+    public function getId(): ?mixed
     {
-        return $this->id_registro_vacuna;
+        return $this->id;
     }
 
     /**
-     * @param int $id_registro_vacuna
+     * @param mixed|null $id
      */
-    public function setid_registro_vacuna(int $id_registro_vacuna): void
+    public function setId(?mixed $id): void
     {
-        $this->id_registro_vacuna = $id_registro_vacuna;
-    }
-
-    /**
-     * @return string
-     */
-    public function getdosis() : string
-    {
-        return $this->dosis;
-    }
-
-    /**
-     * @param string $dosis
-     */
-    public function setdosis(string $dosis): void
-    {
-        $this->dosis = $dosis;
-    }
-
-    /**
-     * @return string
-     */
-    public function getfecha() : string
-    {
-        return $this->fecha;
-    }
-
-    /**
-     * @param string $fecha
-     */
-    public function setfecha(string $fecha): void
-    {
-        $this->fecha = $fecha;
-    }
-
-    /**
-     * @return string
-     */
-    public function getobservaciones() : string
-    {
-        return $this->observaciones;
-    }
-
-    /**
-     * @param string $observaciones
-     */
-    public function setobservaciones(string $observaciones): void
-    {
-        $this->observaciones = $observaciones;
+        $this->id = $id;
     }
 
     /**
      * @return mixed
      */
-    public function getanimal()
+    public function getanimal() : animal
     {
         return $this->animal;
     }
@@ -112,7 +68,7 @@ class registro_vacuna extends BasicModel
     /**
      * @param mixed $animal
      */
-    public function setanimal($animal): void
+    public function setanimal(animal $animal): void
     {
         $this->animal = $animal;
     }
@@ -120,7 +76,7 @@ class registro_vacuna extends BasicModel
     /**
      * @return mixed
      */
-    public function lote_vacuna()
+    public function getlote_vacuna() : lote_vacuna
     {
         return $this->lote_vacuna;
     }
@@ -128,41 +84,63 @@ class registro_vacuna extends BasicModel
     /**
      * @param mixed $lote_vacuna
      */
-    public function setlote_vacuna($lote_vacuna): void
+    public function setlote_vacuna(lote_vacuna $lote_vacuna): void
     {
         $this->lote_vacuna = $lote_vacuna;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getdosis()
+    {
+        return $this->dosis;
+    }
 
-    public function create() : bool
+    /**
+     * @param mixed $dosis
+     */
+    public function setdosis($dosis): void
     {
-        $result = $this->insertRow("INSERT INTO SIGA_San_Rafael.registro_vacuna VALUES (NULL, ?, ?, ?)", array(
-                $this->dosis,
-                $this->fecha,
-                $this->observaciones
+        $this->dosis = $dosis;
+    }
 
-            )
-        );
-        $this->Disconnect();
-        return $result;
-    }
-    public function update() : bool
+    /**
+     * @return mixed
+     */
+    public function getfecha()
     {
-        $result = $this->updateRow("UPDATE SIGA_San_Rafael.registro_vacuna SET dosis = ?, fecha = ?, observaciones = ? WHERE id_registro_vacuna = ?", array(
-                $this->dosis,
-                $this->fecha,
-                $this->observaciones,
-                $this->id_registro_vacuna
-            )
-        );
-        $this->Disconnect();
-        return $result;
+        return $this->fecha;
     }
-    public function deleted($id) : void
+
+    /**
+     * @param mixed $fecha
+     */
+    public function setfecha($fecha): void
     {
-        // TODO: Implement deleted() method.
+        $this->fecha = $fecha;
     }
-    public static function search($query) : array
+    /**
+     * @return mixed
+     */
+    public function getobservaciones()
+    {
+        return $this->observaciones;
+    }
+
+    /**
+     * @param mixed $observaciones
+     */
+    public function setobservaciones($observaciones): void
+    {
+        $this->observaciones = $observaciones;
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public static function search($query)
     {
         $arrregistro_vacuna = array();
         $tmp = new registro_vacuna();
@@ -170,44 +148,116 @@ class registro_vacuna extends BasicModel
 
         foreach ($getrows as $valor) {
             $registro_vacuna = new registro_vacuna();
-            $registro_vacuna->id_tipo_alimento = $valor['id_registro_vacuna'];
+            $registro_vacuna->id = $valor['id'];
+            $registro_vacuna->animal = animal::searchForId($valor['animal']);
+            $registro_vacuna->lote_vacuna = lote_vacuna::searchForId($valor['lote_vacuna']);
             $registro_vacuna->dosis = $valor['dosis'];
             $registro_vacuna->fecha = $valor['fecha'];
             $registro_vacuna->observaciones = $valor['observaciones'];
             $registro_vacuna->Disconnect();
+            if(count($getrows) == 1){ // Si solamente hay un registro encontrado devuelve este objeto y no un array
+                return $registro_vacuna;
+            }
             array_push($arrregistro_vacuna, $registro_vacuna);
         }
         $tmp->Disconnect();
         return $arrregistro_vacuna;
     }
-    public static function searchForid_registro_vacuna($id_registro_vacuna) : registro_vacuna
+
+    /**
+     * @return mixed
+     */
+    public static function getAll()
+    {
+        return registro_vacuna::search("SELECT * FROM fincasanrafael1.registro_vacuna");
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public static function searchForId($id)
     {
         $registro_vacuna = null;
-        if ($id_registro_vacuna > 0){
-            $registro_vacuna = new tipoAlimento();
-            $getrow = $registro_vacuna->getRow("SELECT * FROM SIGA_San_Rafael.registro_vacuna WHERE id_registro_vacuna =?", array($id_registro_vacuna));
-            $registro_vacuna->id_registro_vacuna = $getrow['id_registro_vacuna'];
+        if ($id > 0) {
+            $registro_vacuna = new registro_vacuna();
+            $getrow = $registro_vacuna->getRow("SELECT * FROM fincasanrafael1.registro_vacuna WHERE id =?", array($id));
+            $registro_vacuna->id = $getrow['id'];
+            $registro_vacuna->animal = animal::searchForId($getrow['animal']);
+            $registro_vacuna->lote_vacuna = lote_vacuna::searchForId($getrow['lote_vacuna']);
             $registro_vacuna->dosis = $getrow['dosis'];
             $registro_vacuna->fecha = $getrow['fecha'];
-            $registro_vacuna->observacionesnes = $getrow['obsevaciones'];
-
+            $registro_vacuna->observaciones = $getrow['observaciones'];
         }
         $registro_vacuna->Disconnect();
         return $registro_vacuna;
     }
 
-    public static function getAll() : array
+    /**
+     * @return mixed
+     */
+    public function create()
     {
-        return registro_vacuna::search("SELECT * FROM SIGA_San_Rafael.registro_vacuna");
+        $result = $this->insertRow("INSERT INTO fincasanrafael1.registro_vacuna VALUES (NULL, ?, ?, ?, ?,?)", array(
+                $this->animal->getId(),
+                $this->lote_vacuna->getId(),
+                $this->dosis,
+                $this->fecha,
+                $this->observaciones,
+            )
+        );
+        $this->Disconnect();
+        return $result;
     }
 
-    public static function registro_vacunaRegistrado ($id_registro_vacuna) : bool
+    /**
+     * @return mixed
+     */
+    public function update()
     {
-        $result = registro_vacuna::search("SELECT id_registro_vacuna FROM SIGA_San_Rafael.registro_vacuna where id_registro_vacuna = ".$id_registro_vacuna);
-        if (count($result) > 0){
+        $result = $this->updateRow("UPDATE fincasanrafael1.registro_vacuna SET animal = ?, lote_vacuna = ?, dosis = ?, fecha = ?, observaciones = ? WHERE id = ?", array(
+                $this->animal->getId(),
+                $this->lote_vacuna->getId(),
+                $this->dosis,
+                $this->fecha,
+                $this->observaciones,
+                $this->id
+            )
+        );
+        $this->Disconnect();
+        return $result;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function deleted($id)
+    {
+        $registro_vacuna = registro_vacuna::searchForId($id); //Buscando un usuario por el ID
+        $deleterow = $registro_vacuna->deleteRow("DELETE FROM registro_vacuna WHERE id = ?", array($id));
+        return $deleterow;                    //Guarda los cambios..
+    }
+
+    /**
+     * @param $nombres
+     * @return bool
+     */
+    public static function productoEnFactura($producto_id): bool
+    {
+        $result = DetalleVentas::search("SELECT id FROM weber.detalle_venta where producto_id = '" . $producto_id. "'");
+        if (count($result) > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return "Venta: $this->ventas_id->getNumeroSerie(), Producto: $this->producto_id->getNombres(), Cantidad: $this->cantidad, Precio Venta: $this->precio_venta";
     }
 }

@@ -64,12 +64,12 @@ use app\controllers\registro_vacuna_controllers; ?>
                 <?php if(!empty($_GET["id"]) && isset($_GET["id"])){ ?>
                     <p>
                     <?php
-                    $DataUsuario = registro_vacuna::searchForID($_GET["id"]);
-                        if(!empty($DataUsuario)){
+                    $Dataregistro_vacuna = registro_vacuna::searchForID($_GET["id"]);
+                        if(!empty($Dataregistro_vacuna)){
                     ?>
                             <!-- form start -->
                             <form class="form-horizontal" method="post" id="frmEditUsuario" name="frmEditUsuario" action="../../../app/controllers/registro_vacuna_controllers.php?action=edit">
-                                <input id="id" name="id" value="<?php echo $DataUsuario->getId(); ?>" hidden required="required" type="text">
+                                <input id="id" name="id" value="<?php echo $Dataregistro_vacuna->getId(); ?>" hidden required="required" type="text">
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <label for="dosis" class="col-sm-2 col-form-label">Dosis</label>
