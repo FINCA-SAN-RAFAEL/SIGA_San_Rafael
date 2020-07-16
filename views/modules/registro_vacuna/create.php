@@ -56,27 +56,21 @@
                 <form class="form-horizontal" method="post" id="frmCreateregistro_vacuna" name="frmCreateregistro_vacuna" action="../../../app/controllers/registro_vacuna_controllers.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="id_registro_vacuna" class="col-sm-2 col-form-label">id</label>
-                            <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="id_registro_vacuna" name="id">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="dosis" class="col-sm-2 col-form-label">Dosis</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="dosis" name="dosis">
+                                <input required type="number" class="form-control" id="dosis" name="dosis">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="fecha" name="dosis"">
+                                <input required type="date" class="form-control" id="fecha" name="dosis"">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="observaciones" class="col-sm-2 col-form-label">Observaciones</label>
                             <div class="col-sm-10">
-                                <input required type="number" minlength="6" class="form-control" id="observaciones" name="observaciones" >
+                                <input required type="text" class="form-control" id="observaciones" name="observaciones"">
                             </div>
                         </div>
                     </div>

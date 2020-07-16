@@ -44,7 +44,7 @@ use app\controllers\registro_vacuna_controllers; ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            Error al consultar el usuario: <?= ($_GET['mensaje']) ?? "" ?>
+                            Error al consultar el registro de vacuna: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
             <?php } else if (empty($_GET['id'])) { ?>
@@ -62,27 +62,23 @@ use app\controllers\registro_vacuna_controllers; ?>
                     if(!empty($Dataregistro_vacuna)){
                 ?>
                 <div class="card-header">
-                    <h3 class="card-title"><?= $Dataregistro_vacuna->getNombres()  ?></h3>
+                    <h3 class="card-title"><?= $Dataregistro_vacuna->getdosis()  ?></h3>
                 </div>
                 <div class="card-body">
                     <p>
 
-                        <strong><i class="fas fa-book mr-1"></i> Nombres y Apellidos</strong>
+                        <strong><i class="fas fa-book mr-1"></i> dosis</strong>
                         <p class="text-muted">
-                            <?= $Dataregistro_vacuna->getNombres()." ".$Dataregistro_vacuna->getApellidos() ?>
+                            <?= $Dataregistro_vacuna->getdosis()?>
                         </p>
                         <hr>
-                        <strong><i class="fas fa-user mr-1"></i> Documento</strong>
-                        <p class="text-muted"><?= $Dataregistro_vacuna->getTipoDocumento().": ".$Dataregistro_vacuna->getDocumento() ?></p>
+                        <strong><i class="fas fa-user mr-1"></i> fecha</strong>
+                        <p class="text-muted"><?= $Dataregistro_vacuna->getfecha() ?></p>
                         <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Direccion</strong>
-                        <p class="text-muted"><?= $Dataregistro_vacuna->getDireccion() ?></p>
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> observaciones</strong>
+                        <p class="text-muted"><?= $Dataregistro_vacuna->getobservaciones() ?></p>
                         <hr>
-                        <strong><i class="fas fa-phone mr-1"></i> Telefono</strong>
-                        <p class="text-muted"><?= $Dataregistro_vacuna->getTelefono() ?></p>
-                        <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> Estado y Rol</strong>
-                        <p class="text-muted"><?= $Dataregistro_vacuna->getEstado()." - ".$Dataregistro_vacuna->getRol() ?></p>
+
                     </p>
 
                 </div>
