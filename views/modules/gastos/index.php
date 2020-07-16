@@ -1,9 +1,7 @@
-<?php
-require_once("../../../app/Controllers/TipoAlimentoControllers.php");
-require_once("../../partials/routes.php");
+<?php require("../../partials/routes.php");
+require("../../../app/Controllers/gastoscontroller.php");
 
-
-use App\Controllers\TipoAlimentoControllers; ?>
+use App\Controllers\gastoscontroller; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +16,9 @@ use App\Controllers\TipoAlimentoControllers; ?>
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require_once("../../partials/navbar_customization.php"); ?>
+    <?php require("../../partials/navbar_customization.php"); ?>
 
-    <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
+    <?php require("../../partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -33,7 +31,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Finca-San-Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -52,7 +50,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
                         <?php if ($_GET['action'] == "create"){ ?>
                             El usuario ha sido creado con exito!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos del tipo de alimento han sido actualizados correctamente!
+                            Los datos de los gastos han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -61,7 +59,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Gestionar Tipo Alimento</h3>
+                    <h3 class="card-title">Gestionar gastos</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -74,48 +72,45 @@ use App\Controllers\TipoAlimentoControllers; ?>
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
                             <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Tipo Alimento
+                                <i class="fas fa-plus"></i> Crear gastos
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblTipoAlimento" class="datatable table table-bordered table-striped">
+                            <table id="tblgastos" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Id</th>
                                     <th>Nombre</th>
-                                    <th>id_tipo_alimento</th>
-                                    <th>observaciones</th>
+                                    <th>Precio</th>
+                                    <th>Descripcion</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $arrTipoAlimento = TipoAlimentoControllers::getAll();
-                                foreach ($arrTipoAlimento as $TipoAlimento){
+                                $arrgastos = gastoscontroller::getAll();
+                                foreach ($arrgastos as $gastos){
                                     ?>
                                     <tr>
-                                        <td><?php echo $TipoAlimento->getId(); ?></td>
-                                        <td><?php echo $TipoAlimento->getNombre(); ?></td>
-                                        <td><?php echo $TipoAlimento->getobservaciones(); ?></td>
+                                        <td><?php echo $gastos->getIdgastos(); ?></td>
+                                        <td><?php echo $gastos->getNombre(); ?></td>
+                                        <td><?php echo $gastos->getPrecio(); ?></td>
+                                        <td><?php echo $gastos->getDescripcion(); ?></td>
                                         <td>
-                                            <a href="edit.php?id=<?php echo $TipoAlimento->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $TipoAlimento->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($TipoAlimento->getEstado() != "Activo"){ ?>
-                                                <a href="../../../app/Controllers/TipoAlimentoController.php?action=activate&Id=<?php echo $TipoAlimento->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
-                                            <?php }else{ ?>
-                                                <a type="button" href="../../../app/Controllers/TipoAlimentoController.php?action=inactivate&Id=<?php echo $TipoAlimento->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
-                                            <?php } ?>
+                                            <a href="edit.php?idgastos=<?php echo $gastos->getIdgastos(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?idgastos=<?php echo $gastos->getIdgastos(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Id</th>
                                     <th>Nombre</th>
-                                    <th>Observaciones</th>
-                                    <th>id_tipo_alimento</th>
+                                    <th>Precio</th>
+                                    <th>Descripcion</th>
+
                                 </tr>
                                 </tfoot>
                             </table>
@@ -169,10 +164,11 @@ use App\Controllers\TipoAlimentoControllers; ?>
             ],
             "pagingType": "full_numbers",
             "responsive": true,
-            "stateSave" : true, //Guardar la configuracion del tipo alimento
+            "stateSave" : true, //Guardar la configuracion del usuario
         });
     });
 </script>
 
 </body>
 </html>
+

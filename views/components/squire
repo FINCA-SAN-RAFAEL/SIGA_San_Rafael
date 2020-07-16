@@ -1,0 +1,34 @@
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+/* JS primitives
+   cf. https://github.com/Microsoft/TypeScript/blob/master/lib/lib.d.ts
+*/
+
+declare var NaN: number;
+declare var Infinity: number;
+declare var undefined: void;
+
+declare function parseInt(string: mixed, radix?: number): number;
+declare function parseFloat(string: mixed): number;
+declare function isNaN(number: mixed): boolean;
+declare function isFinite(number: mixed): boolean;
+declare function decodeURI(encodedURI: string): string;
+declare function decodeURIComponent(encodedURIComponent: string): string;
+declare function encodeURI(uri: string): string;
+declare function encodeURIComponent(uriComponent: string): string;
+
+type PropertyDescriptor<T> = {
+    enumerable?: boolean;
+    configurable?: boolean;
+    writable?: boolean;
+    value?: T;
+    get?: () => T;
+    set?: (value: T) => void;
+};
+
+type PropertyDescriptorMap = {
+  [s: string]: Propert
