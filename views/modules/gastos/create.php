@@ -1,9 +1,10 @@
-
-<?php require("../../partials/routes.php"); ?>
+<?php
+require("../../../app/Controllers/gastoscontroller.php");
+require("../../partials/routes.php"); ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Crear registro_vacuna</title>
+    <title><?= getenv('TITLE_SITE') ?> | Crear Gastos</title>
     <?php require("../../partials/head_imports.php"); ?>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -21,11 +22,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Crear un Nuevo Registro de vacunas</h1>
+                        <h1>Crear una Nuevo Gastos</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">SIGA_San_Rafael</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">Finca-San-Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -41,7 +42,7 @@
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al crear el registro_vacuna: <?= $_GET['mensaje'] ?>
+                        Error al crear EL gastos: <?= $_GET['mensaje'] ?>
                     </div>
                 <?php } ?>
             <?php } ?>
@@ -53,33 +54,33 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" method="post" id="frmCreateregistro_vacuna" name="frmCreateregistro_vacuna" action="../../../app/controllers/registro_vacuna_controllers.php?action=create">
+                <form class="form-horizontal" method="post" id="frmcreategastos" name="frmcreategastos" action="../../../app/controllers/gastoscontroller.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="dosis" class="col-sm-2 col-form-label">Dosis</label>
+                            <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
-                                <input required type="number" class="form-control" id="dosis" name="dosis">
+                                <input required type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese gastos">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
+                            <label for="precio" class="col-sm-2 col-form-label">Precio</label>
                             <div class="col-sm-10">
-                                <input required type="date" class="form-control" id="fecha" name="dosis"">
+                                <input required type="text" class="form-control" id="precio" name="precio" placeholder="Ingrese  el precio">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="observaciones" class="col-sm-2 col-form-label">Observaciones</label>
+                            <label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="observaciones" name="observaciones"">
+                                <input required type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese  la descripcion">
                             </div>
                         </div>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-info">Enviar</button>
-                        <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
-                    </div>
-                    <!-- /.card-footer -->
+
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-info">Enviar</button>
+                            <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                        </div>
+                        <!-- /.card-footer -->
                 </form>
             </div>
             <!-- /.card -->
@@ -94,3 +95,5 @@
 <?php require ('../../partials/scripts.php');?>
 </body>
 </html>
+
+
