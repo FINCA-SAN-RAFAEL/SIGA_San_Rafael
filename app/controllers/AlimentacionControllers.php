@@ -1,90 +1,99 @@
 <?php
 
-namespace app\controllers;
-require(__DIR__.'/../models/registro_vacuna.php');
-require_once(__DIR__.'/../models/GeneralFunctions.php');
 
-use App\Models\GeneralFunctions;
-use App\Models\DetalleVentas;
-use App\Models\Productos;
-use App\Models\Ventas;
+namespace app\controllers;
+require(__DIR__.'/../models/AlimentacionControllers.php');
+use app\models\Alimentacion;
 
 if(!empty($_GET['action'])){
-    registro_vacuna_controllers::main($_GET['action']);
+    Alimentacioncontrollers::main($_GET['action']);
 }
 
-class registro_vacuna_controllers{
-
+class AlimentacionControllers
+{
     static function main($action)
     {
         if ($action == "create") {
-            registro_vacuna_controllers::create();
+            \app\controllers\AlimentacionControllers::create();
         } else if ($action == "edit") {
-            registro_vacuna_controllers::edit();
-        } else if ($action == "searchForID") {
-            registro_vacuna_controllers::searchForID($_REQUEST['idregistro_vacuna']);
+            Alimentacion::edit();
+        } else if ($action == "searchForid_alimentacion") {
+            AlimentacionControllers::searchForID($_REQUEST['id_alimentacion']);
         } else if ($action == "searchAll") {
-            registro_vacuna_controllers::getAll();
-        } else if ($action == "activate") {
-            registro_vacuna_controllers::activate();
-        } else if ($action == "inactivate") {
-            registro_vacuna_controllers::inactivate();
-        }
+            AlimentacionControllers::getAll();
+        }/*else if ($action == "login"){
+            AlimentacionControllers::login();
+        }else if($action == "cerrarSession"){
+            AlimentacionControllers::cerrarSession();
+        }*/
+
     }
 
     static public function create()
     {
         try {
-            $arrayregistro_vacuna = array();
-            $arrayregistro_vacuna['animal_id'] = animal::searchForId($_POST['animal']);
-            $arrayregistro_vacuna['lote_vacuna_id'] = lote_vacuna:searchForId($_POST['lote_vacuna']);
-            $arrayregistro_vacuna['dosis'] = $_POST['dosis'];
-            $arrayregistro_vacuna['fecha'] = $_POST['fecha'];
-            $arrayregistro_vacuna['observaciones'] = $_POST['observaciones'];
-            $registro_vacuna = new registro_vacuna($arrayregistro_vacuna);
-            if($registro_vacuna->create()){
-                header("Location: ../../views/modules/registro_vacuna/index.php?respuesta=correcto");
+            $arrayAlimentacion = array();
+            $arrayAlimentacion['nombre'] = $_POST['nombre'];
+            $arrayAlimentacion['cantidad'] = $_POST['cantidad'];
+            $arrayAlimentacion['marca'] = $_POST['marca'];
+            $arrayAlimentacion['presentacion'] = $_POST['presentacion'];
+            $arrayAlimentacion['peso'] = $_POST['presentacion'];
+            $arrayAlimentacion['id_alimentacion'] = $_POST['id_alimentacion'];
+            if (!Alimentacion::AlimentacionRegistrado($arrayAlimentacion['id_alimentacion'])) {
+                $Alimentacion = new Alimentacion ($arrayAlimentacion);
+                if ($Alimentacion->create()) {
+                    header("Location: ../../views/modules/Alimentacion/index.php?respuesta=correcto");
+                }
+            } else {
+                header("Location: ../../views/modules/Alimentacion/create.php?respuesta=error&mensaje=registro_vacuna ya registrado");
             }
         } catch (Exception $e) {
-            GeneralFunctions::console( $e, 'error', 'errorStack');
-            header("Location: ../../views/modules/registro_vacuna/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/Alimentacion/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
-    static public function edit (){
+    static public function edit()
+    {
         try {
-            $arrayregistro_vacuna = array();
-            $arrayregistro_vacuna['ventas_id'] = animal::searchForId($_POST['animal']);
-            $arrayregistro_vacuna['producto_id'] = lote_vacuna::searchForId($_POST['lote_vacuna']);
-            $arrayregistro_vacuna['cantidad'] = $_POST['cantidad'];
-            $arrayregistro_vacuna['precio_venta'] = $_POST['fecha_venta'];
-            $arrayregistro_vacuna['id'] = $_POST['id'];
-            $registro_vacuna = new animal($arrayregistro_vacuna);
-            $registro_vacuna->update();
-            header("Location: ../../views/modules/registro_vacuna/show.php?id=".$registro_vacuna->getId()."&respuesta=correcto");
+            $arrayAlimentacion = array();
+            $arrayAlimentacion['nombre'] = $_POST['nombre'];
+            $arrayAlimentacion['cantidad'] = $_POST['cantidad'];
+            $arrayAlimentacion['marca'] = $_POST['marca'];
+            $arrayAlimentacion['presentacion'] = $_POST['presentacion'];
+            $arrayAlimentacion['peso'] = $_POST['peso'];
+            $arrayAlimentacion['id_alimentacion'] = $_POST['id_alimentacion'];
+
+            $user = new Alimentacion($arrayAlimentacion);
+            $user->update();
+
+            header("Location: ../../views/modules/Alimentacion/show.php?id=" . $user->getid_alimentacion() . "&respuesta=correcto");
         } catch (\Exception $e) {
-            GeneralFunctions::console( $e, 'error', 'errorStack');
-            header("Location: ../../views/modules/registro_vacunas/edit.php?respuesta=error&mensaje=".$e->getMessage());
+            //var_dump($e);
+            header("Location: ../../views/modules/Alimentacion/edit.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
-    static public function searchForID ($id){
+
+    static public function searchForID($id_alimentacion)
+    {
         try {
-            return registro_vacuna::searchForId($id);
+            return Alimentacion::searchForid_alimentacion($id_alimentacion);
         } catch (\Exception $e) {
-            GeneralFunctions::console( $e, 'error', 'errorStack');
-            header("Location: ../../views/modules/registro_vacuna/manager.php?respuesta=error");
+            var_dump($e);
+            //header("Location: ../../views/modules/Alimentacion/manager.php?respuesta=error");
         }
     }
 
-    static public function getAll (){
+    static public function getAll()
+    {
         try {
-            return registro_vacuna::getAll();
+            return Alimentacion::getAll();
         } catch (\Exception $e) {
-            GeneralFunctions::console( $e, 'log', 'errorStack');
-            header("Location: ../Vista/modules/registro_vacuna/manager.php?respuesta=error");
+            var_dump($e);
+            //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
         }
     }
+}
 
     /*public static function personaIsInArray($idPersona, $ArrPersonas){
         if(count($ArrPersonas) > 0){
@@ -188,6 +197,4 @@ class registro_vacuna_controllers{
         session_destroy();
         header("Location: ../Vista/modules/persona/login.php");
     }*/
-
-}
 

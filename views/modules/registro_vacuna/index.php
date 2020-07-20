@@ -32,7 +32,7 @@ use app\controllers\registro_vacuna_controllers; ?>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/Views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">SIGA_San_Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -49,9 +49,9 @@ use app\controllers\registro_vacuna_controllers; ?>
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
                         <?php if ($_GET['action'] == "create"){ ?>
-                            El usuario ha sido creado con exito!
+                            El registro de vacuna ha sido creado con exito!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos del usuario han sido actualizados correctamente!
+                            Los datos del registri de vacuna han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -60,7 +60,7 @@ use app\controllers\registro_vacuna_controllers; ?>
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Gestionar Usuarios</h3>
+                    <h3 class="card-title">Gestionar Registro de Vacuna</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fas fa-minus"></i></button>
@@ -73,49 +73,38 @@ use app\controllers\registro_vacuna_controllers; ?>
                         <div class="col-auto mr-auto"></div>
                         <div class="col-auto">
                             <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Usuario
+                                <i class="fas fa-plus"></i> Crear Registro de vacuna
                             </a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblUsuarios" class="datatable table table-bordered table-striped">
+                            <table id="tblregistro_vacuna" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Tipo Documento</th>
-                                    <th>Documento</th>
-                                    <th>Telefono</th>
-                                    <th>Direccion</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
+                                    <th>dosis</th>
+                                    <th>fecha</th>
+                                    <th>observaciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $arrUsuarios = UsuariosController::getAll();
-                                foreach ($arrUsuarios as $usuario){
+                                $arrregistro_vacuna = registro_vacuna_controllers::getAll();
+                                foreach ($arrregistro_vacuna as $registro_vacuna){
                                     ?>
                                     <tr>
-                                        <td><?php echo $usuario->getId(); ?></td>
-                                        <td><?php echo $usuario->getNombres(); ?></td>
-                                        <td><?php echo $usuario->getApellidos(); ?></td>
-                                        <td><?php echo $usuario->getTipoDocumento(); ?></td>
-                                        <td><?php echo $usuario->getDocumento(); ?></td>
-                                        <td><?php echo $usuario->getTelefono(); ?></td>
-                                        <td><?php echo $usuario->getDireccion(); ?></td>
-                                        <td><?php echo $usuario->getRol(); ?></td>
-                                        <td><?php echo $usuario->getEstado(); ?></td>
+                                        <td><?php echo $registro_vacuna->getid_registro_vacuna(); ?></td>
+                                        <td><?php echo $registro_vacuna->getdosis(); ?></td>
+                                        <td><?php echo $registro_vacuna->getfecha(); ?></td>
+                                        <td><?php echo $registro_vacuna->getobservaciones(); ?></td>
                                         <td>
-                                            <a href="edit.php?id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($usuario->getEstado() != "Activo"){ ?>
-                                                <a href="../../../app/Controllers/UsuariosController.php?action=activate&Id=<?php echo $usuario->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
+                                            <a href="edit.php?id=<?php echo $registro_vacuna->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?id=<?php echo $registro_vacuna->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+                                            <?php if ($registro_vacuna->getEstado() != "Activo"){ ?>
+                                                <a href="../../../app/controllers/registro_vacuna_controllers.php?action=activate&Id=<?php echo $registro_vacuna->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
                                             <?php }else{ ?>
-                                                <a type="button" href="../../../app/Controllers/UsuariosController.php?action=inactivate&Id=<?php echo $usuario->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
+                                                <a type="button" href="../../../app/controllers/registro_vacuna_controllers.php?action=inactivate&Id=<?php echo $registro_vacuna->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
                                             <?php } ?>
                                         </td>
                                     </tr>
@@ -124,15 +113,9 @@ use app\controllers\registro_vacuna_controllers; ?>
                                 <tfoot>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Tipo Documento</th>
-                                    <th>Documento</th>
-                                    <th>Telefono</th>
-                                    <th>Direccion</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
+                                    <th>dosis</th>
+                                    <th>fecha</th>
+                                    <th>observaciones</th>
                                 </tr>
                                 </tfoot>
                             </table>
