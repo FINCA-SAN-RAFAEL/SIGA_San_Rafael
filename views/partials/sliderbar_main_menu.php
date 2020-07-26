@@ -35,46 +35,10 @@
                     </a>
                 </li>
                 <li class="nav-header">Modulos Principales</li>
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-user"></i>
-                        <p>
-                            Registro Vacuna
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/create.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>create</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/edit.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>edit</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>index</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/show.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>show</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
 
 
-
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'persona') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'persona') ? 'active' : '' ?>">
                         <i class="nav-icon far fa-user"></i>
                         <p>
                             Persona
@@ -83,36 +47,57 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/create.php" class="nav-link">
+                            <a href="<?= $baseURL ?>/views/modules/persona/index.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>create</p>
+                                <p>Gestionar</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/edit.php" class="nav-link">
+                            <a href="<?= $baseURL ?>/views/modules/persona/create.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>edit</p>
+                                <p>Registrar</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>index</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/show.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>show</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
 
 
 
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'registro_vacuna') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'registro_vacuna') ? 'active' : '' ?>">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Registro de Vacuna
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>gestionar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+
+
+
+
+
+
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'animal') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'animal') ? 'active' : '' ?>">
                         <i class="nav-icon far fa-user"></i>
                         <p>
                             Animal
@@ -121,31 +106,32 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/create.php" class="nav-link">
+                            <a href="<?= $baseURL ?>/views/modules/animal/create.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>create</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/edit.php" class="nav-link">
+                            <a href="<?= $baseURL ?>/views/modules/animal/edit.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>edit</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/index.php" class="nav-link">
+                            <a href="<?= $baseURL ?>/views/modules/animal/index.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>index</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/show.php" class="nav-link">
+                            <a href="<?= $baseURL ?>/views/modules/animal/show.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>show</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+
 
 
 
