@@ -2,7 +2,7 @@
 
 
 namespace App\Controllers;
-require(__DIR__.'/../models/AnimalPartoControllers.php');
+require(__DIR__.'/../models/AnimalParto.php');
 use app\models\AnimalParto;
 
 if(!empty($_GET['action'])) {
