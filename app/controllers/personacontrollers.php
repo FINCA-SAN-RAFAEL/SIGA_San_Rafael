@@ -40,15 +40,14 @@ class personacontrollers
     {
         try {
             $arraypersona = array();
-            $arraypersona['tipo_documento'] = $_POST['tipo_documento'];
+
             $arraypersona['documento'] = $_POST['documento'];
+            $arraypersona['tipo_documento'] = $_POST['tipo_documento'];
             $arraypersona['nombres'] = $_POST['nombres'];
             $arraypersona['apellidos'] = $_POST['apellidos'];
             $arraypersona['telefono'] = $_POST['telefono'];
             $arraypersona['direccion'] = $_POST['direccion'];
             $arraypersona['correo'] = $_POST['correo'];
-            $arraypersona['user'] = $_POST['user'];
-            $arraypersona['password'] = $_POST['password'];
             $arraypersona['estado'] = 'Activo';
             if(!persona::personaRegistrada($arraypersona['documento'])){
                 $persona = new persona($arraypersona);
@@ -67,15 +66,14 @@ class personacontrollers
     static public function edit (){
         try {
             $arraypersona = array();
-            $arraypersona['tipo_documento'] = $_POST['tipo_documento'];
+
             $arraypersona['documento'] = $_POST['documento'];
+            $arraypersona['tipo_documento'] = $_POST['tipo_documento'];
             $arraypersona['nombres'] = $_POST['nombres'];
             $arraypersona['apellidos'] = $_POST['apellidos'];
             $arraypersona['telefono'] = $_POST['telefono'];
             $arraypersona['direccion'] = $_POST['direccion'];
             $arraypersona['correo'] = $_POST['correo'];
-            $arraypersona['user'] = $_POST['user'];
-            $arraypersona['password'] = $_POST['password'];
             $arraypersona['estado'] = $_POST['estado'];
             $arraypersona['id'] = $_POST['id'];
 
@@ -137,9 +135,9 @@ class personacontrollers
         }
     }
 
-    private static function personaIsInArray($idpersona, $Arrpersona){
-        if(count($Arrpersona) > 0){
-            foreach ($Arrpersona as $persona){
+    private static function personaIsInArray($idpersona, $Arrpersonas){
+        if(count($Arrpersonas) > 0){
+            foreach ($Arrpersonas as $persona){
                 if($persona->getId() == $idpersona){
                     return true;
                 }

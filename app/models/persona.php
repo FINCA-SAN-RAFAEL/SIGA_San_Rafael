@@ -22,7 +22,7 @@ class persona extends BasicModel
 
     /* Relaciones */
     private $animal;
-    private $pagos;
+    private $gastos;
 
     /**
      * Usuarios constructor.
@@ -250,6 +250,22 @@ class persona extends BasicModel
     /**
      * @return string
      */
+    public function getEstado(): string
+    {
+        return $this->estado;
+    }
+
+    /**
+     * @param string $estado
+     */
+    public function setEstado(string $estado): void
+    {
+        $this->estado = $estado;
+    }
+
+    /**
+     * @return string
+     */
     public function getUser(): string
     {
         return $this->user;
@@ -280,26 +296,11 @@ class persona extends BasicModel
     }
 
 
-    /**
-     * @return string
-     */
-    public function getEstado(): string
-    {
-        return $this->estado;
-    }
-
-    /**
-     * @param string $estado
-     */
-    public function setEstado(string $estado): void
-    {
-        $this->estado = $estado;
-    }
 
     /**
      * @return mixed
      */
-    public function getanimal()
+    public function getAnimal()
     {
         return $this->animal;
     }
@@ -307,7 +308,7 @@ class persona extends BasicModel
     /**
      * @param mixed $animal
      */
-    public function setanimal($animal): void
+    public function setAnimal($animal): void
     {
         $this->animal = $animal;
     }
@@ -315,17 +316,17 @@ class persona extends BasicModel
     /**
      * @return mixed
      */
-    public function getpagos()
+    public function getGastos()
     {
-        return $this->pagos;
+        return $this->gastos;
     }
 
     /**
-     * @param mixed $pagos
+     * @param mixed $gastos
      */
-    public function setpagos($pagos): void
+    public function setGastos($gastos): void
     {
-        $this->pagos = $pagos;
+        $this->gastos = $gastos;
     }
 
     /**
@@ -335,8 +336,9 @@ class persona extends BasicModel
     public function create(): bool
     {
         $result = $this->insertRow("INSERT INTO fincasanrafael1.persona VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
-                $this->tipo_documento,
+
                 $this->documento,
+                $this->tipo_documento,
                 $this->nombres,
                 $this->apellidos,
                 $this->telefono,
@@ -375,8 +377,8 @@ class persona extends BasicModel
             $persona = new persona();
             $getrow = $persona->getRow("SELECT * FROM fincasanrafael1.persona WHERE id =?", array($id));
             $persona->id = $getrow['id'];
-            $persona->tipo_documento = $getrow['tipo_documento'];
             $persona->documento = $getrow['documento'];
+            $persona->tipo_documento = $getrow['tipo_documento'];
             $persona->nombres = $getrow['nombres'];
             $persona->apellidos = $getrow['apellidos'];
             $persona->telefono = $getrow['telefono'];
@@ -396,9 +398,10 @@ class persona extends BasicModel
      */
     public function update(): bool
     {
-        $result = $this->updateRow("UPDATE fincasanrafael1.persona SET tipo_documento = ?, documento = ?,nombres = ?, apellidos = ?, telefono = ?, direccion = ?, estado = ? , user = ?, password = ?WHERE id = ?", array(
-                $this->tipo_documento,
+        $result = $this->updateRow("UPDATE fincasanrafael1.persona SET  documento = ?,tipo_documento = ?, nombres = ?, apellidos = ?, telefono = ?, direccion = ?, estado = ? , user = ?, password = ?WHERE id = ?", array(
+
                 $this->documento,
+                $this->tipo_documento,
                 $this->nombres,
                 $this->apellidos,
                 $this->telefono,
@@ -426,6 +429,6 @@ class persona extends BasicModel
      */
     public function __toString()
     {
-        return "Nombres: $this->nombres, Apellidos: $this->nombres, Tipo Documento: $this->tipo_documento, Documento: $this->documento, Telefono: $this->telefono, Direccion: $this->direccion";
+        return "nombres: $this->nombres, apellidos: $this->nombres, tipo_documento: $this->tipo_documento, documento: $this->documento, telefono: $this->telefono, ireccion: $this->direccion";
     }
 }
