@@ -37,7 +37,7 @@ class registro_vacuna_controllers{
         try {
             $arrayregistro_vacuna = array();
             $arrayregistro_vacuna['animal_id'] = animal::searchForId($_POST['animal']);
-            $arrayregistro_vacuna['lote_vacuna_id'] = lote_vacuna:searchForId($_POST['lote_vacuna']);
+            $arrayregistro_vacuna['lote_vacuna_id'] = lotevacuna:searchForId($_POST['lote_vacuna']);
             $arrayregistro_vacuna['dosis'] = $_POST['dosis'];
             $arrayregistro_vacuna['fecha'] = $_POST['fecha'];
             $arrayregistro_vacuna['observaciones'] = $_POST['observaciones'];
@@ -55,7 +55,7 @@ class registro_vacuna_controllers{
         try {
             $arrayregistro_vacuna = array();
             $arrayregistro_vacuna['ventas_id'] = animal::searchForId($_POST['animal']);
-            $arrayregistro_vacuna['producto_id'] = lote_vacuna::searchForId($_POST['lote_vacuna']);
+            $arrayregistro_vacuna['producto_id'] = lotevacuna::searchForId($_POST['lotevacuna']);
             $arrayregistro_vacuna['cantidad'] = $_POST['cantidad'];
             $arrayregistro_vacuna['precio_venta'] = $_POST['fecha_venta'];
             $arrayregistro_vacuna['id'] = $_POST['id'];

@@ -8,11 +8,9 @@ use App\Models\generalFunctions;
 use app\models\persona;
 use App\Models\Usuarios;
 
-
 if(!empty($_GET['action'])){
     personacontrollers::main($_GET['action']);
 }
-
 
 class personacontrollers
 {
@@ -49,6 +47,8 @@ class personacontrollers
             $arraypersona['telefono'] = $_POST['telefono'];
             $arraypersona['direccion'] = $_POST['direccion'];
             $arraypersona['correo'] = $_POST['correo'];
+            $arraypersona['user'] = $_POST['user'];
+            $arraypersona['password'] = $_POST['password'];
             $arraypersona['estado'] = 'Activo';
             if(!persona::personaRegistrada($arraypersona['documento'])){
                 $persona = new persona($arraypersona);
@@ -74,6 +74,8 @@ class personacontrollers
             $arraypersona['telefono'] = $_POST['telefono'];
             $arraypersona['direccion'] = $_POST['direccion'];
             $arraypersona['correo'] = $_POST['correo'];
+            $arraypersona['user'] = $_POST['user'];
+            $arraypersona['password'] = $_POST['password'];
             $arraypersona['estado'] = $_POST['estado'];
             $arraypersona['id'] = $_POST['id'];
 

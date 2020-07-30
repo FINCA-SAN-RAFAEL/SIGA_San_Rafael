@@ -1,30 +1,30 @@
 <?php
 
 
-namespace App\Controllers;
-require(__DIR__.'/../models/AnimalParto.php');
-use app\models\AnimalParto;
+namespace app\controllers;
+require(__DIR__.'/../models/EspecieControllers.php');
+use app\models\especie;
 
-if(!empty($_GET['action'])) {
-    AnimalPartoControllers::main($_GET['action']);
+if(!empty($_GET['action'])){
+    EspecieControllers::main($_GET['action']);
 }
-class AnimalPartoControllers
-{
 
+class EspecieControllers
+{
     static function main($action)
     {
         if ($action == "create") {
-            \app\controllers\AnimalPartoControllers::create();
+            \app\controllers\EspecieControllers::create();
         } else if ($action == "edit") {
-            AnimalParto::edit();
-        } else if ($action == "searchForid_animales_parto") {
-            AnimalPartoControllers::searchForID($_REQUEST['id_animales_parto']);
+            especie::edit();
+        } else if ($action == "searchForid_especie") {
+            EspecieControllers::searchForID($_REQUEST['id_especie']);
         } else if ($action == "searchAll") {
-            AnimalPartoControllers::getAll();
+            EspecieControllers::getAll();
         }/*else if ($action == "login"){
-            AnimalPartoControllers::login();
+            especieControllers::login();
         }else if($action == "cerrarSession"){
-            AnimalPartoControllers::cerrarSession();
+            especieControllers::cerrarSession();
         }*/
 
     }
@@ -32,58 +32,56 @@ class AnimalPartoControllers
     static public function create()
     {
         try {
-            $arrayAnimalParto = array();
-            $arrayAnimalParto['Estado Nacimiento'] = $_POST['Estado Nacimiento'];
-            $arrayAnimalParto['Fecha Parto'] = $_POST['Fecha Parto'];
-            $arrayAnimalParto['Observaciones'] = $_POST['Observaciones'];
-            $arrayAlimentacion['id_animales_parto'] = $_POST['id_animales_parto'];
-            if (!AnimalParto::AnimalesPartoRegistrado($arrayAnimalParto['id_animales_parto'])) {
-                $AnimalesParto = new AnimalParto ($arrayAnimalParto);
-                if ($AnimalesParto->create()) {
-                    header("Location: ../../views/modules/AnimalesParto/index.php?respuesta=correcto");
+            $arrayEspecie = array();
+            $arrayEspecie['nombre'] = $_POST['nombre'];
+            $arrayEspecie['especie'] = $_POST['especie'];
+            $arrayEspecie['id_especie'] = $_POST['id_especie'];
+            if (!Especie::EspecieRegistrado($arrayEspecie['id_especie'])) {
+                $Especie = new Especie ($arrayEspecie);
+                if ($Especie->create()) {
+                    header("Location: ../../views/modules/especie/index.php?respuesta=correcto");
                 }
             } else {
-                header("Location: ../../views/modules/AnimalesParto/create.php?respuesta=error&mensaje=registro_vacuna ya registrado");
+                header("Location: ../../views/modules/especie/create.php?respuesta=error&mensaje=especie ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/AnimalesParto/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/especie/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function edit()
     {
         try {
-            $arrayAnimalParto = array();
-            $arrayAnimalParto['Estado Nacimiento'] = $_POST['Estado Nacimiento'];
-            $arrayAnimalParto['Fecha Parto'] = $_POST['Fecha Parto'];
-            $arrayAnimalParto['Observaciones'] = $_POST['Observaciones'];
-            $arrayAnimalParto['id_animales_parto'] = $_POST['id_animales_parto'];
+            $arrayEspecie = array();
+            $arrayEspecie['nombre'] = $_POST['nombre'];
+            $arrayEspecie['especie'] = $_POST['especie'];
+            $arrayEspecie['id_especie'] = $_POST['id_especie'];
 
-            $user = new AnimalParto($arrayAnimalParto);
+            $user = new especie($arrayEspecie);
             $user->update();
 
-            header("Location: ../../views/modules/AnimalParto/show.php?id=" . $user->getid_animales_parto() . "&respuesta=correcto");
+            header("Location: ../../views/modules/especie/show.php?id=" . $user->getid_especie() . "&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/AnimalParto/edit.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/especie/edit.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
 
-    static public function searchForID($id_animales_parto)
+    static public function searchForID($id_especie)
     {
         try {
-            return AnimalParto::searchForid_animales_parto($id_animales_parto);
+            return especie::searchForid_alimentacion($id_especie);
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../../views/modules/AnimalParto/manager.php?respuesta=error");
+            //header("Location: ../../views/modules/especie/manager.php?respuesta=error");
         }
     }
 
     static public function getAll()
     {
         try {
-            return AnimalParto::getAll();
+            return especie::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");

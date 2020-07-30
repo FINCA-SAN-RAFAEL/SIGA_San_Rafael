@@ -39,15 +39,15 @@ use app\controllers\personacontrollers; ?>
         <!-- Main content -->
         <section class="content">
 
-            <?php if(!empty($_GET['respuesta'])){ ?>
-                <?php if ($_GET['respuesta'] == "error"){ ?>
+            <?php if (!empty($_GET['respuesta'])) { ?>
+                <?php if ($_GET['respuesta'] == "error") { ?>
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-ban"></i> Error!</h5>
                         Error al consultar la persona: <?= ($_GET['mensaje']) ?? "" ?>
                     </div>
                 <?php } ?>
-            <?php } else if (empty($_GET['id_persona'])) { ?>
+            <?php } else if (empty($_GET['id'])) { ?>
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-ban"></i> Error!</h5>
@@ -55,68 +55,96 @@ use app\controllers\personacontrollers; ?>
                 </div>
             <?php } ?>
 
-            <!-- Horizontal Form -->
-            <div class="card card-info">
-                <?php if(!empty($_GET["id_persona"]) && isset($_GET["id_persona"])){
-                    $Datapersona = personacontrollers::searchForid_persona($_GET["id_persona"]);
-                    if(!empty($Datapersona)){
-                        ?>
-                        <div class="card-header">
-                            <h3 class="card-title"><?= $Datapersona->getnombre()  ?></h3>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                <strong><i class="fas fa-book mr-1"></i> Nombres y Apellidos</strong>
-                            <p> class="text-muted">
-                                <?= $Datapersona->getnombre()." ".$Datapersona->getapellido()?>
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-user mr-1"></i> Documento</strong>
-                            <p class="text-muted"><?= $Datapersona->getdocumento()?></p>
-                            <hr>
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Direccion</strong>
-                            <p class="text-muted"><?= $Datapersona->getdireccion() ?></p>
-                            <hr>
-                            <strong><i class="fas fa-phone mr-1"></i> Telefono</strong>
-                            <p class="text-muted"><?= $Datapersona->gettelefono() ?></p>
-                            <hr>
-                            <strong><i class="far fa-file-alt mr-1"></i> Estado y correo</strong>
-                            <p class="text-muted"><?= $Datapersona->getEstado()." - ".$Datapersona->getcorreo() ?></p>
-                            </p>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Horizontal Form -->
+                        <div class="card card-green">
+                            <?php if (!empty($_GET["id"]) && isset($_GET["id"])) {
+                                $Datapersona = personacontrollers::searchForID($_GET["id"]);
+                                if (!empty($Datapersona)) {
+                                    ?>
+                                    <div class="card-header">
+                                        <h3 class="card-title"><i class="fas fa-info"></i> &nbsp; Ver Información
+                                            de <?= $Datapersona->getNombres() ?></h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                                    data-source="show.php" data-source-selector="#card-refresh-content"
+                                                    data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                                        class="fas fa-expand"></i></button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                    data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove"
+                                                    data-toggle="tooltip" title="Remove">
+                                                <i class="fas fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>
+                                            <strong><i class="fas fa-book mr-1"></i> Nombres y Apellidos</strong>
+                                        <p class="text-muted">
+                                            <?= $Datapersona->getNombres() . " " . $Datapersona->getApellidos() ?>
+                                        </p>
+                                        <hr>
+                                        <strong><i class="fas fa-user mr-1"></i> Documento</strong>
+                                        <p class="text-muted"><?= $Datapersona->getTipoDocumento() . ": " . $Datapersona->getDocumento() ?></p>
+                                        <hr>
+                                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Direccion</strong>
+                                        <p class="text-muted"><?= $Datapersona->getDireccion() ?></p>
+                                        <hr>
+                                        <strong><i class="fas fa-phone mr-1"></i> Telefono</strong>
+                                        <p class="text-muted"><?= $Datapersona->getTelefono() ?></p>
+                                        <hr>
+                                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Correo</strong>
+                                        <p class="text-muted"><?= $Datapersona->getCorreo() ?></p>
+                                        <hr>
+                                        <strong><i class="far fa-file-alt mr-1"></i> Estado</strong>
+                                        <p class="text-muted"><?= $Datapersona->getEstado() ?></p>
+                                        </p>
 
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <div class="col-auto mr-auto">
+                                                <a role="button" href="index.php" class="btn btn-success float-right"
+                                                   style="margin-right: 5px;">
+                                                    <i class="fas fa-tasks"></i> Gestionar Persona
+                                                </a>
+                                            </div>
+                                            <div class="col-auto">
+                                                <a role="button" href="create.php" class="btn btn-primary float-right"
+                                                   style="margin-right: 5px;">
+                                                    <i class="fas fa-plus"></i> Crear Persona
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                            &times;
+                                        </button>
+                                        <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                                        No se encontro ningun registro con estos parametros de
+                                        busqueda <?= ($_GET['mensaje']) ?? "" ?>
+                                    </div>
+                                <?php }
+                            } ?>
                         </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <div class="col-auto mr-auto">
-                                    <a role="button" href="index.php" class="btn btn-success float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-tasks"></i> Gestionar persona
-                                    </a>
-                                </div>
-                                <div class="col-auto">
-                                    <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-plus"></i> Crear persona
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    <?php }else{ ?>
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            No se encontro ningun registro con estos parametros de busqueda <?= ($_GET['mensaje']) ?? "" ?>
-                        </div>
-                    <?php }
-                } ?>
+                        <!-- /.card -->
+                    </div>
+                </div>
             </div>
-            <!-- /.card -->
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require ('../../partials/footer.php');?>
+    <?php require('../../partials/footer.php'); ?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require('../../partials/scripts.php'); ?>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 
 namespace app\models;
-
+require('BasicModel.php');
 
 class vacunas
 {
@@ -98,7 +98,7 @@ class vacunas
 
     public function create() : bool
     {
-        $result = $this->insertRow("INSERT INTO SIGA_San_Rafael.vacunasVALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
+        $result = $this->insertRow("INSERT INTO Proyecto-Finca-San-Rafael.vacunas VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
                 $this->nombre,
                 $this->descripcion,
                 $this->periosidad,
@@ -110,7 +110,7 @@ class vacunas
     }
     public function update() : bool
     {
-        $result = $this->updateRow("UPDATE SIGA_San_Rafael.vacunas SET nombre = ?, descripcion = ?, periosidad = ? WHERE id_vacunas = ?", array(
+        $result = $this->updateRow("UPDATE Proyecto-Finca-San-Rafael.vacunas SET nombre = ?, descripcion = ?, periosidad = ? WHERE id_vacunas = ?", array(
                 $this->nombre,
                 $this->descripcion,
                 $this->periosidad,

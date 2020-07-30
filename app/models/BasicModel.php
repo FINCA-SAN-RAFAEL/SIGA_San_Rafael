@@ -1,16 +1,26 @@
 <?php
 
-namespace app\models;
+namespace App\Models;
+require(__DIR__ .'/../../vendor/autoload.php');
 
+use Exception;
+use PDOException;
+
+/**
+ * Created by PhpStorm.
+ * User: fabian
+ * Date: 10/12/2019
+ * Time: 9:17
+ */
 
 abstract class BasicModel {
-
+    //TODO: Agregar PHPDoc
     public $isConnected;
     protected $datab;
     private $username = "root";
     private $password = "";
     private $host = "localhost";
-    private $driver = "mysql";
+    private $driver = "mysql"; //mysql, postgres, oracle, sql server, sqlite
     private $dbname = "fincasanrafael1";
 
     # métodos abstractos para ABM de clases que hereden
@@ -35,7 +45,7 @@ abstract class BasicModel {
             $this->datab->setAttribute(\PDO::ATTR_PERSISTENT, true);
         }catch(\PDOException $e) {
             $this->isConnected = false;
-            throw new \Exception($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -46,9 +56,11 @@ abstract class BasicModel {
         $this->isConnected = false;
     }
 
-    //Getting row
-    //$getrow = $database->getRow("SELECT email, username FROM users WHERE username =?", array("yusaf"));
-    public function getRow($query, $params=array()){
+
+
+    //Getting row -> Deveulve una sola fila de la Base de Datos.
+    //$getrow = $database->getRow("SELECT email, username FROM users WHERE username = ? and password = ?", array("diego","123456"));
+    public function getRow($query, $params = array()){
         try{
             $stmt = $this->datab->prepare($query);
             $stmt->execute($params);
