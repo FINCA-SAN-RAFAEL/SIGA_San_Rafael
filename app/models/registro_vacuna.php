@@ -243,9 +243,9 @@ class registro_vacuna extends BasicModel
      * @param $nombres
      * @return bool
      */
-    public static function productoEnFactura($producto_id): bool
+    public static function lote_vacaunaEnFactura($lote_vacuna): bool
     {
-        $result = DetalleVentas::search("SELECT id FROM weber.detalle_venta where producto_id = '" . $producto_id. "'");
+        $result = registro_vacuna::search("SELECT id FROM fincasanrafael1.registro_vacuna where lote_vacuna = '" . $lote_vacuna. "'");
         if (count($result) > 0) {
             return true;
         } else {
@@ -258,6 +258,6 @@ class registro_vacuna extends BasicModel
      */
     public function __toString()
     {
-        return "Venta: $this->ventas_id->getNumeroSerie(), Producto: $this->producto_id->getNombres(), Cantidad: $this->cantidad, Precio Venta: $this->precio_venta";
+        return "animal: $this->animal->getpeso(), lote_vacuna: $this->lote_vacuna->getNfecha_compra(), Cantidad: $this->cantidad, Precio Venta: $this->precio_venta";
     }
 }

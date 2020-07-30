@@ -2,7 +2,7 @@
 
 
 namespace App\Controllers;
-require(__DIR__.'/../models/vacunascontrollers.php');
+require(__DIR__.'/../models/vacunas.php');
 use app\models\vacunas;
 
 if(!empty($_GET['action'])) {

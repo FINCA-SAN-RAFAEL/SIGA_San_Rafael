@@ -14,6 +14,7 @@ class persona extends BasicModel
     private $apellidos;
     private $telefono;
     private $direccion;
+    private $correo;
     private $estado;
     private $user;
     private $password;
@@ -32,6 +33,7 @@ class persona extends BasicModel
      * @param $apellidos
      * @param $telefono
      * @param $direccion
+     * @param $correo
      * @param $estado
      * @param $user
      * @param $passwordl
@@ -47,6 +49,7 @@ class persona extends BasicModel
         $this->apellidos = $persona['apellidos'] ?? null;
         $this->telefono = $persona['telefono'] ?? null;
         $this->direccion = $persona['direccion'] ?? null;
+        $this->correo = $persona['correo'] ?? null;
         $this->estado = $persona['estado'] ?? null;
         $this->user = $persona['user'] ?? null;
         $this->password = $persona['password'] ?? null;
@@ -70,19 +73,20 @@ class persona extends BasicModel
      */
     public static function search($query)
     {
-        $arrUsuarios = array();
+        $arrpersona = array();
         $tmp = new persona();
         $getrows = $tmp->getRows($query);
 
         foreach ($getrows as $valor) {
             $persona = new persona();
-            $persona->id = $valor['id']
+            $persona->id = $valor['id'];
             $persona->tipo_documento = $valor['tipo_documento'];
             $persona->documento = $valor['documento'];
             $persona->nombres = $valor['nombres'];
-            $persona->apellidos = $valor['apellidos']
+            $persona->apellidos = $valor['apellidos'];
             $persona->telefono = $valor['telefono'];
             $persona->direccion = $valor['direccion'];
+            $persona->correo = $valor['correo'];
             $persona->estado = $valor['estado'];
             $persona->user = $valor['user'];
             $persona->password = $valor['password'];
@@ -227,6 +231,21 @@ class persona extends BasicModel
     {
         $this->direccion = $direccion;
     }
+    /**
+     * @return string
+     */
+    public function getCorreo(): string
+    {
+        return $this->correo;
+    }
+
+    /**
+     * @param string $correo
+     */
+    public function setCorreo(string $correo): void
+    {
+        $this->correo = $correo;
+    }
 
     /**
      * @return string
@@ -315,13 +334,14 @@ class persona extends BasicModel
      */
     public function create(): bool
     {
-        $result = $this->insertRow("INSERT INTO fincasanrafael1.persona VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
+        $result = $this->insertRow("INSERT INTO fincasanrafael1.persona VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
                 $this->tipo_documento,
                 $this->documento,
                 $this->nombres,
                 $this->apellidos,
                 $this->telefono,
                 $this->direccion,
+                $this->correo,
                 $this->estado,
                 $this->user,
                 $this->password,
@@ -361,6 +381,7 @@ class persona extends BasicModel
             $persona->apellidos = $getrow['apellidos'];
             $persona->telefono = $getrow['telefono'];
             $persona->direccion = $getrow['direccion'];
+            $persona->correo = $getrow['correo'];
             $persona->estado = $getrow['estado'];
             $persona->user = $getrow['user'];
             $persona->password = $getrow['password'];

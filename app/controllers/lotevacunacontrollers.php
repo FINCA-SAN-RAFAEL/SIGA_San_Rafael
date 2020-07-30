@@ -2,7 +2,7 @@
 
 
 namespace App\Controllers;
-require(__DIR__.'/../models/lotevacunacontrollers.php');
+require(__DIR__.'/../models/lotevacuna.php');
 use app\models\lotevacuna;
 use app\models\vacunas;
 
