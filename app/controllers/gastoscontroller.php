@@ -41,6 +41,7 @@ class gastoscontroller
             $arraygastos['nombre'] = $_POST['nombre'];
             $arraygastos['precio'] = $_POST['precio'];
             $arraygastos['descripcion'] = $_POST['descripcion'];
+            $arrayVenta['id'] = Usuarios::searchForId($_POST['cliente_id']);
             if (!gastos::gastosRegistrado($arraygastos['id_gastos'])) {
                 $gastos = new gastos ($arraygastos);
                 if ($gastos->create()) {
