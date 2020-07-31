@@ -2,7 +2,7 @@
 
 
 namespace app\controllers;
-require(__DIR__.'/../models/AlimentacionControllers.php');
+require(__DIR__.'/../models/Alimentacion.php');
 use app\models\Alimentacion;
 
 if(!empty($_GET['action'])){

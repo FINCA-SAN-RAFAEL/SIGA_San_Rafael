@@ -2,29 +2,31 @@
 
 
 namespace App\Controllers;
-require(__DIR__.'/../models/AnimalParto.php');
-use app\models\AnimalParto;
+require(__DIR__.'/../models/lotevacuna.php');
+use app\models\lotevacuna;
+use app\models\vacunas;
 
 if(!empty($_GET['action'])) {
-    AnimalPartoControllers::main($_GET['action']);
+    lotevacunacontrollers::main($_GET['action']);
 }
-class AnimalPartoControllers
+
+class lotevacunacontrollers
 {
 
     static function main($action)
     {
         if ($action == "create") {
-            \app\controllers\AnimalPartoControllers::create();
+            \app\controllers\lotevacunacontrollers::create();
         } else if ($action == "edit") {
-            AnimalParto::edit();
-        } else if ($action == "searchForid_animales_parto") {
-            AnimalPartoControllers::searchForID($_REQUEST['id_animales_parto']);
+            vacunas::edit();
+        } else if ($action == "searchForid_lote_vacuna") {
+            lotevacunacontrollers::searchForID($_REQUEST['id_lote_vacuna']);
         } else if ($action == "searchAll") {
-            AnimalPartoControllers::getAll();
+            lotevacunacontrollers::getAll();
         }/*else if ($action == "login"){
-            AnimalPartoControllers::login();
+            lotevacunacontrollers::login();
         }else if($action == "cerrarSession"){
-            AnimalPartoControllers::cerrarSession();
+            lotevacunacontrollers::cerrarSession();
         }*/
 
     }
@@ -32,58 +34,62 @@ class AnimalPartoControllers
     static public function create()
     {
         try {
-            $arrayAnimalParto = array();
-            $arrayAnimalParto['Estado Nacimiento'] = $_POST['Estado Nacimiento'];
-            $arrayAnimalParto['Fecha Parto'] = $_POST['Fecha Parto'];
-            $arrayAnimalParto['Observaciones'] = $_POST['Observaciones'];
-            $arrayAlimentacion['id_animales_parto'] = $_POST['id_animales_parto'];
-            if (!AnimalParto::AnimalesPartoRegistrado($arrayAnimalParto['id_animales_parto'])) {
-                $AnimalesParto = new AnimalParto ($arrayAnimalParto);
-                if ($AnimalesParto->create()) {
-                    header("Location: ../../views/modules/AnimalesParto/index.php?respuesta=correcto");
+            $arraylotevacuna = array();
+            $arraylotevacuna['fecha_compra'] = $_POST['fecha_compra'];
+            $arraylotevacuna['fecha_vencimiento'] = $_POST['fecha_vencimiento'];
+            $arraylotevacuna['laboratori'] = $_POST['laboratori'];
+            $arraylotevacuna['cantidad'] = $_POST['cantidad'];
+            $arraylotevacuna['costo'] = $_POST['costo'];
+            $arraylotevacuna['id_lote_vacuna'] = $_POST['id_lote_vacuna'];
+            if (!lotevacuna::lotevacunaRegistrado($arraylotevacuna['id_lote_vacuna'])) {
+                $lotevacuna = new vacunas ($arraylotevacuna);
+                if ($lotevacuna->create()) {
+                    header("Location: ../../views/modules/lotevacuna/index.php?respuesta=correcto");
                 }
             } else {
-                header("Location: ../../views/modules/AnimalesParto/create.php?respuesta=error&mensaje=registro_vacuna ya registrado");
+                header("Location: ../../views/modules/lotevacuna/create.php?respuesta=error&mensaje=registro_vacuna ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/AnimalesParto/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/lotevacuna/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function edit()
     {
         try {
-            $arrayAnimalParto = array();
-            $arrayAnimalParto['Estado Nacimiento'] = $_POST['Estado Nacimiento'];
-            $arrayAnimalParto['Fecha Parto'] = $_POST['Fecha Parto'];
-            $arrayAnimalParto['Observaciones'] = $_POST['Observaciones'];
-            $arrayAnimalParto['id_animales_parto'] = $_POST['id_animales_parto'];
+            $arraylotevacuna = array();
+            $arraylotevacuna['fecha_compra'] = $_POST['fecha_compra'];
+            $arraylotevacuna['fecha_vencimiento'] = $_POST['fecha_vencimiento'];
+            $arraylotevacuna['laboratori'] = $_POST['laboratori'];
+            $arraylotevacuna['cantidad'] = $_POST['cantidad'];
+            $arraylotevacuna['costo'] = $_POST['costo'];
+            $arraylotevacuna['id_lote_vacuna'] = $_POST['id_lote_vacuna'];
 
-            $user = new AnimalParto($arrayAnimalParto);
+            $user = new vacunas($arraylotevacuna);
             $user->update();
 
-            header("Location: ../../views/modules/AnimalParto/show.php?id=" . $user->getid_animales_parto() . "&respuesta=correcto");
+            header("Location: ../../views/modules/lotevacuna/show.php?id=" . $user->getid_lote_vacuna() . "&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/AnimalParto/edit.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/lotevacuna/edit.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
 
-    static public function searchForID($id_animales_parto)
+    static public function searchForID($id_lote_vacuna)
     {
         try {
-            return AnimalParto::searchForid_animales_parto($id_animales_parto);
+            return lotevacuna::searchForid_lote_vacuna($id_lote_vacuna);
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../../views/modules/AnimalParto/manager.php?respuesta=error");
+            //header("Location: ../../views/modules/lotevacuna/manager.php?respuesta=error");
         }
     }
 
     static public function getAll()
     {
         try {
-            return AnimalParto::getAll();
+            return lotevacuna::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
