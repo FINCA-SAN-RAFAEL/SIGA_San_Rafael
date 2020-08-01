@@ -104,7 +104,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
                     <?php } ?>
                     </p>
                 <?php } ?>
-            </div>
+            </div> 
             <!-- /.card -->
         </section>
         <!-- /.content -->
