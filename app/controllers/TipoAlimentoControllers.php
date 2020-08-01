@@ -1,30 +1,33 @@
 <?php
 
-
-namespace app\controllers;
-require(__DIR__.'/../models/TipoAlimento.php');
-use app\models\TipoAlimento;
+namespace App\Controllers;
+require(__DIR__ . '/../models/TipoAlimento.php');
+use App\models\TipoAlimento;
 
 if(!empty($_GET['action'])){
-    registro_vacuna_controllers::main($_GET['action']);
+    TipoAlimentoControllers::main($_GET['action']);
 }
 
-class TipoAlimentoControllers
-{
+class TipoAlimentoControllers{
+
     static function main($action)
     {
         if ($action == "create") {
-            \app\controllers\TipoAlimentoControllers::create();
+            TipoAlimentoControllers::create();
         } else if ($action == "edit") {
-            TipoAlimento::edit();
-        } else if ($action == "searchForid_TipoAlimento") {
-            TipoAlimentocontrollers::searchForID($_REQUEST['id_tipo_alimento']);
+            TipoAlimentoControllers::edit();
+        } else if ($action == "searchForID") {
+            TipoAlimentoControllers::searchForID($_REQUEST['id']);
         } else if ($action == "searchAll") {
             TipoAlimentoControllers::getAll();
+        } else if ($action == "activate") {
+            TipoAlimentoControllers::activate();
+        } else if ($action == "inactivate") {
+            TipoAlimentoControllers::inactivate();
         }/*else if ($action == "login"){
-            TipoAlimentoControllers::login();
+           TipoAlimentoControllers::login();
         }else if($action == "cerrarSession"){
-            TipoAlimentoControllers::cerrarSession();
+           TipoAlimentoControllers::cerrarSession();
         }*/
 
     }
@@ -35,51 +38,77 @@ class TipoAlimentoControllers
             $arrayTipoAlimento = array();
             $arrayTipoAlimento['nombre'] = $_POST['nombre'];
             $arrayTipoAlimento['observaciones'] = $_POST['observaciones'];
-            $arrayTipoAlimento['id_tipo_alimento'] = $_POST['id_tipo_alimento'];
-            if (!TipoAlimento::TipoAlimentoRegistrado($arrayTipoAlimento['id_tipo_alimento'])) {
-                $TipoAlimento = new registro_vacuna ($arrayTipoAlimento);
-                if ($TipoAlimento->create()) {
+
+            if(!TipoAlimento::TipoAlimentoRegistrado($arrayTipoAlimento['nombre'])){
+                $TipoAlimento = new TipoAlimento($arrayTipoAlimento);
+                if($TipoAlimento->create()){
                     header("Location: ../../views/modules/TipoAlimento/index.php?respuesta=correcto");
                 }
-            } else {
-                header("Location: ../../views/modules/TipoAlimento/create.php?respuesta=error&mensaje=registro_vacuna ya registrado");
+            }else{
+                header("Location: ../../views/modules/TipoAlimento/create.php?respuesta=error&mensaje=TipoAlimento ya creado");
             }
         } catch (Exception $e) {
             header("Location: ../../views/modules/TipoAlimento/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
-    static public function edit()
-    {
+    static public function edit (){
         try {
-            $aarrayTipoAlimento= array();
+            $arrayTipoAlimento = array();
             $arrayTipoAlimento['nombre'] = $_POST['nombre'];
             $arrayTipoAlimento['observaciones'] = $_POST['observaciones'];
-            $arrayTipoAlimento['id_tipo_alimento'] = $_POST['id_tipo_alimento'];
+            $arrayTipoAlimento['id'] = $_POST['id'];
 
-            $user = new TipoAlimento($arrayTipoAlimento);
-            $user->update();
+            $TipoAlimento= new TipoAlimento($arrayTipoAlimento);
+            $TipoAlimento->update();
 
-            header("Location: ../../views/modules/TipoAlimento/show.php?id=" . $user->getid_TipoAlimento() . "&respuesta=correcto");
+            header("Location: ../../views/modules/TipoAlimento/show.php?Id=".$TipoAlimento->getid()."&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/TipoAlimento/edit.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/TipoAlimento/edit.php?respuesta=error&mensaje=".$e->getMessage());
         }
     }
 
-
-    static public function searchForID($id_tipo_alimento)
-    {
+    static public function activate (){
         try {
-            return TipoAlimento::searchForid_registro_vacuna($id_tipo_alimento);
+            $ObjTipoAlimento = TipoAlimento::searchForId($_GET['id']);
+            $ObjTipoAlimento->setEstado("Activo");
+            if($ObjTipoAlimento->update()){
+                header("Location: ../../views/modules/TipoAlimento/index.php");
+            }else{
+                header("Location: ../../views/modules/TipoAlimento/index.php?respuesta=error&mensaje=Error al guardar");
+            }
+        } catch (\Exception $e) {
+            //var_dump($e);
+            header("Location: ../../views/modules/TipoAlimento/index.php?respuesta=error&mensaje=".$e->getMessage());
+        }
+    }
+
+    static public function inactivate (){
+        try {
+            $ObjTipoAlimento = TipoAlimento::searchForId($_GET['id']);
+            $ObjTipoAlimento->setEstado("Inactivo");
+            if($ObjTipoAlimento->update()){
+                header("Location: ../../views/modules/TipoAlimento/index.php");
+            }else{
+                header("Location: ../../views/modules/TipoAlimento/index.php?respuesta=error&mensaje=Error al guardar");
+            }
+        } catch (\Exception $e) {
+            //var_dump($e);
+            header("Location: ../../views/modules/TipoAlimento/index.php?respuesta=error");
+        }
+    }
+
+    static public function searchForID ($id){
+        try {
+            return TipoAlimento::searchForId($id);
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../../views/modules/TipoAlimento/manager.php?respuesta=error");
+            //header("Location: ../../views/modules/usuarios/manager.php?respuesta=error");
         }
     }
 
-    static public function getAll()
-    {
+    static public function getAll (){
         try {
             return TipoAlimento::getAll();
         } catch (\Exception $e) {
