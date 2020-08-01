@@ -90,10 +90,83 @@
                 </li>
 
 
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'TipoAlimento') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'TipoAlimento') ? 'active' : '' ?>">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Tipo Alimento
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/TipoAlimento/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestionar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/TipoAlimento/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'AnimalParto') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'AnimalParto') ? 'active' : '' ?>">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Animal Parto
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/AnimalParto/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestionar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/AnimalParto/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
 
 
 
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'Alimentacion') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'Alimentacion') ? 'active' : '' ?>">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Alimentacion
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Alimentacion/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestionar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Alimentacion/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Registrar</p>
+                            </a>
+                        </li>
 
+                    </ul>
+                </li>
 
 
                 <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'animal') ? 'menu-open' : '' ?>">
