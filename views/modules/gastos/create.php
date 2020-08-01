@@ -106,5 +106,3 @@ require_once("../../partials/routes.php"); ?>
 <?php require ('../../partials/scripts.php');?>
 </body>
 </html>
-
-

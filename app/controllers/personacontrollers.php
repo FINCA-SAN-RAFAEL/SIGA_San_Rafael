@@ -40,15 +40,14 @@ class personacontrollers
     {
         try {
             $arraypersona = array();
-            $arraypersona['tipo_documento'] = $_POST['tipo_documento'];
+
             $arraypersona['documento'] = $_POST['documento'];
+            $arraypersona['tipo_documento'] = $_POST['tipo_documento'];
             $arraypersona['nombres'] = $_POST['nombres'];
             $arraypersona['apellidos'] = $_POST['apellidos'];
             $arraypersona['telefono'] = $_POST['telefono'];
             $arraypersona['direccion'] = $_POST['direccion'];
             $arraypersona['correo'] = $_POST['correo'];
-            $arraypersona['user'] = $_POST['user'];
-            $arraypersona['password'] = $_POST['password'];
             $arraypersona['estado'] = 'Activo';
             if(!persona::personaRegistrada($arraypersona['documento'])){
                 $persona = new persona($arraypersona);
@@ -67,15 +66,14 @@ class personacontrollers
     static public function edit (){
         try {
             $arraypersona = array();
-            $arraypersona['tipo_documento'] = $_POST['tipo_documento'];
+
             $arraypersona['documento'] = $_POST['documento'];
+            $arraypersona['tipo_documento'] = $_POST['tipo_documento'];
             $arraypersona['nombres'] = $_POST['nombres'];
             $arraypersona['apellidos'] = $_POST['apellidos'];
             $arraypersona['telefono'] = $_POST['telefono'];
             $arraypersona['direccion'] = $_POST['direccion'];
             $arraypersona['correo'] = $_POST['correo'];
-            $arraypersona['user'] = $_POST['user'];
-            $arraypersona['password'] = $_POST['password'];
             $arraypersona['estado'] = $_POST['estado'];
             $arraypersona['id'] = $_POST['id'];
 
@@ -137,9 +135,9 @@ class personacontrollers
         }
     }
 
-    private static function personaIsInArray($idpersona, $Arrpersona){
-        if(count($Arrpersona) > 0){
-            foreach ($Arrpersona as $persona){
+    private static function personaIsInArray($idpersona, $Arrpersonas){
+        if(count($Arrpersonas) > 0){
+            foreach ($Arrpersonas as $persona){
                 if($persona->getId() == $idpersona){
                     return true;
                 }
@@ -148,28 +146,28 @@ class personacontrollers
         return false;
     }
 
-    static public function selectpersona ($isMultiple=false,
+    static public function selectgastos ($isMultiple=false,
                                           $isRequired=true,
-                                          $id="idpersona",
-                                          $nombre="idpersona",
+                                          $id="idgastos",
+                                          $nombre="idgastos",
                                           $defaultValue="",
                                           $class="form-control",
                                           $where="",
                                           $arrExcluir = array()){
-        $arrpersona = array();
+        $arrgastos = array();
         if($where != ""){
-            $base = "SELECT * FROM persona WHERE ";
-            $arrpersona = persona::search($base.' '.$where);
+            $base = "SELECT * FROM gastos WHERE ";
+            $arrgastos = persona::search($base.' '.$where);
         }else{
-            $arrpersona = persona::getAll();
+            $arrgastos = persona::getAll();
         }
 
         $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."' style='width: 100%;'>";
         $htmlSelect .= "<option value='' >Seleccione</option>";
-        if(count($arrpersona) > 0){
-            foreach ($arrpersona as $persona)
-                if (!personacontrollers::personaIsInArray($persona->getId(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getId()) ? "selected" : "" ) : "")." value='".$persona->getId()."'>".$persona->getDocumento()." - ".$persona->getNombres()." ".$persona->getApellidos()."</option>";
+        if(count($arrgastos) > 0){
+            foreach ($arrgastos as $gastos)
+                if (!$gastoscontroller::gastosIsInArray($gastos->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($gastos != "") ? (($defaultValue == $gastos->getId()) ? "selected" : "" ) : "")." value='".$gastos->getId_gastos()."'>".$gastos->getnombre()." - ".$gastos->getprecio()." - ".$gastos->getdescripcion()."</option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;
@@ -178,6 +176,7 @@ class personacontrollers
     /*
     public function buscar ($Query){
         try {
+
             return Persona::buscar($Query);
         } catch (Exception $e) {
             header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
