@@ -134,7 +134,82 @@
 
 
 
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'LoteVacuna') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'LoteVacuna') ? 'active' : '' ?>">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            LoteVacuna
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/LoteVacuna/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/LoteVacuna/edit.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>edit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/LoteVacuna/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/LoteVacuna/show.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>show</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
+
+
+
+                <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'Especie') ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?= strpos($_SERVER['REQUEST_URI'],'Especie') ? 'active' : '' ?>">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Especie
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Especie/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Especie/edit.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>edit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Especie/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/Especie/show.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>show</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                
             </ul>
 
         </nav>
