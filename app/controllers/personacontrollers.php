@@ -146,28 +146,28 @@ class personacontrollers
         return false;
     }
 
-    static public function selectgastos ($isMultiple=false,
+    static public function selectpersona ($isMultiple=false,
                                           $isRequired=true,
-                                          $id="idgastos",
-                                          $nombre="idgastos",
+                                          $id="idpersona",
+                                          $nombre="idpersona",
                                           $defaultValue="",
                                           $class="form-control",
                                           $where="",
                                           $arrExcluir = array()){
-        $arrgastos = array();
+        $arrpersona = array();
         if($where != ""){
-            $base = "SELECT * FROM gastos WHERE ";
-            $arrgastos = persona::search($base.' '.$where);
+            $base = "SELECT * FROM persona WHERE ";
+            $arrpersona = persona::search($base.' '.$where);
         }else{
-            $arrgastos = persona::getAll();
+            $arrpersona = persona::getAll();
         }
 
         $htmlSelect = "<select ".(($isMultiple) ? "multiple" : "")." ".(($isRequired) ? "required" : "")." id= '".$id."' name='".$nombre."' class='".$class."' style='width: 100%;'>";
         $htmlSelect .= "<option value='' >Seleccione</option>";
-        if(count($arrgastos) > 0){
-            foreach ($arrgastos as $gastos)
-                if (!$gastoscontroller::gastosIsInArray($gastos->getId(),$arrExcluir))
-                    $htmlSelect .= "<option ".(($gastos != "") ? (($defaultValue == $gastos->getId()) ? "selected" : "" ) : "")." value='".$gastos->getId_gastos()."'>".$gastos->getnombre()." - ".$gastos->getprecio()." - ".$gastos->getdescripcion()."</option>";
+        if(count($arrpersona) > 0){
+            foreach ($arrpersona as $persona)
+                if (!personacontrollers::personaIsInArray($persona->getId(),$arrExcluir))
+                    $htmlSelect .= "<option ".(($persona != "") ? (($defaultValue == $persona->getId()) ? "selected" : "" ) : "")." value='".$persona->getId_persona()."'>\" . $persona->getdocumento() ." -".$persona->gettipo_documento().\" - ".$persona->getnombre()." - ".$persona->getapellido()." - ".$persona->gettelefono()." - ".$persona->getdireccion()." - ".$persona->getcorreo()." - ".$persona->getestado()."</option>";
         }
         $htmlSelect .= "</select>";
         return $htmlSelect;

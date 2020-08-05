@@ -17,7 +17,7 @@ class animal extends BasicModel
     private int $habitos_alimenticios;
     private int $observaciones;
     private ?persona $persona;
-    private ?especie $raza;
+    private ?especie $especie;
 
 
     /**
@@ -29,7 +29,7 @@ class animal extends BasicModel
      * @param int $habitos_alimenticios
      * @param int $observaciones
      * @param persona $persona
-     * @param especie $raza
+     * @param especie $especie
      */
     public function __construct($animal = array())
     {
@@ -41,7 +41,7 @@ class animal extends BasicModel
         $this->habitos_alimenticios = $animal['habitos_alimenticios'] ?? null;
         $this->observaciones = $animal['observaciones'] ?? null;
         $this->persona = $animal['persona'] ?? null;
-        $this->raza = $animal['raza'] ?? null;
+        $this->especie = $animal['especie'] ?? null;
 
     }
 
@@ -73,97 +73,116 @@ class animal extends BasicModel
     /**
      * @return mixed|string
      */
-    public function getNumeroSerie() : string
+    public function getpeso() : string
     {
-        return $this->numero_serie;
+        return $this->peso;
     }
 
     /**
-     * @param mixed|string $numero_serie
+     * @param mixed|string $peso
      */
-    public function setNumeroSerie(string $numero_serie): void
+    public function setpeso(string $peso): void
     {
-        $this->numero_serie = $numero_serie;
+        $this->peso = $peso;
+    }
+
+
+
+    /**
+     * @return mixed|string
+     */
+    public function getgenero() : string
+    {
+        return $this->genero;
     }
 
     /**
-     * @return Usuarios|mixed|null
+     * @param mixed|string $genero
      */
-    public function getClienteId() : Usuarios
+    public function setgenero(string $genero): void
     {
-        return $this->cliente_id;
+        $this->genero = $genero;
+    }
+
+
+    /**
+     * @return mixed|string
+     */
+    public function getfecha_nacimiento() : string
+    {
+        return $this->fecha_nacimiento;
     }
 
     /**
-     * @param Usuarios|mixed|null $cliente_id
+     * @param mixed|string $fecha_nacimiento
      */
-    public function setClienteId(Usuarios $cliente_id): void
+    public function setfecha_nacimiento(float $fecha_nacimiento): void
     {
-        $this->cliente_id = $cliente_id;
-    }
-
-    /**
-     * @return Usuarios|mixed|null
-     */
-    public function getEmpleadoId() : Usuarios
-    {
-        return $this->empleado_id;
-    }
-
-    /**
-     * @param Usuarios|mixed|null $empleado_id
-     */
-    public function setEmpleadoId(Usuarios $empleado_id): void
-    {
-        $this->empleado_id = $empleado_id;
-    }
-
-    /**
-     * @return Carbon|mixed
-     */
-    public function getFechaVenta() : Carbon
-    {
-        return $this->fecha_venta->locale('es');
-    }
-
-    /**
-     * @param Carbon|mixed $fecha_venta
-     */
-    public function setFechaVenta(Carbon $fecha_venta): void
-    {
-        $this->fecha_venta = $fecha_venta;
-    }
-
-    /**
-     * @return float|mixed
-     */
-    public function getMonto() : float
-    {
-        return $this->monto;
-    }
-
-    /**
-     * @param float|mixed $monto
-     */
-    public function setMonto(float $monto): void
-    {
-        $this->monto = $monto;
+        $this->fecha_nacimiento = $fecha_nacimiento;
     }
 
     /**
      * @return mixed|string
      */
-    public function getEstado() : string
+    public function gethabitos_alimenticios() : string
     {
-        return $this->estado;
+        return $this->habitos_alimenticios;
     }
 
     /**
-     * @param mixed|string $estado
+     * @param mixed|string $habitos_alimenticios
      */
-    public function setEstado(float $estado): void
+    public function sethabitos_alimenticios(float $habitos_alimenticios): void
     {
-        $this->estado = $estado;
+        $this->habitos_alimenticios = $habitos_alimenticios;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getobservaciones : string
+    {
+        return $this->observaciones;
+    }
+
+    /**
+     * @param mixed|string $observaciones
+     */
+    public function setobservaciones(float $observaciones): void
+    {
+        $this->observaciones = $observaciones;
+    }
+
+    /**
+     * @return persona|mixed|null
+     */
+    public function getpersona() : persona
+    {
+        return $this->persona;
+    }
+
+    /**
+     * @param persona|mixed|null $persona
+     */
+    public function setpersona(persona $persona): void
+    {
+        $this->persona = $persona;
+    }
+
+    /**
+     * @return especie|mixed|null
+     */
+    public function getespecie() : especie
+    {
+        return $this->especie;
+    }
+
+    /**
+     * @param especie|mixed|null $especie
+     */
+    public function setespecie(especie $especie): void
+    {
+        $this->especie = $especie;
     }
 
     /**
@@ -171,13 +190,14 @@ class animal extends BasicModel
      */
     public function create() : bool
     {
-        $result = $this->insertRow("INSERT INTO weber.ventas VALUES (NULL, ?, ?, ?, ?, ?, ?)", array(
-                $this->numero_serie,
-                $this->cliente_id->getId(),
-                $this->empleado_id->getId(),
-                $this->fecha_venta->toDateTimeString(), //YYYY-MM-DD HH:MM:SS
-                $this->monto,
-                $this->estado
+        $result = $this->insertRow("INSERT INTO fincasanrafael1.animal VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)", array(
+                $this->peso,
+                $this->genero,
+                $this->fecha_nacimiento,
+                $this->habitos_alimenticios,
+                $this->observaciones,
+                $this->persona->getId(),
+                $this->especie->getId(),
             )
         );
         $this->setId(($result) ? $this->getLastId() : null);
@@ -190,13 +210,14 @@ class animal extends BasicModel
      */
     public function update() : bool
     {
-        $result = $this->updateRow("UPDATE weber.ventas SET numero_serie = ?, cliente_id = ?, empleado_id = ?, fecha_venta = ?, monto = ?, estado = ? WHERE id = ?", array(
-                $this->numero_serie,
-                $this->cliente_id->getId(),
-                $this->empleado_id->getId(),
-                $this->fecha_venta->toDateTimeString(),
-                $this->monto,
-                $this->estado,
+        $result = $this->updateRow("UPDATE fincasanrafael1.aniaml SET peso = ?, genero = ?, fecha_nacimiento = ?, habitos_alimenticios = ?, observaciones = ?, persona = ?, especie = ? WHERE id = ?", array(
+                $this->peso,
+                $this->genero,
+                $this->fecha_nacimiento,
+                $this->habitos_alimenticios,
+                $this->observaciones,
+                $this->persona->getId(),
+                $this->especie->getId(),
                 $this->id
             )
         );
