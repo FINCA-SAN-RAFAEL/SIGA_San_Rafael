@@ -8,8 +8,8 @@ require('BasicModel.php');
 class persona extends BasicModel
 {
     private $id;
-    private $tipo_documento;
     private $documento;
+    private $tipo_documento;
     private $nombres;
     private $apellidos;
     private $telefono;
@@ -27,8 +27,8 @@ class persona extends BasicModel
     /**
      * Usuarios constructor.
      * @param $id
-     * @param $tipo_documento
      * @param $documento
+     * @param $tipo_documento
      * @param $nombres
      * @param $apellidos
      * @param $telefono
@@ -43,8 +43,8 @@ class persona extends BasicModel
     {
         parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
         $this->id = $persona['id'] ?? null;
-        $this->tipo_documento = $persona['tipo_documento'] ?? null;
         $this->documento = $persona['documento'] ?? null;
+        $this->tipo_documento = $persona['tipo_documento'] ?? null;
         $this->nombres = $persona['nombres'] ?? null;
         $this->apellidos = $persona['apellidos'] ?? null;
         $this->telefono = $persona['telefono'] ?? null;
@@ -80,8 +80,8 @@ class persona extends BasicModel
         foreach ($getrows as $valor) {
             $persona = new persona();
             $persona->id = $valor['id'];
-            $persona->tipo_documento = $valor['tipo_documento'];
             $persona->documento = $valor['documento'];
+            $persona->tipo_documento = $valor['tipo_documento'];
             $persona->nombres = $valor['nombres'];
             $persona->apellidos = $valor['apellidos'];
             $persona->telefono = $valor['telefono'];
