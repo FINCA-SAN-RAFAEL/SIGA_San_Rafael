@@ -3,30 +3,36 @@
 
 namespace app\controllers;
 require(__DIR__.'/../models/Alimentacion.php');
+require(__DIR__.'/../models/GeneralFunctions.php');
+
 use app\models\Alimentacion;
 
 if(!empty($_GET['action'])){
-    Alimentacioncontrollers::main($_GET['action']);
+    AlimentacionControllers::main($_GET['action']);
 }
 
 class AlimentacionControllers
 {
+
     static function main($action)
     {
         if ($action == "create") {
-            \app\controllers\AlimentacionControllers::create();
+            AlimentacionController::create();
         } else if ($action == "edit") {
-            Alimentacion::edit();
-        } else if ($action == "searchForid_alimentacion") {
-            AlimentacionControllers::searchForID($_REQUEST['id_alimentacion']);
+            AlimentacionController::edit();
+        } else if ($action == "searchForID") {
+            AlimentacionController::searchForID($_REQUEST['idalimentacion']);
         } else if ($action == "searchAll") {
-            AlimentacionControllers::getAll();
+            AlimentacionController::getAll();
+        } else if ($action == "activate") {
+            AlimentacionController::activate();
+        } else if ($action == "inactivate") {
+            AlimentacionController::inactivate();
         }/*else if ($action == "login"){
-            AlimentacionControllers::login();
+            UsuariosController::login();
         }else if($action == "cerrarSession"){
-            AlimentacionControllers::cerrarSession();
+            UsuariosController::cerrarSession();
         }*/
-
     }
 
     static public function create()
@@ -37,17 +43,18 @@ class AlimentacionControllers
             $arrayAlimentacion['cantidad'] = $_POST['cantidad'];
             $arrayAlimentacion['marca'] = $_POST['marca'];
             $arrayAlimentacion['presentacion'] = $_POST['presentacion'];
-            $arrayAlimentacion['peso'] = $_POST['presentacion'];
-            $arrayAlimentacion['id_alimentacion'] = $_POST['id_alimentacion'];
-            if (!Alimentacion::AlimentacionRegistrado($arrayAlimentacion['id_alimentacion'])) {
-                $Alimentacion = new Alimentacion ($arrayAlimentacion);
+            $arrayAlimentacion['peso'] = $_POST['peso'];
+
+            if (!Alimentacion::AlimentacionRegistrado($arrayAlimentacion['nombre'])) {
+                $Alimentacion = new Alimentacion($arrayAlimentacion);
                 if ($Alimentacion->create()) {
                     header("Location: ../../views/modules/Alimentacion/index.php?respuesta=correcto");
                 }
             } else {
-                header("Location: ../../views/modules/Alimentacion/create.php?respuesta=error&mensaje=registro_vacuna ya registrado");
+                header("Location: ../../views/modules/Alimentacion/create.php?respuesta=error&mensaje=Producto ya registrado");
             }
         } catch (Exception $e) {
+            GeneralFunctions::console($e, 'error', 'errorStack');
             header("Location: ../../views/modules/Alimentacion/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
@@ -61,26 +68,59 @@ class AlimentacionControllers
             $arrayAlimentacion['marca'] = $_POST['marca'];
             $arrayAlimentacion['presentacion'] = $_POST['presentacion'];
             $arrayAlimentacion['peso'] = $_POST['peso'];
-            $arrayAlimentacion['id_alimentacion'] = $_POST['id_alimentacion'];
+            $arrayAlimentacion['id'] = $_POST['id'];
 
-            $user = new Alimentacion($arrayAlimentacion);
-            $user->update();
+            $Alimentacion = new Alimentacion($arrayAlimentacion);
+            $Alimentacion->update();
 
-            header("Location: ../../views/modules/Alimentacion/show.php?id=" . $user->getid_alimentacion() . "&respuesta=correcto");
+            header("Location: ../../views/modules/Alimentacion/show.php?id=" . $Alimentacion->getId() . "&respuesta=correcto");
         } catch (\Exception $e) {
-            //var_dump($e);
+            GeneralFunctions::console($e, 'error', 'errorStack');
             header("Location: ../../views/modules/Alimentacion/edit.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
 
-    static public function searchForID($id_alimentacion)
+    static public function activate()
     {
         try {
-            return Alimentacion::searchForid_alimentacion($id_alimentacion);
+            $ObjAlimentacion = Alimentacion::searchForId($_GET['Id']);
+            $ObjAlimentacion->setEstado("Activo");
+            if ($ObjAlimentacion->update()) {
+                header("Location: ../../views/modules/Alimentacion/index.php");
+            } else {
+                header("Location: ../../views/modules/Alimentacion/index.php?respuesta=error&mensaje=Error al guardar");
+            }
         } catch (\Exception $e) {
-            var_dump($e);
-            //header("Location: ../../views/modules/Alimentacion/manager.php?respuesta=error");
+            GeneralFunctions::console($e, 'error', 'errorStack');
+            header("Location: ../../views/modules/Alimentacion/index.php?respuesta=error&mensaje=" . $e->getMessage());
+        }
+    }
+
+
+    static public function inactivate()
+    {
+        try {
+            $ObjAlimentacion = Alimentacion::searchForId($_GET['Id']);
+            $ObjAlimentacion->setEstado("Inactivo");
+            if ($ObjAlimentacion->update()) {
+                header("Location: ../../views/modules/Alimentacion/index.php");
+            } else {
+                header("Location: ../../views/modules/Alimentacion/index.php?respuesta=error&mensaje=Error al guardar");
+            }
+        } catch (\Exception $e) {
+            GeneralFunctions::console($e, 'error', 'errorStack');
+            header("Location: ../../views/modules/Alimentacion/index.php?respuesta=error");
+        }
+    }
+
+    static public function searchForID($id)
+    {
+        try {
+            return Alimentacion::searchForId($id);
+        } catch (\Exception $e) {
+            GeneralFunctions::console($e, 'error', 'errorStack');
+            header("Location: ../../views/modules/Alimentacion/manager.php?respuesta=error");
         }
     }
 
@@ -89,11 +129,51 @@ class AlimentacionControllers
         try {
             return Alimentacion::getAll();
         } catch (\Exception $e) {
-            var_dump($e);
-            //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
+            GeneralFunctions::console($e, 'log', 'errorStack');
+            header("Location: ../Vista/modules/Alimentacion/manager.php?respuesta=error");
         }
     }
-}
+
+    public static function AlimentacionIsInArray($idalimentacion, $ArrAlimentacion)
+    {
+        if (count($ArrAlimentacion) > 0) {
+            foreach ($ArrAlimentacion as $Alimentacion) {
+                if ($Alimentacion->getId() == $idalimentacion) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    static public function selectProducto($isMultiple = false,
+                                          $isRequired = true,
+                                          $id = "idalimentacion",
+                                          $nombre = "idalimentacion",
+                                          $defaultValue = "",
+                                          $class = "",
+                                          $where = "",
+                                          $arrExcluir = array())
+    {
+        $arrAlimentacion = array();
+        if ($where != "") {
+            $base = "SELECT * FROM alimentacion WHERE ";
+            $arrAlimentacion = Alimentacion::search($base . $where);
+        } else {
+            $arrAlimentacion = Productos::getAll();
+        }
+
+        $htmlSelect = "<select " . (($isMultiple) ? "multiple" : "") . " " . (($isRequired) ? "required" : "") . " id= '" . $id . "' name='" . $nombre . "' class='" . $class . "'>";
+        $htmlSelect .= "<option value='' >Seleccione</option>";
+        if (count($arrAlimentacion) > 0) {
+            foreach ($arrAlimentacion as $alimentacion)
+                if (!AlimentacionController::alimentacionIsInArray($alimentacion->getId(), $arrExcluir))
+                    $htmlSelect .= "<option " . (($alimentacion != "") ? (($defaultValue == $alimentacion->getId()) ? "selected" : "") : "") . " value='" . $alimentacion->getId() . "'>" . $alimentacion->getStock() . " - " . $alimentacion->getNombre() . " - " . $alimentacion->getCantidad() . ".$alimentacion->getMarca()." - ".$alimentacion->getPresentacion()." - " $alimentacion->getPeso().</option>";
+        }
+        $htmlSelect .= "</select>";
+        return $htmlSelect;
+    }
 
     /*public static function personaIsInArray($idPersona, $ArrPersonas){
         if(count($ArrPersonas) > 0){
@@ -197,4 +277,4 @@ class AlimentacionControllers
         session_destroy();
         header("Location: ../Vista/modules/persona/login.php");
     }*/
-
+}
