@@ -7,7 +7,7 @@ require('BasicModel.php');
 
 class Lotevacuna
 {
-    private $id_lote_vacuna;
+    private $id;
     private $fecha_compra;
     private $fecha_vencimiento;
     private $laboratorio;
@@ -15,7 +15,7 @@ class Lotevacuna
     private $costo;
 
     /**
-     * DetalleVentas constructor.
+     * LoteVacuna constructor.
      * @param $id_lote_vacuna
      * @param $fecha_compra
      * @param $fecha_vencimiento

@@ -2,31 +2,31 @@
 
 
 namespace App\Controllers;
-require(__DIR__.'/../models/lotevacuna.php');
+require(__DIR__ . '/../models/LoteVacunacontrollers.php');
+
 use app\models\lotevacuna;
-use app\models\vacunas;
 
 if(!empty($_GET['action'])) {
-    lotevacunacontrollers::main($_GET['action']);
+    loteVacunaControllers::main($_GET['action']);
 }
 
-class lotevacunacontrollers
+class loteVacunaControllers
 {
 
     static function main($action)
     {
         if ($action == "create") {
-            \app\controllers\lotevacunacontrollers::create();
+            \app\controllers\loteVacunaControllers::create();
         } else if ($action == "edit") {
-            vacunas::edit();
+            loye_vacuna::edit();
         } else if ($action == "searchForid_lote_vacuna") {
-            lotevacunacontrollers::searchForID($_REQUEST['id_lote_vacuna']);
+            loteVacunaControllers::searchForID($_REQUEST['id_lote_vacuna']);
         } else if ($action == "searchAll") {
-            lotevacunacontrollers::getAll();
+            loteVacunaControllers::getAll();
         }/*else if ($action == "login"){
-            lotevacunacontrollers::login();
+            loteVacunaControllers::login();
         }else if($action == "cerrarSession"){
-            lotevacunacontrollers::cerrarSession();
+            loteVacunaControllers::cerrarSession();
         }*/
 
     }
@@ -37,12 +37,12 @@ class lotevacunacontrollers
             $arraylotevacuna = array();
             $arraylotevacuna['fecha_compra'] = $_POST['fecha_compra'];
             $arraylotevacuna['fecha_vencimiento'] = $_POST['fecha_vencimiento'];
-            $arraylotevacuna['laboratori'] = $_POST['laboratori'];
+            $arraylotevacuna['laboratorio'] = $_POST['laboratorio'];
             $arraylotevacuna['cantidad'] = $_POST['cantidad'];
             $arraylotevacuna['costo'] = $_POST['costo'];
             $arraylotevacuna['id_lote_vacuna'] = $_POST['id_lote_vacuna'];
             if (!lotevacuna::lotevacunaRegistrado($arraylotevacuna['id_lote_vacuna'])) {
-                $lotevacuna = new vacunas ($arraylotevacuna);
+                $lotevacuna = new lotevacuna ($arraylotevacuna);
                 if ($lotevacuna->create()) {
                     header("Location: ../../views/modules/lotevacuna/index.php?respuesta=correcto");
                 }
@@ -57,23 +57,24 @@ class lotevacunacontrollers
     static public function edit()
     {
         try {
-            $arraylotevacuna = array();
-            $arraylotevacuna['fecha_compra'] = $_POST['fecha_compra'];
-            $arraylotevacuna['fecha_vencimiento'] = $_POST['fecha_vencimiento'];
-            $arraylotevacuna['laboratori'] = $_POST['laboratori'];
-            $arraylotevacuna['cantidad'] = $_POST['cantidad'];
-            $arraylotevacuna['costo'] = $_POST['costo'];
-            $arraylotevacuna['id_lote_vacuna'] = $_POST['id_lote_vacuna'];
+            $arraylote_vacuna = array();
+            $arraylote_vacuna['fecha_compta'] = $_POST['fecha_compta'];
+            $arraylote_vacuna['fecha_vencimiento'] = $_POST['fecha_vencimiento'];
+            $arraylote_vacuna['laboratorio'] = $_POST['laboratorio'];
+            $arraylote_vacuna['cantidad'] = $_POST['cantidad'];
+            $arraylote_vacuna['costo'] = $_POST['costo'];
+            $arraylote_vacuna['id_lote_vacuna'] = $_POST['id_lote_vacuna'];
 
-            $user = new vacunas($arraylotevacuna);
+            $user = new lote_vacuna($arraylote_vacuna);
             $user->update();
 
-            header("Location: ../../views/modules/lotevacuna/show.php?id=" . $user->getid_lote_vacuna() . "&respuesta=correcto");
+            header("Location: ../../views/modules/lote_vacuna/show.php?id=" . $user->getid_lote_vacuna() . "&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/lotevacuna/edit.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/lote_vacuna/edit.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
+
 
 
     static public function searchForID($id_lote_vacuna)
@@ -96,6 +97,7 @@ class lotevacunacontrollers
         }
     }
 }
+
 
 /*public static function personaIsInArray($idPersona, $ArrPersonas){
     if(count($ArrPersonas) > 0){
