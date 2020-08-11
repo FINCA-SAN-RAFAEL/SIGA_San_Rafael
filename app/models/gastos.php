@@ -2,9 +2,12 @@
 
 
 namespace app\models;
-require('BasicModel.php');
 
-class gastos
+require_once('BasicModel.php');
+require_once('persona.php');
+
+
+class gastos extends BasicModel
 {
     private $id_gastos;
     private $nombre;
@@ -12,31 +15,82 @@ class gastos
     private $descripcion;
 
 
-    /*Relaciones */
+    /* Relaciones */
     private $persona;
 
     /**
-     * Usuarios constructor.
-     * @param $id_gastos
+    @param $id_gastos
      * @param $nombre
      * @param $precio
      * @param $descripcion
+
      */
-    public function __construct($gastos = array())
+    public function __construct($persona = array())
     {
         parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
         $this->id_gastos = $gastos['id_gastos'] ?? null;
         $this->nombre = $gastos['nombre'] ?? null;
         $this->precio = $gastos['precio'] ?? null;
         $this->descripcion = $gastos['descripcion'] ?? null;
+        $this->persona= $gastos['persona'] ?? null;
     }
 
     /* Metodo destructor cierra la conexion. */
+
+    /**
+     * @return array
+     */
+    public static function getAll(): array
+    {
+        return gastos::search("SELECT * FROM fincasanrafael1.gastos");
+    }
+
+    /**
+     * @param $query
+     * @return gastos|array
+     * @throws \Exception
+     */
+    public static function search($query)
+    {
+        $arrgastos = array();
+        $tmp = new gastos();
+        $getrows = $tmp->getRows($query);
+
+        foreach ($getrows as $valor) {
+            $gastos = new gastos();
+            $gastos->id_gastos = $valor['id_gastos'];
+            $gastos->nombre = $valor['nombre'];
+            $gastos->precio = $valor['precio'];
+            $gastos->descripcion = $valor['descripcion'];
+            $gastos->persona = persona::searchForId($valor['persona']);
+            $gastos->Disconnect();
+            array_push($arrgastos, $gastos);
+        }
+        $tmp->Disconnect();
+        return $arrgastos;
+    }
+
+    public static function gastosRegistrados($nombre): bool
+    {
+        $result = gastos::search("SELECT id FROM fincasanrafael1.gastos where nombre = " . $nombre);
+        if (count($result) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     *
+     */
     function __destruct()
     {
         $this->Disconnect();
     }
 
+    /**
+     * @return int
+     */
     /**
      * @return int
      */
@@ -62,7 +116,7 @@ class gastos
     }
 
     /**
-     * @param string $nombre
+     * @param mixed|null $nombre
      */
     public function setNombre(string $nombre): void
     {
@@ -102,73 +156,58 @@ class gastos
     }
 
     /**
-     * @return mixed
+     * @return persona
      */
-    public function getPersona()
+    public function getPersona(): persona
     {
         return $this->persona;
     }
 
     /**
-     * @param mixed $persona
+     * @param mixed|null $persona
      */
-    public function setPersona($persona): void
+    public function setPersona(persona $persona): void
     {
         $this->persona = $persona;
     }
 
 
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function create(): bool
     {
-        $result = $this->insertRow("INSERT INTO fincasanrafael1.gastos VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
-                $this->nombre,
-                $this->precio,
-                $this->descripcion
-
-            )
-        );
-        $this->Disconnect();
-        return $result;
-    }
-
-    public function update(): bool
-    {
-        $result = $this->updateRow("UPDATE fincasanrafael1.gastos SET nombre = ?, precio = ?, descripcion = ? WHERE id_gastos = ?", array(
+        $result = $this->insertRow("INSERT INTO fincasanrafael1.gastos VALUES (NULL, ?, ?, ?, ?)", array(
                 $this->nombre,
                 $this->precio,
                 $this->descripcion,
-                $this->id_gastos
+                $this->persona->getId(),
+
             )
         );
         $this->Disconnect();
         return $result;
     }
 
-    public function deleted($id): void
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function deleted($id_gastos)
     {
-        // TODO: Implement deleted() method.
+        $gastos = gastos::searchForId($id_gastos); //Buscando una persona por el ID
+        $gastos->setEstado("Inactivo"); //Cambia el estado de la persona
+        return $gastos->update();                    //Guarda los cambios..
     }
 
-    public static function search($query): array
-    {
-        $arrgastos = array();
-        $tmp = new gastos();
-        $getrows = $tmp->getRows($query);
-
-        foreach ($getrows as $valor) {
-            $gastos = new gastos();
-            $gastos->id_gastos = $valor['id_gastos'];
-            $gastos->nombre = $valor['nombre'];
-            $gastos->precio = $valor['precio'];
-            $gastos->descripcion = $valor['descripcion'];
-            $gastos->Disconnect();
-            array_push($arrgastos, $gastos);
-        }
-        $tmp->Disconnect();
-        return $arrgastos;
-    }
-
-    public static function searchForid_gastos($id_gastos): gastos
+    /**
+     * @param $id
+     * @return persona
+     * @throws \Exception
+     */
+    public static function searchForId($id_gastos)
     {
         $gastos = null;
         if ($id_gastos > 0) {
@@ -178,24 +217,35 @@ class gastos
             $gastos->nombre = $getrow['nombre'];
             $gastos->precio = $getrow['precio'];
             $gastos->descripcion = $getrow['descripcion'];
+            $gastos->persona = persona::searchForId($getrow['persona']);
 
         }
         $gastos->Disconnect();
         return $gastos;
     }
 
-    public static function getAll(): array
+    /**
+     * @return bool
+     */
+    public function update()
     {
-        return gastos::search("SELECT * FROM fincasanrafael1.gastos");
+        $result = $this->updateRow("UPDATE fincasanrafael1.gastos SET nombre = ?, precio = ?, descripcion = ? persona = ? WHERE id_gastos = ?", array(
+                $this->nombre,
+                $this->precio,
+                $this->descripcion,
+                $this->persona->getId(),
+                $this->id_gastos
+            )
+        );
+        $this->Disconnect();
+        return $result;
     }
 
-    public static function gastosRegistrado($nombre): bool
+    /**
+     * @return string
+     */
+    public function __toString()
     {
-        $result = gastos::search("SELECT id FROM fincasanrafael1.gastos where nombre = " . $nombre);
-        if (count($result) > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return "Nombre: $this->nombre, precio: $this->precio, Descripcion : $this->descripcion, Persona: $this->persona";
     }
 }
