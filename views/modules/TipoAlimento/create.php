@@ -53,7 +53,7 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form class="form-horizontal" method="post" id="frmCreateTipoAlimento" name="frmCreateTipoAlimento"
-                      action="../../../app/Controllers/TipoAlimentoControllers?action=create">
+                      action="../../../app/controllers/TipoAlimentoControllers.php?action=create">
                     <div class="card-body">
                         <div class="form-group row">
                             <label for="nombre" class="col-sm-2 col-form-label">nombre</label>
