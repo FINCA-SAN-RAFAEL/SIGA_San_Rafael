@@ -62,7 +62,7 @@ class TipoAlimentoControllers{
             $TipoAlimento= new TipoAlimento($arrayTipoAlimento);
             $TipoAlimento->update();
 
-            header("Location: ../../views/modules/TipoAlimento/show.php?Id=".$TipoAlimento->getid()."&respuesta=correcto");
+            header("Location: ../../views/modules/TipoAlimento/show.php?Id=".$TipoAlimento->getIdTipoalimlimento()."&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
             header("Location: ../../views/modules/TipoAlimento/edit.php?respuesta=error&mensaje=".$e->getMessage());

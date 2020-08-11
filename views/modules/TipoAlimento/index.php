@@ -1,21 +1,27 @@
 <?php
-require("../../partials/routes.php");
-require("../../../app/Controllers/TipoAlimentoControllers.php");
+require_once("../../../app/controllers/TipoAlimentoControllers.php");
+require_once("../../partials/routes.php");
 
-use App\Controllers\TipoAlimentoControllers; ?>
+use app\controllers\TipoAlimentoControllers;
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= getenv('TITLE_SITE') ?> | Editar Tipo Alimento</title>
+    <title><?= getenv('TITLE_SITE') ?> | Layout</title>
     <?php require("../../partials/head_imports.php"); ?>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-responsive/css/responsive.bootstrap4.css">
+    <link rel="stylesheet" href="<?= $adminlteURL ?>/plugins/datatables-buttons/css/buttons.bootstrap4.css">
 </head>
 <body class="hold-transition sidebar-mini">
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require("../../partials/navbar_customization.php"); ?>
+    <?php require_once("../../partials/navbar_customization.php"); ?>
 
-    <?php require("../../partials/sliderbar_main_menu.php"); ?>
+    <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -24,7 +30,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Editar Nuevo Tipo Alimento</h1>
+                        <h1>Pagina Principal</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -39,81 +45,155 @@ use App\Controllers\TipoAlimentoControllers; ?>
         <!-- Main content -->
         <section class="content">
 
-            <?php if(!empty($_GET['respuesta'])){ ?>
-                <?php if ($_GET['respuesta'] == "error"){ ?>
-                    <div class="alert alert-danger alert-dismissible">
+            <?php if (!empty($_GET['respuesta']) && !empty($_GET['action'])) { ?>
+                <?php if ($_GET['respuesta'] == "correcto") { ?>
+                    <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                        Error al crear el Tipo Alimento: <?= ($_GET['mensaje']) ?? "" ?>
+                        <h5><i class="icon fas fa-check"></i> Correcto!</h5>
+                        <?php if ($_GET['action'] == "create") { ?>
+                            el tipo de alimento se ha creado con exito!
+                        <?php } else if ($_GET['action'] == "update") { ?>
+                            Los datos de tipo de alimento han sido actualizados correctamente!
+                        <?php } ?>
                     </div>
                 <?php } ?>
-            <?php } else if (empty($_GET['id'])) { ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                    Faltan criterios de busqueda <?= ($_GET['mensaje']) ?? "" ?>
-                </div>
             <?php } ?>
 
-            <!-- Horizontal Form -->
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Horizontal Form</h3>
-                </div>
-                <!-- /.card-header -->
-                <?php if(!empty($_GET["id"]) && isset($_GET["id"])){ ?>
-                    <p>
-                    <?php
-                    $DataTipoAlimento = TipoAlimentoControllers::searchForID($_GET["id"]);
-                    if(!empty($DataTipoAlimento)){
-                        ?>
-                        <!-- form start -->
-                        <form class="form-horizontal" method="post" id="frmEditTipoAlimento" name="frmEditTipoAlimento" action="../../../app/Controllers/TipoAlimentoControllers.php?action=edit">
-                            <input id="id" name="id" value="<?php echo $DataTipoAlimento->getId(); ?>" hidden required="required" type="text">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Default box -->
+                        <div class="card card-dark">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-user"></i> &nbsp; Gestionar Tipo Alimento</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                            data-source="index.php" data-source-selector="#card-refresh-content"
+                                            data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                                class="fas fa-expand"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"
+                                            data-toggle="tooltip" title="Remove">
+                                        <i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
                             <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
-                                    <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="nombre" name="nombre" value="<?= $DataTipoAlimento->getNombre(); ?>" placeholder="Ingrese el nombre">
+                                <div class="row">
+                                    <div class="col-auto mr-auto"></div>
+                                    <div class="col-auto">
+                                        <a role="button" href="create.php" class="btn btn-primary float-right"
+                                           style="margin-right: 5px;">
+                                            <i class="fas fa-plus"></i> Crear Tipo Alimento
+                                        </a>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <table id="tblUsuarios" class="datatable table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th></th>
+                                                <th>Nombre</th>
+                                                <th>Observaciones</th>
+                                                <th>Acciones</th>
 
 
-                                <div class="form-group row">
-                                    <label for="observaciones" class="col-sm-2 col-form-label">observaciones</label>
-                                    <div class="col-sm-10">
-                                        <input required type="text" minlength="6" class="form-control" id="observaciones" name="observaciones" value="<?= $DataTipoAlimento->getTipoAlimento(); ?>" placeholder="Ingrese el Tipo Alimento">
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            $arrTipoAlimento = TipoAlimentoControllers::getAll();
+                                            foreach ($arrTipoAlimento as $TipoAlimento) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $TipoAlimento->getId(); ?></td>
+                                                    <td><?php echo $TipoAlimento->getNombre(); ?></td>
+                                                    <td><?php echo $TipoAlimento->getObservaciones(); ?></td>
+
+                                                    <td>
+                                                        <a href="edit.php?id=<?php echo $TipoAlimento->getId(); ?>"
+                                                           type="button" data-toggle="tooltip" title="Actualizar"
+                                                           class="btn docs-tooltip btn-primary btn-xs"><i
+                                                                    class="fa fa-edit"></i></a>
+                                                        <a href="show.php?id=<?php echo $TipoAlimento->getId(); ?>"
+                                                           type="button" data-toggle="tooltip" title="Ver"
+                                                           class="btn docs-tooltip btn-warning btn-xs"><i
+                                                                    class="fa fa-eye"></i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>Observaciones</th>
+                                                <th>Acciones</th>
+
+                                            </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
                                 </div>
-
-
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-info">Enviar</button>
-                                <a href="index.php" role="button" class="btn btn-default float-right">Cancelar</a>
+                                Pie de Página.
                             </div>
-                            <!-- /.card-footer -->
-                        </form>
-                    <?php }else{ ?>
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h5><i class="icon fas fa-ban"></i> Error!</h5>
-                            No se encontro ningun registro con estos parametros de busqueda <?= ($_GET['mensaje']) ?? "" ?>
+                            <!-- /.card-footer-->
                         </div>
-                    <?php } ?>
-                    </p>
-                <?php } ?>
-            </div> 
-            <!-- /.card -->
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require ('../../partials/footer.php');?>
+    <?php require('../../partials/footer.php'); ?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require('../../partials/scripts.php'); ?>
+<!-- DataTables -->
+<script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-responsive/js/dataTables.responsive.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-responsive/js/responsive.bootstrap4.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/dataTables.buttons.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.bootstrap4.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/jszip/jszip.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/pdfmake/pdfmake.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.html5.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.print.js"></script>
+<script src="<?= $adminlteURL ?>/plugins/datatables-buttons/js/buttons.colVis.js"></script>
+
+<script>
+    $(function () {
+        $('.datatable').DataTable({
+            "dom": 'Bfrtip',
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "language": {
+                "url": "../../components/Spanish.json" //Idioma
+            },
+            "buttons": [
+                'copy', 'print', 'excel', 'pdf'
+            ],
+            "pagingType": "full_numbers",
+            "responsive": true,
+            "stateSave": true, //Guardar la configuracion del usuario
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -69,7 +69,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
                         ?>
                         <!-- form start -->
                         <form class="form-horizontal" method="post" id="frmEditTipoAlimento" name="frmEditTipoAlimento" action="../../../app/Controllers/TipoAlimentoControllers.php?action=edit">
-                            <input id="id" name="id" value="<?php echo $DataTipoAlimento->getId(); ?>" hidden required="required" type="text">
+                            <input id="id" name="id" value="<?php echo $DataTipoAlimento->getIdTipoalimlimento(); ?>" hidden required="required" type="text">
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
