@@ -1,6 +1,6 @@
 <?php
-require("../../../app/Controllers/gastoscontroller.php");
-require("../../partials/routes.php"); ?>
+require_once("../../../app/Controllers/personacontrollers.php");
+require_once("../../partials/routes.php"); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,7 +74,18 @@ require("../../partials/routes.php"); ?>
                                 <input required type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese  la descripcion">
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label for="persona" class="col-sm-4 col-form-label">Persona</label>
+                            <div class="col-sm-8">
+                                <?= \app\controllers\personacontrollers::selectpersona(false,
+                                    true,
+                                    'persona',
+                                    'persona',
+                                    (!empty($datagastos)) ? $datagastos->getPersona()->getId() : '',
+                                    'form-control select2bs4 select2-info')
+                                ?>
+                            </div>
+                        </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
                             <button type="submit" class="btn btn-info">Enviar</button>
@@ -95,5 +106,3 @@ require("../../partials/routes.php"); ?>
 <?php require ('../../partials/scripts.php');?>
 </body>
 </html>
-
-

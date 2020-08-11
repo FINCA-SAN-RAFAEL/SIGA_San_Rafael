@@ -66,6 +66,14 @@
                                 <form class="form-horizontal" method="post" id="frmCreateUsuario"
                                       name="frmCreateUsuario"
                                       action="../../../app/controllers/personacontrollers.php?action=create">
+
+                                    <div class="form-group row">
+                                        <label for="documento" class="col-sm-2 col-form-label">Documento</label>
+                                        <div class="col-sm-10">
+                                            <input required type="number" minlength="6" class="form-control"
+                                                   id="documento" name="documento" placeholder="Ingrese su documento">
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo
                                             Documento</label>
@@ -77,13 +85,6 @@
                                                 <option value="Pasaporte">Pasaporte</option>
                                                 <option value="C.E">Cedula de Extranjeria</option>
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="documento" class="col-sm-2 col-form-label">Documento</label>
-                                        <div class="col-sm-10">
-                                            <input required type="number" minlength="6" class="form-control"
-                                                   id="documento" name="documento" placeholder="Ingrese su documento">
                                         </div>
                                     </div>
                                     <div class="form-group row">
