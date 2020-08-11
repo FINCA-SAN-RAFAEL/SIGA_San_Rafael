@@ -87,6 +87,41 @@
 
                     </ul>
                 </li>
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            gastos
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/gastos/create.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>create</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/gastos/edit.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>edit</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/gastos/index.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>index</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= $baseURL ?>/views/modules/gastos/show.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>show</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
 
                 <li class="nav-item has-treeview <?= strpos($_SERVER['REQUEST_URI'],'TipoAlimento') ? 'menu-open' : '' ?>">

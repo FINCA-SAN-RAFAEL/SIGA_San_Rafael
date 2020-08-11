@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Controllers;
-require(__DIR__.'/../Models/gastos.php');
+require_once(__DIR__.'/../Models/gastos.php');
+require_once(__DIR__.'/../Models/persona.php');
 use App\Models\gastos;
+use app\models\persona;
 
 if(!empty($_GET['action'])){
     gastoscontroller::main($_GET['action']);
@@ -41,6 +43,7 @@ class gastoscontroller
             $arraygastos['nombre'] = $_POST['nombre'];
             $arraygastos['precio'] = $_POST['precio'];
             $arraygastos['descripcion'] = $_POST['descripcion'];
+            $arraygastos['id'] = persona::searchForId($_POST['persona']);
             if (!gastos::gastosRegistrado($arraygastos['id_gastos'])) {
                 $gastos = new gastos ($arraygastos);
                 if ($gastos->create()) {
@@ -62,6 +65,7 @@ class gastoscontroller
             $arraygastos['nombre'] = $_POST['nombre'];
             $arraygastos['precio'] = $_POST['precio'];
             $arraygastos['descripcion'] = $_POST['descripcion'];
+            $arraygastos['persona'] = persona::searchForId($_POST['persona']);
 
 
             $user = new gastos($arraygastos);
@@ -71,38 +75,6 @@ class gastoscontroller
         } catch (\Exception $e) {
             //var_dump($e);
             header("Location: ../../views/Modules/gastos/Edit.php?respuesta=error&mensaje=" . $e->getMessage());
-        }
-    }
-
-    static public function activate()
-    {
-        try {
-            $Objgastos = gastos::searchForId($_GET['idgastos']);
-            $Objgastos->setestado("Activo");
-            if ($Objgastos->update()) {
-                header("Location: ../../views/Modules/gastos/index.php");
-            } else {
-                header("Location: ../../views/Modules/gastos/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/Modules/gastos/index.php?respuesta=error&mensaje=" . $e->getMessage());
-        }
-    }
-
-    static public function inactivate()
-    {
-        try {
-            $Objgastos = gastos::searchForId($_GET['idgastos']);
-            $Objgastos->setestado("Inactivo");
-            if ($Objgastos->update()) {
-                header("Location: ../../views/modules/gastos/index.php");
-            } else {
-                header("Location: ../../views/modules/gastos/index.php?respuesta=error&mensaje=Error al guardar");
-            }
-        } catch (\Exception $e) {
-            //var_dump($e);
-            header("Location: ../../views/modules/gastos/index.php?respuesta=error");
         }
     }
 
