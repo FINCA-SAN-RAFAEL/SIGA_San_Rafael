@@ -74,7 +74,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/index.php" class="nav-link">
+                            <a href="<?= $baseURL ?>/views/modules/registro_vacuna/create.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>gestionar</p>
                             </a>
@@ -185,27 +185,16 @@
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Especie/create.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>create</p>
+                                <p>GESTIONAR</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= $baseURL ?>/views/modules/Especie/edit.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>edit</p>
+                                <p>REGISTRAR</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/Especie/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>index</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= $baseURL ?>/views/modules/Especie/show.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>show</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
 
