@@ -1,8 +1,8 @@
 <?php
 
 namespace app\controllers;
-require(__DIR__.'/../models/Especie.php');
 
+require(__DIR__.'/../models/Especie.php');
 use app\models\Especie;
 
 
