@@ -5,9 +5,10 @@ namespace app\models;
 
 require('BasicModel.php');
 
-class Lotevacuna
+class LoteVacuna extends BasicModel
 {
-    private $id;
+    private $id_lote_vacuna;
+    private $vacunas;
     private $fecha_compra;
     private $fecha_vencimiento;
     private $laboratorio;
@@ -15,21 +16,22 @@ class Lotevacuna
     private $costo;
 
     /**
-     * LoteVacuna constructor.
-     * @param $id_lote_vacuna
+     * DetalleVentas constructor.
+     * @param $id_lote_vacunua
+     * @param $vacunas
      * @param $fecha_compra
      * @param $fecha_vencimiento
      * @param $laboratorio
-     * * @param $cantidad
+     * @param $cantidad
      * @param $costo
      */
-    public function __construct($registro_vacuna = array())
+    public function __construct($vacunas = array())
     {
         parent::__construct();
-        $this->id = $registro_vacuna['id'] ?? null;
-        $this->dosis = $registro_vacuna['dosis'] ?? null;
-        $this->fecha = $registro_vacuna['fecha'] ?? null;
-        $this->observaciones = $registro_vacuna['observaciones'] ?? null;
+        $this->id_vacunas = $vacunas['id_vacunas'] ?? null;
+        $this->nombre = $vacunas['nombre'] ?? null;
+        $this->descripcion = $vacunas['descripcion'] ?? null;
+        $this->periocidad = $vacunas['periocidad'] ?? null;
     }
 
     /**
@@ -43,49 +45,140 @@ class Lotevacuna
     /**
      * @return mixed|null
      */
-    public function getId(): ?mixed
+    public function getid_lote_vacuna(): ?mixed
     {
-        return $this->id;
+        return $this->id_lote_vacuna;
     }
 
     /**
-     * @param mixed|null $id
+     * @param mixed|null $id_lote_vacuna
      */
-    public function setId(?mixed $id): void
+    public function setid_lote_vacuna(?mixed $id_lote_vacuna): void
     {
-        $this->id = $id;
+        $this->id_lote_vacuna = $id_lote_vacuna;
     }
 
     /**
      * @return mixed
      */
-    public function getregistro_vacuna() : registro_vacuna
+    public function getvacunas() : vacunas
     {
-        return $this->registro_vacuna;
+        return $this->vacunas;
     }
 
+    /**
+     * @param mixed $vacunas
+     */
+    public function setvacunas(vacunas $vacunas): void
+    {
+        $this->vacunas = $vacunas;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getfecha_compra()
+    {
+        return $this->dfecha_compra;
+    }
+
+    /**
+     * @param mixed $fecha_compra
+     */
+    public function setfecha_compra($fecha_compra): void
+    {
+        $this->fecha_compra = $fecha_compra;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getfecha_vencimiento()
+    {
+        return $this->fecha_vencimiento;
+    }
+
+    /**
+     * @param mixed $fecha_vencimiento
+     */
+    public function setfecha_vencimiento($fecha_vencimiento): void
+    {
+        $this->fecha_vencimiento = $fecha_vencimiento;
+    }
+
+    /**
+ * @return mixed
+ */
+    public function getlaboratorio()
+    {
+        return $this->laboratorio;
+    }
+
+    /**
+     * @param mixed $laboratorio
+     */
+    public function setlaboratorio($laboratorio): void
+    {
+        $this->canridad = $laboratorio;
+    }
+    /**
+     * @return mixed
+     */
+    public function getcantidad()
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * @param mixed $cantidad
+     */
+    public function setcantidad($cantidad): void
+    {
+        $this->canridad = $cantidad;
+    }
+    /**
+     * @return mixed
+     */
+    public function getcosto()
+    {
+        return $this->costo;
+    }
+
+    /**
+     * @param mixed $costo
+     */
+    public function setcosto($costo): void
+    {
+        $this->costo = $costo;
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
     public static function search($query)
     {
-        $arrLoteVacuna = array();
+        $arrlote_vacuna = array();
         $tmp = new LoteVacuna();
         $getrows = $tmp->getRows($query);
 
         foreach ($getrows as $valor) {
-            $LoteVacuna= new LoteVacuna();
-            $LoteVacuna->id = $valor['id'];
-            $LoteVacuna->fecha_compra = nombre::searchForId($valor['fecha_compra']);
-            $LoteVacuna->fecha_vencimiento = LoteVacuna::searchForId($valor['fecha_vencimiento']);
-            $LoteVacuna->laboratorio = nombre::searchForId($valor['laboratorio']);
-            $LoteVacuna->cantidad = LoteVacuna::searchForId($valor['cantidad']);
-            $LoteVacuna->costo = LoteVacuna::searchForId($valor['costo']);
+            $LoteVacuna = new LoteVacuna();
+            $LoteVacuna->id_lote_vacuna = $valor['id_lote_vacuna'];
+            $LoteVacuna->vacunas = vacunas::searchForId($valor['vacunas']);
+            $LoteVacuna->fecha_compra = $valor['fecha_compra'];
+            $LoteVacuna->fecha_vencimiento = $valor['fecha_vencimiento'];
+            $LoteVacuna->laboratorio = $valor['laboratorio'];
+            $LoteVacuna->cantidad = $valor['cantidad'];
+            $LoteVacuna->costo = $valor['costo'];
             $LoteVacuna->Disconnect();
             if(count($getrows) == 1){ // Si solamente hay un registro encontrado devuelve este objeto y no un array
                 return $LoteVacuna;
             }
-            array_push($arrLoteVacuna, $LoteVacuna);
+            array_push($arrlote_vacuna, $LoteVacuna);
         }
         $tmp->Disconnect();
-        return $LoteVacuna;
+        return $arrlote_vacuna;
     }
 
     /**
@@ -93,28 +186,29 @@ class Lotevacuna
      */
     public static function getAll()
     {
-        return LoteVacuna::search("SELECT * FROM fincasanrafael1.LoteVacuna");
+        return lote_vacuna::search("SELECT * FROM fincasanrafael1.lote_vacuna");
     }
 
     /**
-     * @param $id
+     * @param $id_lote_vacuna
      * @return mixed
      */
-    public static function searchForId($id)
+    public static function searchForId($id_lote_vacuna)
     {
-        $LoteVacuna = null;
-        if ($id > 0) {
-            $LoteVacuna = new LoteVacuna();
-            $getrow = $LoteVacuna->getRow("SELECT * FROM fincasanrafael1.LoteVacuna WHERE id =?", array($id));
-            $LoteVacuna->id = $getrow['id'];
-            $LoteVacuna->fecha_compra = fecha_compra::searchForId($getrow['fecha_compra']);
-            $LoteVacuna->fecha_vencimiento = fecha_vencimiento::searchForId($getrow['fecha_vencimiento']);
-            $LoteVacuna->laboratorio = laboratorio::searchForId($getrow['laboratorio']);
-            $LoteVacuna->cantidad = cantidad::searchForId($getrow['cantidad']);
-            $LoteVacuna->costo = costo::searchForId($getrow['costo']);
+        $lote_vacuna = null;
+        if ($id_lote_vacuna > 0) {
+            $lote_vacuna = new lote_vacuna();
+            $getrow = $lote_vacuna->getRow("SELECT * FROM fincasanrafael1.lote_vacuna WHERE id_lote_vacuna =?", array($id_lote_vacuna));
+            $lote_vacuna->id_lote_vacuna = $getrow['id_lote_vacuna'];
+            $lote_vacuna->vacunas = vacunas::searchForId($getrow['vacunas']);
+            $lote_vacuna->fecha_compra = $getrow['fecha_compra'];
+            $lote_vacuna->fecha_vencimiento = $getrow['fecha_vencimiento'];
+            $lote_vacuna->laboratorio = $getrow['laboratorio'];
+            $lote_vacuna->cantidad = $getrow['cantidad'];
+            $lote_vacuna->costo = $getrow['costo'];
         }
-        $LoteVacuna->Disconnect();
-        return $LoteVacuna;
+        $lote_vacuna->Disconnect();
+        return $lote_vacuna;
     }
 
     /**
@@ -122,12 +216,13 @@ class Lotevacuna
      */
     public function create()
     {
-        $result = $this->insertRow("INSERT INTO fincasanrafael1.LoteVacuna VALUES (NULL, ?, ?, ?, ?,?)", array(
-                $this->fecha_compra->getId(),
-                $this->fecha_vencimiento->getId(),
-                $this->laboratorio->getId(),
-                $this->cantidad->getId(),
-                $this->costo>getId(),
+        $result = $this->insertRow("INSERT INTO fincasanrafael1.lote_vacuna VALUES (NULL, ?, ?, ?, ?,?)", array(
+                $this->vacunas->getid_vacunas(),
+                $this->fcha_compra,
+                $this->fecha_vencimiento,
+                $this->laboratorio,
+                $this->cantidad,
+                $this->costo,
             )
         );
         $this->Disconnect();
@@ -139,13 +234,14 @@ class Lotevacuna
      */
     public function update()
     {
-        $result = $this->updateRow("UPDATE fincasanrafael1.LoteVacuna SET fecha_compra = ?, fecha_vencimiento = ?, laboratorio = ?, cantidad = ?, costo = ? WHERE id = ?", array(
-                $this->fecha_compra->getId(),
-                $this->fecha_vencimiento->getId(),
-                $this->laboratorio->getId(),
-                $this->cantidad->getId(),
-                $this->costo>getId(),
-                $this->id
+        $result = $this->updateRow("UPDATE fincasanrafael1.lote_vacuna SET animal = ?, lote_vacuna = ?, dosis = ?, fecha = ?, observaciones = ? WHERE id = ?", array(
+                $this->vacunas->getid_vacunas(),
+                $this->fcha_compra,
+                $this->fecha_vencimiento,
+                $this->laboratorio,
+                $this->cantidad,
+                $this->costo,
+                $this->id_lote_vacuna
             )
         );
         $this->Disconnect();
@@ -153,23 +249,23 @@ class Lotevacuna
     }
 
     /**
-     * @param $id
+     * @param $id_lote_vacuna
      * @return mixed
      */
-    public function deleted($id)
+    public function deleted($id_lote_vacuna)
     {
-        $LoteVacuna = LoteVacuna::searchForId($id); //Buscando un usuario por el ID
-        $deleterow = $LoteVacuna->deleteRow("DELETE FROM LoteVacuna WHERE id = ?", array($id));
+        $lote_vacuna = lote_vacuna::searchForid_lote_vacuna($id_lote_vacuna); //Buscando un usuario por el ID
+        $deleterow = $lote_vacuna->deleteRow("DELETE FROM lote_vacuna WHERE id_lote_vacuna = ?", array($id_lote_vacuna));
         return $deleterow;                    //Guarda los cambios..
     }
 
     /**
-     * @param $fecha_compra
+     * @param $nombres
      * @return bool
      */
-    public static function registro_vacunaEnFactura($registro_vacuna): bool
+    public static function vacunasEnFactura($vacunas): bool
     {
-        $result =registro_vacuna ::search("SELECT id FROM fincasanrafael1.LoteVacuna where registro_vacuna = '" . $registro_vacuna. "'");
+        $result = lote_vacuna::search("SELECT id FROM fincasanrafael1.lote_vacuna where lote_vacuna = '" . $vacunas. "'");
         if (count($result) > 0) {
             return true;
         } else {
@@ -182,7 +278,6 @@ class Lotevacuna
      */
     public function __toString()
     {
-        return "peso: $this->dosis->getdosis(), registro_vacunas: $this->registro_vacuna->getfecha(), observaciones: $this->observaciones";
+        return "vacunas: $this->vacunas->getnombre(), lote_vacuna: $this->lote_vacuna->getNfecha_compra(), Cantidad: $this->cantidad, Precio Venta: $this->precio_venta";
     }
-
 }

@@ -41,7 +41,7 @@ class LoteVacunaControllers
             $arrayLoteVacuna['cantidad'] = $_POST['cantidad'];
             $arrayLoteVacuna['costo'] = $_POST['costo'];
             $arrayLoteVacuna['id_lote_vacuna'] = $_POST['id_lote_vacuna'];
-            if (!LoteVacuna::lotevacunaRegistrado($arrayLoteVacuna['id_lote_vacuna'])) {
+            if (!LoteVacuna::lote_vacunaRegistrado($arrayLoteVacuna['id_lote_vacuna'])) {
                 $LoteVacuna = new LoteVacuna ($arrayLoteVacuna);
                 if ($LoteVacuna->create()) {
                     header("Location: ../../views/modules/LoteVacuna/index.php?respuesta=correcto");

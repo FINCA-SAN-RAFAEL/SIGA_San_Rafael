@@ -1,10 +1,10 @@
 <?php
 
 namespace app\controllers;
+require(__DIR__.'/../models/Especie.php');
+
 use app\models\Especie;
 
-require(__DIR__.'/../models/Especie.php');
-require_once(__DIR__.'/../models/GeneralFunctions.php');
 
 if(!empty($_GET['action'])){
     EspecieControllers::main($_GET['action']);
@@ -35,7 +35,7 @@ class EspecieControllers
         try {
             $arrayEspecie = array();
             $arrayEspecie['nombre'] = $_POST['nombre'];
-            $arrayEspecie['especie'] = $_POST['especie'];
+            $arrayEspecie['Especie'] = $_POST['Especie'];
             $arrayEspecie['id_especie'] = $_POST['id_especie'];
             if (!Especie::EspecieRegistrado($arrayEspecie['nombre'])) {
                 $Especie = new Especie ($arrayEspecie);
@@ -43,7 +43,7 @@ class EspecieControllers
                     header("Location: ../../views/modules/Especie/index.php?respuesta=correcto");
                 }
             } else {
-                header("Location: ../../views/modules/Especie/create.php?respuesta=error&mensaje=especie ya registrado");
+                header("Location: ../../views/modules/Especie/create.php?respuesta=error&mensaje=Especie ya registrado");
             }
         } catch (Exception $e) {
             header("Location: ../../views/modules/Especie/create.php?respuesta=error&mensaje=" . $e->getMessage());
@@ -55,7 +55,7 @@ class EspecieControllers
         try {
             $arrayEspecie = array();
             $arrayEspecie['nombre'] = $_POST['nombre'];
-            $arrayEspecie['especie'] = $_POST['especie'];
+            $arrayEspecie['Especie'] = $_POST['Especie'];
             $arrayEspecie['id_especie'] = $_POST['id_especie'];
 
             $user = new especie($arrayEspecie);
@@ -75,7 +75,7 @@ class EspecieControllers
             return Especie::searchForid_alimentacion($id_especie);
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../../views/modules/especie/manager.php?respuesta=error");
+            //header("Location: ../../views/modules/Especie/manager.php?respuesta=error");
         }
     }
 
