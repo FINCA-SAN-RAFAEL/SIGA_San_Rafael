@@ -1,10 +1,9 @@
 <?php
-require("../../partials/routes.php");
-require("../../../app/controllers/EspecieControllers.php");
+require_once("../../../app/Controllers/EspecieControllers.php");
+require_once("../../partials/routes.php");
 
-use app\controllers\EspecieControllers;
 
-?>
+use App\Controllers\EspecieControllers; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +18,9 @@ use app\controllers\EspecieControllers;
 
 <!-- Site wrapper -->
 <div class="wrapper">
-    <?php require("../../partials/navbar_customization.php"); ?>
+    <?php require_once("../../partials/navbar_customization.php"); ?>
 
-    <?php require("../../partials/sliderbar_main_menu.php"); ?>
+    <?php require_once("../../partials/sliderbar_main_menu.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -51,9 +50,9 @@ use app\controllers\EspecieControllers;
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
                         <?php if ($_GET['action'] == "create"){ ?>
-                            La especie ha sido creado con exito!
+                            El usuario ha sido creado con exito!
                         <?php }else if($_GET['action'] == "update"){ ?>
-                            La especie han sido actualizados correctamente!
+                            Los datos de la especie han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
@@ -81,12 +80,13 @@ use app\controllers\EspecieControllers;
                     </div>
                     <div class="row">
                         <div class="col">
-                            <table id="tblEspecie" class="datatable table table-bordered table-striped">
+                            <table id="tblTipoAlimento" class="datatable table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>nombre</th>
-                                    <th>especie</th>
+                                    <th>Nombre</th>
+                                    <th>Especie</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -99,8 +99,8 @@ use app\controllers\EspecieControllers;
                                         <td><?php echo $Especie->getnombre(); ?></td>
                                         <td><?php echo $Especie->getespecie(); ?></td>
                                         <td>
-                                            <a href="edit.php?id=<?php echo $Especie->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $Especie->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
+                                            <a href="edit.php?id_especie=<?php echo $Especie->getid_especie(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                            <a href="show.php?id_especie=<?php echo $Especie->getid_especie(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -108,8 +108,9 @@ use app\controllers\EspecieControllers;
                                 <tfoot>
                                 <tr>
                                     <th>#</th>
-                                    <th>nombre</th>
-                                    <th>especie</th>
+                                    <th>Nombre</th>
+                                    <th>Especie</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -163,7 +164,7 @@ use app\controllers\EspecieControllers;
             ],
             "pagingType": "full_numbers",
             "responsive": true,
-            "stateSave" : true, //Guardar la configuracion del usuario
+            "stateSave" : true, //Guardar la configuracion del tipo alimento
         });
     });
 </script>

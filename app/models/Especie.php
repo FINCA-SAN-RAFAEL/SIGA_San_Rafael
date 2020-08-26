@@ -4,7 +4,7 @@ namespace app\models;
 
 require('BasicModel.php');
 
-class Especie
+class Especie extends BasicModel
 {
     private $id_especie;
     private $nombre;
@@ -19,7 +19,7 @@ class Especie
      */
     public function __construct($Especie = array())
     {
-        parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
+        parent::__construct();
         $this->id_especie = $Especie['id_especie'] ?? null;
         $this->nombre = $Especie['nombre'] ?? null;
         $this->especie = $Especie['especie'] ?? null;
@@ -27,6 +27,7 @@ class Especie
 
     /* Metodo destructor cierra la conexion. */
     function __destruct() {
+
         $this->Disconnect();
     }
 
@@ -80,7 +81,7 @@ class Especie
 
     public function create() : bool
     {
-        $result = $this->insertRow("INSERT INTO Proyecto-Finca-San-Rafael.especie VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
+        $result = $this->insertRow("INSERT INTO fincasanrafael1.especie VALUES (NULL, ?, ?)", array(
                 $this->nombre,
                 $this->especie,
 
@@ -91,7 +92,7 @@ class Especie
     }
     public function update() : bool
     {
-        $result = $this->updateRow("UPDATE Proyecto-Finca-San-Rafael-1803586.especie SET nombre = ?, especie = ? WHERE id_especie = ?", array(
+        $result = $this->updateRow("UPDATE fincasanrafael1.especie SET nombre = ?, especie = ? WHERE id_especie = ?", array(
                 $this->nombre,
                 $this->especie,
                 $this->id_especie
@@ -121,12 +122,14 @@ class Especie
         $tmp->Disconnect();
         return $arrEspecie;
     }
-    public static function searchForid_especie($id_especie) : Especie
+
+    protected static function searchForId($id_especie)
     {
+        // TODO: Implement searchForId() method.
         $Especie = null;
         if ($id_especie > 0){
             $Especie = new Especie();
-            $getrow = $Especie->getRow("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.especie WHERE id_especie =?", array($id_especie));
+            $getrow = $Especie->getRow("SELECT * FROM fincasanrafael1.especie WHERE id_especie =?", array($id_especie));
             $Especie->id_especie = $getrow['id_especie'];
             $Especie->nombre = $getrow['nombre'];
             $Especie->especie = $getrow['especie'];
@@ -138,12 +141,12 @@ class Especie
 
     public static function getAll() : array
     {
-        return Especie::search("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.especie");
+        return especie::search("SELECT * FROM fincasanrafael1.especie");
     }
 
-    public static function especieRegistrado ($nombre) : bool
+    public static function EspecieRegistrado ($nombre) : bool
     {
-        $result = Especie::search("SELECT id FROM Proyecto-Finca-San-Rafael-1803586.especie where nombre = ".$nombre);
+        $result = especie::search("SELECT id_especie FROM fincasanrafael1.especie where nombre = '".$nombre."'");
         if (count($result) > 0){
             return true;
         }else{

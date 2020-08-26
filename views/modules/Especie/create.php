@@ -1,3 +1,4 @@
+
 <?php require("../../partials/routes.php"); ?>
 <!DOCTYPE html>
 <html>
@@ -49,7 +50,7 @@
             <div class="card card-info">
                 <div class="card-header">
                     <h3 class="card-title">Horizontal Form</h3>
-                </div>
+                </div> 
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form class="form-horizontal" method="post" id="frmCreateEspecie" name="frmCreateEspecie" action="../../../app/controllers/EspecieControllers.php?action=create">
@@ -57,14 +58,14 @@
                         <div class="form-group row">
                             <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="nombre" name="nombres"
+                                <input required type="text" class="form-control" id="nombre" name="nombre"
                                        placeholder="Ingrese el nombre">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="especie" class="col-sm-2 col-form-label">Especie</label>
                             <div class="col-sm-10">
-                                <input required type="text" class="form-control" id="especie" name="nombres"
+                                <input required type="text" class="form-control" id="especie" name="especie"
                                        placeholder="Ingrese la especie">
                             </div>
                         </div>

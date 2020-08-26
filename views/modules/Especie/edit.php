@@ -1,8 +1,8 @@
 <?php
 require("../../partials/routes.php");
-require("../../../app/controllers/EspecieControllers.php");
+require("../../../app/Controllers/EspecieControllers.php");
 
-use app\controllers\EspecieControllers; ?>
+use App\Controllers\EspecieControllers; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,23 +64,65 @@ use app\controllers\EspecieControllers; ?>
                 <?php if(!empty($_GET["id"]) && isset($_GET["id"])){ ?>
                     <p>
                     <?php
-                    $DataEspecie = Especie::searchForID($_GET["id"]);
+                    $DataEspecie = EspecieControllers::searchForID($_GET["id"]);
                     if(!empty($DataEspecie)){
                         ?>
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" id="frmEditUsuario" name="frmEditUsuario" action="../../../app/controllers/EspecieControllers.php?action=edit">
+                        <form class="form-horizontal" method="post" id="frmEditTipoAlimento" name="frmEditEspecie" action="../../../app/Controllers/EspecieController.php?action=edit">
                             <input id="id" name="id" value="<?php echo $DataEspecie->getId(); ?>" hidden required="required" type="text">
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="nombre" name="nombres" value="<?= $DataEspecie->getnombre(); ?>" placeholder="Ingrese nombre">
+                                        <input required type="text" class="form-control" id="nombre" name="nombre" value="<?= $DataEspecie->getNombre(); ?>" placeholder="Ingrese el nombre">
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group row">
+                                    <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo Documento</label>
+                                    <div class="col-sm-10">
+                                        <select id="tipo_documento" name="tipo_documento" class="custom-select">
+                                            <option <?= ($DataEspecie->getTipoDocumento() == "C.C") ? "selected":""; ?> value="C.C">Cedula de Ciudadania</option>
+                                            <option <?= ($DataEspecie->getTipoDocumento() == "T.I") ? "selected":""; ?> value="T.I">Tarjeta de Identidad</option>
+                                            <option <?= ($DataEspecie->getTipoDocumento() == "R.C") ? "selected":""; ?> value="R.C">Registro Civil</option>
+                                            <option <?= ($DataEspecie->getTipoDocumento() == "Pasaporte") ? "selected":""; ?> value="Pasaporte">Pasaporte</option>
+                                            <option <?= ($DataEspecie->getTipoDocumento() == "C.E") ? "selected":""; ?> value="C.E">Cedula de Extranjeria</option>
+                                        </select>
+                                    </div>
+                                </div>-->
+                                <div class="form-group row">
+                                    <label for="nombre" class="col-sm-2 col-form-label">nombre</label>
+                                    <div class="col-sm-10">
+                                        <input required type="text" class="form-control" id="nombre" name="nombre" value="<?= $DataEspecie->getnombre(); ?>" placeholder="Ingrese el nombre">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="especie" class="col-sm-2 col-form-label">Especie</label>
+                                    <label for="especie" class="col-sm-2 col-form-label">especie</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="especie" name="especie" value="<?= $DataEspecie->getespecie(); ?>" placeholder="ingrese especie">
+                                        <input required type="text" class="form-control" id="especei" name="especie" value="<?= $DataEspecie->getespecie(); ?>" placeholder="Ingrese la especie">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_especie" class="col-sm-2 col-form-label">id especie</label>
+                                    <div class="col-sm-10">
+                                        <input required type="text" class="form-control" id="id_especie" name="id_especie" value="<?= $DataEspecie->getid_tipo_alimento(); ?>" placeholder="Ingrese id de especie">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="rol" class="col-sm-2 col-form-label">Rol</label>
+                                    <div class="col-sm-10">
+                                        <select id="rol" name="rol" class="custom-select">
+                                            <option <?= ($DataEspecie->getRol() == "Empleado") ? "selected":""; ?> value="Empleado">Empleado</option>
+                                            <option <?= ($DataEspecie->getRol() == "Cliente") ? "selected":""; ?> value="Cliente">Cliente</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+                                    <div class="col-sm-10">
+                                        <select id="estado" name="estado" class="custom-select">
+                                            <option <?= ($DataEspecie->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
+                                            <option <?= ($DataEspecie->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
+                                        </select>
                                     </div>
                                 </div>
 

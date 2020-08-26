@@ -35,8 +35,7 @@ class EspecieControllers
         try {
             $arrayEspecie = array();
             $arrayEspecie['nombre'] = $_POST['nombre'];
-            $arrayEspecie['Especie'] = $_POST['Especie'];
-            $arrayEspecie['id_especie'] = $_POST['id_especie'];
+            $arrayEspecie['especie'] = $_POST['especie'];
             if (!Especie::EspecieRegistrado($arrayEspecie['nombre'])) {
                 $Especie = new Especie ($arrayEspecie);
                 if ($Especie->create()) {
@@ -55,10 +54,10 @@ class EspecieControllers
         try {
             $arrayEspecie = array();
             $arrayEspecie['nombre'] = $_POST['nombre'];
-            $arrayEspecie['Especie'] = $_POST['Especie'];
+            $arrayEspecie['especie'] = $_POST['especie'];
             $arrayEspecie['id_especie'] = $_POST['id_especie'];
 
-            $user = new especie($arrayEspecie);
+            $user = new Especie($arrayEspecie);
             $user->update();
 
             header("Location: ../../views/modules/Especie/show.php?id=" . $user->getid_especie() . "&respuesta=correcto");
