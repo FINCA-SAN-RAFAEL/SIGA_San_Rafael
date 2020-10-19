@@ -1,30 +1,23 @@
 <?php
 
 
-namespace app\models;
+namespace App\models;
+
 require('BasicModel.php');
 
-class
-
-TipoAlimento
+class TipoAlimento extends BasicModel
 {
-    private $id_tipo_alimento;
+    private $id_tipo_alimlimento;
     private $nombre;
     private $observaciones;
 
-    /**
-     * Usuarios constructor.
-     * @param $id_tipo_alimento
-     * @param $nombre
-     * @param $observaciones
 
-     */
     public function __construct($TipoAlimento = array())
-{
-    parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
-    $this->id_tipo_alimento = $TipoAlimento['id_tipo_alimento'] ?? null;
-    $this->nombre = $TipoAlimento['nombre'] ?? null;
-    $this->observaciones = $TipoAlimento['observaciones'] ?? null;
+    {
+        parent::__construct(); //Llama al contructor padre "la clase conexion" para conectarme a la BD
+        $this->id_tipo_alimlimento = $TipoAlimento['id_tipo_alimento'] ?? null;
+        $this->nombre = $TipoAlimento['nombre'] ?? null;
+        $this->observaciones = $TipoAlimento['observaciones'] ?? null;
     }
 
     /* Metodo destructor cierra la conexion. */
@@ -33,59 +26,61 @@ TipoAlimento
     }
 
     /**
-     * @return int
+     * @return mixed|null
      */
-    public function getid_TipoAlimento() : int
+    public function getId(): ? int
     {
-        return $this->id_tipo_alimento;
+        return $this->id_tipo_alimlimento;
     }
 
     /**
-     * @param int $id_tipo_alimento
+     * @param mixed|null $id_tipo_alimlimento
      */
-    public function setid_TipoAlimento(int $id_tipo_alimento): void
+    public function setIdTipoalimlimento(?mixed $id_tipo_alimlimento): void
     {
-        $this->id_tipo_alimento = $id_tipo_alimento;
+        $this->id_tipo_alimlimento = $id_tipo_alimlimento;
     }
 
     /**
-     * @return string
+     * @return mixed|null
      */
-    public function getnombre() : string
+    public function getNombre(): ? String
     {
         return $this->nombre;
     }
 
     /**
-     * @param string $nombre
+     * @param mixed|null $nombre
      */
-    public function setnombre(string $nombre): void
+    public function setNombre(?mixed $nombre): void
     {
         $this->nombre = $nombre;
     }
 
     /**
-     * @return string
+     * @return mixed|null
      */
-    public function getobservaciones() : string
+    public function getObservaciones(): ?String
     {
         return $this->observaciones;
     }
 
     /**
-     * @param string $observaciones
+     * @param mixed|null $observaciones
      */
-    public function setobservaciones(string $observaciones): void
+    public function setObservaciones(?mixed $observaciones): void
     {
         $this->observaciones = $observaciones;
     }
 
+
+
+
     public function create() : bool
     {
-        $result = $this->insertRow("INSERT INTO Proyecto-Finca-San-Rafael.TipoAlimento VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(
+        $result = $this->insertRow("INSERT INTO fincasanrafael1.tipo_alimento VALUES (NULL, ?, ?)", array(
                 $this->nombre,
                 $this->observaciones
-
             )
         );
         $this->Disconnect();
@@ -93,45 +88,46 @@ TipoAlimento
     }
     public function update() : bool
     {
-        $result = $this->updateRow("UPDATE Proyecto-Finca-San-Rafael-1803586.TipoAlimento SET nombre = ?, observaciones = ? WHERE id_tipo_alimento = ?", array(
+        $result = $this->updateRow("UPDATE fincasanrafael1.tipo_alimento SET nombre = ?, observaciones = ? WHERE id_tipo_alimento = ?", array(
                 $this->nombre,
-                $this->observacioness,
-                $this->id_tipo_alimento
+                $this->observaciones,
+                $this->id_tipo_alimlimento
+
+
             )
         );
         $this->Disconnect();
         return $result;
     }
-    public function deleted($id) : void
-    {
+    public function deleted($id) : void    {
         // TODO: Implement deleted() method.
     }
     public static function search($query) : array
-{
-    $arrTipoAlimento = array();
-    $tmp = new TipoAlimento();
-    $getrows = $tmp->getRows($query);
+    {
+        $arrTipoAlimento = array();
+        $tmp = new TipoAlimento();
+        $getrows = $tmp->getRows($query);
 
-    foreach ($getrows as $valor) {
-        $TipoAlimento = new TipoAlimento();
-        $TipoAlimento->id_tipo_alimento = $valor['id_tipo_alimento'];
-        $TipoAlimento->nombre = $valor['nombre'];
-        $TipoAlimento->observaciones = $valor['observaciones'];
-        $TipoAlimento->Disconnect();
-        array_push($arrTipoAlimento, $TipoAlimento);
+        foreach ($getrows as $valor) {
+            $TipoAlimento = new TipoAlimento();
+            $TipoAlimento->id_tipo_alimlimento  = $valor['id_tipo_alimento'];
+            $TipoAlimento->nombre = $valor['nombre'];
+            $TipoAlimento->observaciones = $valor['observaciones'];
+            $TipoAlimento->Disconnect();
+            array_push($arrTipoAlimento, $TipoAlimento);
+        }
+        $tmp->Disconnect();
+        return $arrTipoAlimento;
     }
-    $tmp->Disconnect();
-    return $arrTipoAlimento;
-}
-    public static function searchForid_TipoAlimento($id_tipo_alimento) : TipoAlimento
+    public static function searchForId($id_tipo_alimento) : TipoAlimento
     {
         $TipoAlimento = null;
         if ($id_tipo_alimento > 0){
-            $TipoAlimento = new TipoAlimento();
-            $getrow = $TipoAlimento->getRow("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.TipoAlimento WHERE id_tipo_alimento =?", array($id_tipo_alimento));
-            $TipoAlimento->id_tipo_alimento = $getrow['id_tipo_alimento'];
+            $TipoAlimento= new TipoAlimento();
+            $getrow = $TipoAlimento->getRow("SELECT * FROM fincasanrafael1.tipo_alimento WHERE id_tipo_alimento =?", array($id_tipo_alimento));
+            $TipoAlimento->id_tipo_alimlimento = $getrow['id_tipo_alimento'];
             $TipoAlimento->nombre = $getrow['nombre'];
-            $TipoAlimento->observaciones = $getrow['obsevaciones'];
+            $TipoAlimento->observaciones = $getrow['observaciones'];
 
         }
         $TipoAlimento->Disconnect();
@@ -140,12 +136,12 @@ TipoAlimento
 
     public static function getAll() : array
     {
-        return TipoAlimento::search("SELECT * FROM Proyecto-Finca-San-Rafael-1803586.TipoAlimento");
+        return TipoAlimento::search("SELECT * FROM fincasanrafael1.tipo_alimento");
     }
 
-    public static function TipoAlimentoRegistrado ($nombre) : bool
+    public static function TipoAlimentoRegistrado($nombre) : bool
     {
-        $result = TipoAlimento::search("SELECT id FROM Proyecto-Finca-San-Rafael-1803586.TipoAlimento where nombre = ".$nombre);
+        $result = TipoAlimento::search("SELECT nombre FROM fincasanrafael1.tipo_alimento where nombre = ' ".$nombre."'");
         if (count($result) > 0){
             return true;
         }else{

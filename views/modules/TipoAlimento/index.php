@@ -1,9 +1,10 @@
 <?php
-require_once("../../../app/Controllers/TipoAlimentoControllers.php");
+require_once("../../../app/controllers/TipoAlimentoControllers.php");
 require_once("../../partials/routes.php");
 
+use app\controllers\TipoAlimentoControllers;
 
-use App\Controllers\TipoAlimentoControllers; ?>
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">SIGA_San_Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -44,100 +45,120 @@ use App\Controllers\TipoAlimentoControllers; ?>
         <!-- Main content -->
         <section class="content">
 
-            <?php if(!empty($_GET['respuesta']) && !empty($_GET['action'])){ ?>
-                <?php if ($_GET['respuesta'] == "correcto"){ ?>
+            <?php if (!empty($_GET['respuesta']) && !empty($_GET['action'])) { ?>
+                <?php if ($_GET['respuesta'] == "correcto") { ?>
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Correcto!</h5>
-                        <?php if ($_GET['action'] == "create"){ ?>
-                            El usuario ha sido creado con exito!
-                        <?php }else if($_GET['action'] == "update"){ ?>
-                            Los datos del tipo de alimento han sido actualizados correctamente!
+                        <?php if ($_GET['action'] == "create") { ?>
+                            el tipo de alimento se ha creado con exito!
+                        <?php } else if ($_GET['action'] == "update") { ?>
+                            Los datos de tipo de alimento han sido actualizados correctamente!
                         <?php } ?>
                     </div>
                 <?php } ?>
             <?php } ?>
 
-            <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Gestionar Tipo Alimento</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fas fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-auto mr-auto"></div>
-                        <div class="col-auto">
-                            <a role="button" href="create.php" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                <i class="fas fa-plus"></i> Crear Tipo Alimento
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <table id="tblTipoAlimento" class="datatable table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>id_tipo_alimento</th>
-                                    <th>observaciones</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                $arrTipoAlimento = TipoAlimentoControllers::getAll();
-                                foreach ($arrTipoAlimento as $TipoAlimento){
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $TipoAlimento->getId(); ?></td>
-                                        <td><?php echo $TipoAlimento->getNombre(); ?></td>
-                                        <td><?php echo $TipoAlimento->getobservaciones(); ?></td>
-                                        <td>
-                                            <a href="edit.php?id=<?php echo $TipoAlimento->getId(); ?>" type="button" data-toggle="tooltip" title="Actualizar" class="btn docs-tooltip btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                                            <a href="show.php?id=<?php echo $TipoAlimento->getId(); ?>" type="button" data-toggle="tooltip" title="Ver" class="btn docs-tooltip btn-warning btn-xs"><i class="fa fa-eye"></i></a>
-                                            <?php if ($TipoAlimento->getEstado() != "Activo"){ ?>
-                                                <a href="../../../app/Controllers/TipoAlimentoController.php?action=activate&Id=<?php echo $TipoAlimento->getId(); ?>" type="button" data-toggle="tooltip" title="Activar" class="btn docs-tooltip btn-success btn-xs"><i class="fa fa-check-square"></i></a>
-                                            <?php }else{ ?>
-                                                <a type="button" href="../../../app/Controllers/TipoAlimentoController.php?action=inactivate&Id=<?php echo $TipoAlimento->getId(); ?>" data-toggle="tooltip" title="Inactivar" class="btn docs-tooltip btn-danger btn-xs"><i class="fa fa-times-circle"></i></a>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Default box -->
+                        <div class="card card-dark">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-user"></i> &nbsp; Gestionar Tipo Alimento</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                            data-source="index.php" data-source-selector="#card-refresh-content"
+                                            data-load-on-init="false"><i class="fas fa-sync-alt"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                                                class="fas fa-expand"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"
+                                            data-toggle="tooltip" title="Remove">
+                                        <i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-auto mr-auto"></div>
+                                    <div class="col-auto">
+                                        <a role="button" href="create.php" class="btn btn-primary float-right"
+                                           style="margin-right: 5px;">
+                                            <i class="fas fa-plus"></i> Crear Tipo Alimento
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <table id="tblUsuarios" class="datatable table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th></th>
+                                                <th>Nombre</th>
+                                                <th>Observaciones</th>
+                                                <th>Acciones</th>
+
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            $arrTipoAlimento = TipoAlimentoControllers::getAll();
+                                            foreach ($arrTipoAlimento as $TipoAlimento) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $TipoAlimento->getId(); ?></td>
+                                                    <td><?php echo $TipoAlimento->getNombre(); ?></td>
+                                                    <td><?php echo $TipoAlimento->getObservaciones(); ?></td>
+
+                                                    <td>
+                                                        <a href="edit.php?id=<?php echo $TipoAlimento->getId(); ?>"
+                                                           type="button" data-toggle="tooltip" title="Actualizar"
+                                                           class="btn docs-tooltip btn-primary btn-xs"><i
+                                                                    class="fa fa-edit"></i></a>
+                                                        <a href="show.php?id=<?php echo $TipoAlimento->getId(); ?>"
+                                                           type="button" data-toggle="tooltip" title="Ver"
+                                                           class="btn docs-tooltip btn-warning btn-xs"><i
+                                                                    class="fa fa-eye"></i></a>
+                                                    </td>
+                                                </tr>
                                             <?php } ?>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Observaciones</th>
-                                    <th>id_tipo_alimento</th>
-                                </tr>
-                                </tfoot>
-                            </table>
+
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>Observaciones</th>
+                                                <th>Acciones</th>
+
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                Pie de Página.
+                            </div>
+                            <!-- /.card-footer-->
                         </div>
+                        <!-- /.card -->
                     </div>
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    Pie de Página.
-                </div>
-                <!-- /.card-footer-->
             </div>
-            <!-- /.card -->
         </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
-    <?php require ('../../partials/footer.php');?>
+    <?php require('../../partials/footer.php'); ?>
 </div>
 <!-- ./wrapper -->
-<?php require ('../../partials/scripts.php');?>
+<?php require('../../partials/scripts.php'); ?>
 <!-- DataTables -->
 <script src="<?= $adminlteURL ?>/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?= $adminlteURL ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -169,7 +190,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
             ],
             "pagingType": "full_numbers",
             "responsive": true,
-            "stateSave" : true, //Guardar la configuracion del tipo alimento
+            "stateSave": true, //Guardar la configuracion del usuario
         });
     });
 </script>

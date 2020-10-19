@@ -28,7 +28,7 @@ use App\Controllers\TipoAlimentoControllers; ?>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">WebER</a></li>
+                            <li class="breadcrumb-item"><a href="<?= $baseURL; ?>/views/">SIGA_San_Rafael</a></li>
                             <li class="breadcrumb-item active">Inicio</li>
                         </ol>
                     </div>
@@ -68,8 +68,8 @@ use App\Controllers\TipoAlimentoControllers; ?>
                     if(!empty($DataTipoAlimento)){
                         ?>
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" id="frmEditTipoAlimento" name="frmEditTipoAlimento" action="../../../app/Controllers/TipoAlimentoController.php?action=edit">
-                            <input id="id" name="id" value="<?php echo $DataTipoAlimento->getId(); ?>" hidden required="required" type="text">
+                        <form class="form-horizontal" method="post" id="frmEditTipoAlimento" name="frmEditTipoAlimento" action="../../../app/Controllers/TipoAlimentoControllers.php?action=edit">
+                            <input id="id" name="id" value="<?php echo $DataTipoAlimento->getIdTipoalimlimento(); ?>" hidden required="required" type="text">
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
@@ -77,55 +77,14 @@ use App\Controllers\TipoAlimentoControllers; ?>
                                         <input required type="text" class="form-control" id="nombre" name="nombre" value="<?= $DataTipoAlimento->getNombre(); ?>" placeholder="Ingrese el nombre">
                                     </div>
                                 </div>
-                                <!-- <div class="form-group row">
-                                    <label for="tipo_documento" class="col-sm-2 col-form-label">Tipo Documento</label>
-                                    <div class="col-sm-10">
-                                        <select id="tipo_documento" name="tipo_documento" class="custom-select">
-                                            <option <?= ($DataTipoAlimento->getTipoDocumento() == "C.C") ? "selected":""; ?> value="C.C">Cedula de Ciudadania</option>
-                                            <option <?= ($DataTipoAlimento->getTipoDocumento() == "T.I") ? "selected":""; ?> value="T.I">Tarjeta de Identidad</option>
-                                            <option <?= ($DataTipoAlimento->getTipoDocumento() == "R.C") ? "selected":""; ?> value="R.C">Registro Civil</option>
-                                            <option <?= ($DataTipoAlimento->getTipoDocumento() == "Pasaporte") ? "selected":""; ?> value="Pasaporte">Pasaporte</option>
-                                            <option <?= ($DataTipoAlimento->getTipoDocumento() == "C.E") ? "selected":""; ?> value="C.E">Cedula de Extranjeria</option>
-                                        </select>
-                                    </div>
-                                </div>-->
-                                <div class="form-group row">
-                                    <label for="nombre" class="col-sm-2 col-form-label">nombre</label>
-                                    <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="nombre" name="nombre" value="<?= $DataTipoAlimento->getnombre(); ?>" placeholder="Ingrese el nombre">
-                                    </div>
-                                </div>
+
                                 <div class="form-group row">
                                     <label for="observaciones" class="col-sm-2 col-form-label">observaciones</label>
                                     <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="observaciones" name="observaciones" value="<?= $DataTipoAlimento->getobservaciones(); ?>" placeholder="Ingrese las observaciones">
+                                        <input required type="text" minlength="6" class="form-control" id="observaciones" name="observaciones" value="<?= $DataTipoAlimento->getobservaciones(); ?>" placeholder="Ingrese las observaciones">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="id_tipo_alimento" class="col-sm-2 col-form-label">id tipo alimento</label>
-                                    <div class="col-sm-10">
-                                        <input required type="text" class="form-control" id="id_tipo_alimento" name="id_tipo_alimento" value="<?= $DataTipoAlimento->getid_tipo_alimento(); ?>" placeholder="Ingrese id de tipo alimento">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="rol" class="col-sm-2 col-form-label">Rol</label>
-                                    <div class="col-sm-10">
-                                        <select id="rol" name="rol" class="custom-select">
-                                            <option <?= ($DataTipoAlimento->getRol() == "Empleado") ? "selected":""; ?> value="Empleado">Empleado</option>
-                                            <option <?= ($DataTipoAlimento->getRol() == "Cliente") ? "selected":""; ?> value="Cliente">Cliente</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="estado" class="col-sm-2 col-form-label">Estado</label>
-                                    <div class="col-sm-10">
-                                        <select id="estado" name="estado" class="custom-select">
-                                            <option <?= ($DataTipoAlimento->getEstado() == "Activo") ? "selected":""; ?> value="Activo">Activo</option>
-                                            <option <?= ($DataTipoAlimento->getEstado() == "Inactivo") ? "selected":""; ?> value="Inactivo">Inactivo</option>
-                                        </select>
-                                    </div>
-                                </div>
-
+                                
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
