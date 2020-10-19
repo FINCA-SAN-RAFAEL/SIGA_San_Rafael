@@ -1,9 +1,10 @@
 <?php
 
-
 namespace app\controllers;
-require(__DIR__.'/../models/EspecieControllers.php');
-use app\models\especie;
+
+require(__DIR__.'/../models/Especie.php');
+use app\models\Especie;
+
 
 if(!empty($_GET['action'])){
     EspecieControllers::main($_GET['action']);
@@ -35,35 +36,34 @@ class EspecieControllers
             $arrayEspecie = array();
             $arrayEspecie['nombre'] = $_POST['nombre'];
             $arrayEspecie['especie'] = $_POST['especie'];
-            $arrayEspecie['id_especie'] = $_POST['id_especie'];
-            if (!Especie::EspecieRegistrado($arrayEspecie['id_especie'])) {
+            if (!Especie::EspecieRegistrado($arrayEspecie['nombre'])) {
                 $Especie = new Especie ($arrayEspecie);
                 if ($Especie->create()) {
-                    header("Location: ../../views/modules/especie/index.php?respuesta=correcto");
+                    header("Location: ../../views/modules/Especie/index.php?respuesta=correcto");
                 }
             } else {
-                header("Location: ../../views/modules/especie/create.php?respuesta=error&mensaje=especie ya registrado");
+                header("Location: ../../views/modules/Especie/create.php?respuesta=error&mensaje=Especie ya registrado");
             }
         } catch (Exception $e) {
-            header("Location: ../../views/modules/especie/create.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/Especie/create.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
     static public function edit()
-    {
+      {
         try {
             $arrayEspecie = array();
             $arrayEspecie['nombre'] = $_POST['nombre'];
             $arrayEspecie['especie'] = $_POST['especie'];
             $arrayEspecie['id_especie'] = $_POST['id_especie'];
 
-            $user = new especie($arrayEspecie);
+            $user = new Especie($arrayEspecie);
             $user->update();
 
-            header("Location: ../../views/modules/especie/show.php?id=" . $user->getid_especie() . "&respuesta=correcto");
+            header("Location: ../../views/modules/Especie/show.php?id=" . $user->getid_especie() . "&respuesta=correcto");
         } catch (\Exception $e) {
             //var_dump($e);
-            header("Location: ../../views/modules/especie/edit.php?respuesta=error&mensaje=" . $e->getMessage());
+            header("Location: ../../views/modules/Especie/edit.php?respuesta=error&mensaje=" . $e->getMessage());
         }
     }
 
@@ -71,17 +71,17 @@ class EspecieControllers
     static public function searchForID($id_especie)
     {
         try {
-            return especie::searchForid_alimentacion($id_especie);
+            return Especie::searchForid_alimentacion($id_especie);
         } catch (\Exception $e) {
             var_dump($e);
-            //header("Location: ../../views/modules/especie/manager.php?respuesta=error");
+            //header("Location: ../../views/modules/Especie/manager.php?respuesta=error");
         }
     }
 
     static public function getAll()
     {
         try {
-            return especie::getAll();
+            return Especie::getAll();
         } catch (\Exception $e) {
             var_dump($e);
             //header("Location: ../Vista/modules/persona/manager.php?respuesta=error");
